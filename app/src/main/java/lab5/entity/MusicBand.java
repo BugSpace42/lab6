@@ -4,7 +4,6 @@ package lab5.entity;
  * Класс музыкальной группы.
  * @author Alina
  */
-
 public class MusicBand {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -13,4 +12,89 @@ public class MusicBand {
     private Integer numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
     private MusicGenre genre; //Поле может быть null
     private Album bestAlbum; //Поле может быть null
+
+    /**
+     * Конструктор - создание нового объекта с заданными параметрами.
+     * @param id
+     * @param name
+     * @param coordinates
+     * @param creationDate
+     * @param numberOfParticipants
+     * @param genre
+     * @param bestAlbum
+     */
+    public MusicBand(Long id, String name, Coordinates coordinates, java.util.Date creationDate, 
+                    Integer numberOfParticipants, MusicGenre genre, Album bestAlbum) {
+        this.id=id;
+        this.name=name;
+        this.coordinates=coordinates;
+        this.creationDate=creationDate;
+        this.numberOfParticipants=numberOfParticipants;
+        this.genre=genre;
+        this.bestAlbum=bestAlbum;
+    }
+
+    /**
+     * @return id музыкальной группы
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @return название музыкальной группы
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return местоположение музыкальной группы
+     */
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    /**
+     * @return время создания объекта
+     */
+    public java.util.Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * @return количество участников музыкальной группы
+     */
+    public Integer getNumberOfParticipants() {
+        return numberOfParticipants;
+    }
+
+    /**
+     * @return жанр музыкальной группы
+     */
+    public MusicGenre getGenre() {
+        return genre;
+    }
+
+    /**
+     * @return лучший альбом музыкальной группы
+     */
+    public Album getBestAlbum() {
+        return bestAlbum;
+    }
+    
+    /**
+     * @return Строковое представление объекта класса.
+     */
+    public String toString() {
+        String info = "";
+        info += "Музыкальная группа №" + id;
+        info += "\n Название: " + name;
+        info += "\n Местоположение: " + coordinates;
+        info += "\n Количество участников: " + numberOfParticipants;
+        info += "\n Жанр: " + genre;
+        info += "\n Лучший альбом: " + bestAlbum;
+        ;
+        return info;
+    }
 }
