@@ -18,9 +18,15 @@ public class Album {
         this.sales = sales;
     }
 
+    public boolean equals(Album album) {
+        if (album == this) return true;
+        return album.name.equals(this.name) && album.sales.equals(this.sales);
+    }
+
     /**
      * @return Строковое представление объекта класса.
      */
+    @Override
     public String toString() {
         return String.format("Название: %s \n Объём продаж: %.2f", name, sales);
     }

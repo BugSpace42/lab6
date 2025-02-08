@@ -11,7 +11,7 @@ public class MusicBand {
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Integer numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
     private MusicGenre genre; //Поле может быть null
-    private Album bestAlbum; //Поле может быть null
+    private final Album bestAlbum; //Поле может быть null
 
     /**
      * Конструктор - создание нового объекта с заданными параметрами.
@@ -82,10 +82,26 @@ public class MusicBand {
     public Album getBestAlbum() {
         return bestAlbum;
     }
+
+    /**
+     * Проверка равенcтва двух музыкальных альбомов.
+     * @param musicBand музыкальная группа для сравнения
+     * @return true - если объекты одинаковые, false - если разные
+     */
+    public boolean equals(MusicBand musicBand) {
+        if (musicBand == this) return true;
+        return musicBand.id.equals(id) && 
+               musicBand.name.equals(name) &&
+               musicBand.coordinates.equals(coordinates) &&
+               musicBand.numberOfParticipants.equals(numberOfParticipants) &&
+               musicBand.genre.equals(genre) &&
+               musicBand.bestAlbum.equals(bestAlbum);
+    }
     
     /**
      * @return Строковое представление объекта класса.
      */
+    @Override
     public String toString() {
         String info = "";
         info += "Музыкальная группа №" + id;
@@ -94,7 +110,6 @@ public class MusicBand {
         info += "\n Количество участников: " + numberOfParticipants;
         info += "\n Жанр: " + genre;
         info += "\n Лучший альбом: " + bestAlbum;
-        ;
         return info;
     }
 }
