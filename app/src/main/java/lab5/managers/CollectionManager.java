@@ -5,7 +5,7 @@ import java.util.HashMap;
 import lab5.entity.MusicBand;
 
 /**
- * Класс, который умеет оперировать коллекцией.
+ * Класс, который оперирует коллекцией.
  * @author Alina
  */
 public class CollectionManager {

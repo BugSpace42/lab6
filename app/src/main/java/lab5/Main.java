@@ -1,16 +1,16 @@
 package lab5;
 
-import lab5.commands.Insert;
-import lab5.entity.Album;
-import lab5.entity.Coordinates;
-import lab5.entity.MusicBand;
-import lab5.entity.MusicGenre;
-import lab5.managers.CollectionManager;
+import lab5.commands.*;
+import lab5.entity.*;
+import lab5.managers.*;
 
 public class Main {
     public static CollectionManager collectionManager = new CollectionManager();
+    public static CommandManager commandManager = new CommandManager();
+
     public static void main(String[] args) {
-        Insert insert = new Insert(collectionManager);
+        commandManager.newCommand("insert", new Insert(collectionManager));
+        commandManager.newCommand("clear", new Clear(collectionManager));
 
         Coordinates firstCoordinates = new Coordinates(123, 321);
         Album firstAlbum = new Album("Some Album", 100500.0);

@@ -24,6 +24,7 @@ public class Insert implements Command{
         this.key = key;
     }
     
+    @Override
     public void execute(){
         collectionManager.addToCollection(key, element);
     }
