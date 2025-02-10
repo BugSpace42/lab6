@@ -44,7 +44,7 @@ public class ConsoleManager {
         }
         console.println(commands.getLast());
         
-        console.println("Для более подробной информации о командах введите \"help\"");
+        console.println("Для более подробной информации введите команду help");
     }
 
     /**

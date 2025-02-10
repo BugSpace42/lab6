@@ -2,17 +2,19 @@ package lab5.commands;
 
 import lab5.entity.MusicBand;
 import lab5.managers.CollectionManager;
+import lab5.utility.Command;
 
 /**
- * Добавить новый элемент с заданным ключом
+ * Добавляет в коллекцию новый элемент с заданным ключом.
  * @author Alina
  */
-public class Insert implements Command{
+public class Insert extends Command{
     private CollectionManager collectionManager;
     private MusicBand element;
     private Integer key;
 
     public Insert(CollectionManager collectionManager) {
+        super("insert", "добавить новый элемент с заданным ключом", 1, 1);
         this.collectionManager = collectionManager;
     }
 
@@ -24,7 +26,6 @@ public class Insert implements Command{
         this.key = key;
     }
     
-    @Override
     public void execute(String[] args){
         collectionManager.addToCollection(key, element);
     }

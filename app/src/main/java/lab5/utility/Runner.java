@@ -2,7 +2,6 @@ package lab5.utility;
 
 import java.util.Map;
 
-import lab5.commands.Command;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
 
@@ -16,7 +15,7 @@ public class Runner {
     private Map<String, Command> commands;
 
     /**
-     * Перечисление кодов выполнения команды.
+     * Перечисление кодов завершения выполнения команды.
      */
     public enum ExitCode {
         OK,
@@ -36,6 +35,7 @@ public class Runner {
         this.commands = commandManager.getCommands();
         boolean running = true;
         consoleManager.greeting();
+
         while(running) {
             String[] currenrCommand = consoleManager.readCommand();
             launchCommand(currenrCommand);

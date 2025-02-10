@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-import lab5.commands.Command;
+import lab5.utility.Command;
 
 /**
  * Класс, который управляет командами.
