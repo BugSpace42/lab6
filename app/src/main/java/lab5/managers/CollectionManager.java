@@ -14,7 +14,7 @@ public class CollectionManager {
     public CollectionManager() {}
 
     /**
-    * @return Коллекция.
+    * @return коллекция
     */
     public HashMap<Integer, MusicBand> getCollection() {
         return collection;
@@ -29,7 +29,7 @@ public class CollectionManager {
 
     /**
      * Добавляет элемент в коллекцию.
-     * @param musicBand - добавляемый объект
+     * @param musicBand добавляемый объект
      */
     public void addToCollection(Integer key, MusicBand musicBand) {
         collection.put(key, musicBand);
@@ -37,8 +37,8 @@ public class CollectionManager {
 
     /**
      * Обновляет элемент коллекции, id которого равен заданному.
-     * @param id - id элемента, значение которого нужно обновить
-     * @param musicBand - новое значение элемента
+     * @param id id элемента, значение которого нужно обновить
+     * @param musicBand новое значение элемента
      */
     public void updateElementById(Long id, MusicBand musicBand) {
         for (HashMap.Entry<Integer, MusicBand> entry : collection.entrySet()) {
@@ -48,7 +48,7 @@ public class CollectionManager {
 
     /**
      * Удаляет элемент из коллекции по его ключу.
-     * @param key - ключ элемента, который нужно удалить
+     * @param key ключ элемента, который нужно удалить
      */
     public void removeByKey(Integer key) {
         collection.remove(key);
@@ -61,6 +61,7 @@ public class CollectionManager {
         collection.clear();
     }
 
+    // todo
     @Override
     public String toString() {
         return collection.toString();

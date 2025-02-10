@@ -13,8 +13,11 @@ public class Clear implements Command{
         this.collectionManager = collectionManager;
     }
 
+    /**
+     * Выполняет команду.
+     */
     @Override
-    public void execute() {
+    public void execute(String[] args) {
         collectionManager.clearCollection();
     }
 }

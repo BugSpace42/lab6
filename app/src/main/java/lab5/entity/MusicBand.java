@@ -7,7 +7,8 @@ package lab5.entity;
 public class MusicBand {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
+    @SuppressWarnings("FieldMayBeFinal")
+    private final Coordinates coordinates; //Поле не может быть null
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Integer numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
     private MusicGenre genre; //Поле может быть null
@@ -15,13 +16,13 @@ public class MusicBand {
 
     /**
      * Конструктор - создание нового объекта с заданными параметрами.
-     * @param id
-     * @param name
-     * @param coordinates
-     * @param creationDate
-     * @param numberOfParticipants
-     * @param genre
-     * @param bestAlbum
+     * @param id todo сделать генерацию
+     * @param name название музыкальной группы
+     * @param coordinates местоположение музыкальной группы
+     * @param creationDate todo сделать генерацию
+     * @param numberOfParticipants количество участников музыкальной группы
+     * @param genre жанр музыкальной группы
+     * @param bestAlbum лучший альбом музыкальной группы
      */
     public MusicBand(Long id, String name, Coordinates coordinates, java.util.Date creationDate, 
                     Integer numberOfParticipants, MusicGenre genre, Album bestAlbum) {
@@ -84,7 +85,7 @@ public class MusicBand {
     }
 
     /**
-     * Проверка равенcтва двух музыкальных альбомов.
+     * Проверка равенcтва двух музыкальных групп.
      * @param musicBand музыкальная группа для сравнения
      * @return true - если объекты одинаковые, false - если разные
      */
