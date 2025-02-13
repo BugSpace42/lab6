@@ -7,12 +7,11 @@ package lab5.entity;
 public class MusicBand {
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
-    @SuppressWarnings("FieldMayBeFinal")
-    private final Coordinates coordinates; //Поле не может быть null
+    private Coordinates coordinates; //Поле не может быть null
     private java.util.Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Integer numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
     private MusicGenre genre; //Поле может быть null
-    private final Album bestAlbum; //Поле может быть null
+    private Album bestAlbum; //Поле может быть null
 
     /**
      * Конструктор - создание нового объекта с заданными параметрами.
@@ -82,6 +81,62 @@ public class MusicBand {
      */
     public Album getBestAlbum() {
         return bestAlbum;
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getIdName() {
+        return "ID музыкальной группы";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getNameName() {
+        return "название музыкальной группы";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getCoordinatesName() {
+        return "местоположение музыкальной группы";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getCreationDateName() {
+        return "дата создания объекта класса";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getNumberOfParticipantsName() {
+        return "количество участников музыкальной группы";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getGenreName() {
+        return "жанр музыкальной группы";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getBestAlbumName() {
+        return "лучший альбом музыкальной группы";
     }
 
     /**

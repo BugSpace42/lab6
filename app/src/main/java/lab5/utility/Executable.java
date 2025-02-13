@@ -5,5 +5,5 @@ package lab5.utility;
  * @author Alina
  */
 public interface Executable {
-    void execute(String[] args);
+    Runner.ExitCode execute(String[] args);
 }

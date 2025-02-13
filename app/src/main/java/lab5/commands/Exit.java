@@ -4,14 +4,14 @@ import lab5.utility.Command;
 import lab5.utility.Runner;
 
 /**
- * Очищает коллекцию.
+ *
  * @author Alina
  */
-public class Clear extends Command{
+public class Exit extends Command{
     private Runner runner;
 
-    public Clear(Runner runner) {
-        super("clear", "очистить коллекцию", 0, 0);
+    public Exit(Runner runner) {
+        super("exit", "завершить программу (без сохранения в файл)", 0, 0);
         this.runner = runner;
     }
 
@@ -20,7 +20,6 @@ public class Clear extends Command{
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
-        runner.collectionManager.clearCollection();
-        return Runner.ExitCode.OK;
+        return Runner.ExitCode.EXIT;
     }
 }

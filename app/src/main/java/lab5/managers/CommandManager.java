@@ -12,27 +12,14 @@ import lab5.utility.Command;
  */
 public class CommandManager {
     private HashMap<String, Command> commands = new HashMap<>();
-    private HashMap<String, String> descriptions = new HashMap<>();
     private ArrayList<String> commandHistory = new ArrayList<>();
 
     /**
      * Добавляет новую команду.
-     * @param name название команды
      * @param command команда
      */
-    public void newCommand(String name, Command command) {
-        commands.put(name, command);
-    }
-
-    /**
-     * Добавляет новую команду с описанием.
-     * @param name название команды
-     * @param command команда
-     * @param description описание команды
-     */
-    public void newCommand(String name, Command command, String description) {
-        commands.put(name, command);
-        descriptions.put(name, description);
+    public void newCommand(Command command) {
+        commands.put(command.getName(), command);
     }
 
     /**

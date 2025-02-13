@@ -7,6 +7,7 @@ package lab5.utility;
 public class StandardConsole implements Console{
     /**
      * Выводит в консоль строковое представление объекта.
+     * @param o объект, который нужно вывести
      */
     @Override
     public void print(Object o) {
@@ -15,6 +16,7 @@ public class StandardConsole implements Console{
 
     /**
      * Выводит в консоль строковое представление объекта с переносом строки.
+     * @param o объект, который нужно вывести
      */
     @Override
     public void println(Object o) {
@@ -23,6 +25,7 @@ public class StandardConsole implements Console{
 
     /**
      * Выводит в консоль сообщение об ошибке.
+     * @param o ошибка, которую нужно вывести
      */
     @Override
     public void printError(Object o) {

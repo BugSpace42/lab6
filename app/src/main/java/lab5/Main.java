@@ -3,22 +3,27 @@ package lab5;
 import java.util.Scanner;
 
 import lab5.commands.Clear;
+import lab5.commands.Exit;
 import lab5.commands.Insert;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
+import lab5.utility.Runner;
 import lab5.utility.StandardConsole;
 
 public class Main {
-    public static CollectionManager collectionManager = new CollectionManager();
-    public static CommandManager commandManager = new CommandManager();
-    public static ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in));
-
     public static void main(String[] args) {
-        commandManager.newCommand("insert", new Insert(collectionManager));
-        commandManager.newCommand("clear", new Clear(collectionManager));
+        CollectionManager collectionManager = new CollectionManager();
+        CommandManager commandManager = new CommandManager();
+        ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in));
+        Runner runner = new Runner(commandManager, consoleManager, collectionManager);
+
+        commandManager.newCommand(new Insert(runner));
+        commandManager.newCommand(new Clear(runner));
+        commandManager.newCommand(new Exit(runner));
         consoleManager.setCommands(commandManager.getCommandList());
-        consoleManager.greeting();
+        
+        runner.run();
 
         /*
         Coordinates firstCoordinates = new Coordinates(123, 321);
