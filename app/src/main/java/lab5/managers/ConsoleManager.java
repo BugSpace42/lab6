@@ -1,6 +1,5 @@
 package lab5.managers;
 
-import java.util.List;
 import java.util.Scanner;
 
 import lab5.entity.Album;
@@ -16,7 +15,6 @@ import lab5.utility.Console;
 public class ConsoleManager {
     private Console console;
     private Scanner scanner;
-    private List<String> commands;
 
     /*
      * Я устанавливаю текущую консоль и сканер сразу же,
@@ -63,17 +61,7 @@ public class ConsoleManager {
      */
     public void greeting(){
         console.println("Добро пожаловать в приложение, созданное для управления коллекцией объектов класса MusicBand.");
-        console.print("Доступны команды: ");
-        
-        /*
-         * Прохожу в цикле, чтобы красиво вывести список команд.
-         */
-        for (int i = 0; i < commands.size()-1; i++) {
-            console.print(commands.get(i) + ", ");
-        }
-        console.println(commands.getLast());
-        
-        console.println("Для более подробной информации введите команду help");
+        console.println("Для получения информации о доступных командах введите help");
     }
 
     /**
@@ -161,14 +149,6 @@ public class ConsoleManager {
      */
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
-    }
-
-    /**
-     * Устанавливает списов команд, доступных в текущий момент.
-     * @param commands множество названий команд
-     */
-    public void setCommands(List<String> commands) {
-        this.commands = commands;
     }
 
     /**

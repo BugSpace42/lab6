@@ -8,7 +8,7 @@ import lab5.utility.Runner;
  * @author Alina
  */
 public class Clear extends Command{
-    private Runner runner;
+    private final Runner runner;
 
     public Clear(Runner runner) {
         super("clear", "очистить коллекцию", 0, 0);

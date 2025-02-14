@@ -5,8 +5,8 @@ package lab5.entity;
  * @author Alina
  */
 public class Coordinates {
-    private Integer x; //Поле не может быть null
-    private long y; //Значение поля должно быть больше -973
+    private final Integer x; //Поле не может быть null
+    private final long y; //Значение поля должно быть больше -973
 
     /**
      * Конструктор - создание нового объекта с заданными x и y.

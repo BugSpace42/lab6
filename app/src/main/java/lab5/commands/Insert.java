@@ -10,7 +10,7 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Insert extends Command{
-    private Runner runner;
+    private final Runner runner;
 
     public Insert(Runner runner) {
         super("insert", "добавить новый элемент с заданным ключом", 1, 1);

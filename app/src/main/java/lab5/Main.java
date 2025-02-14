@@ -4,7 +4,12 @@ import java.util.Scanner;
 
 import lab5.commands.Clear;
 import lab5.commands.Exit;
+import lab5.commands.Help;
+import lab5.commands.Info;
 import lab5.commands.Insert;
+import lab5.commands.RemoveKey;
+import lab5.commands.Show;
+import lab5.commands.Update;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
@@ -18,10 +23,14 @@ public class Main {
         ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in));
         Runner runner = new Runner(commandManager, consoleManager, collectionManager);
 
+        commandManager.newCommand(new Help(runner));
+        commandManager.newCommand(new Info(runner));
+        commandManager.newCommand(new Show(runner));
         commandManager.newCommand(new Insert(runner));
+        commandManager.newCommand(new Update(runner));
+        commandManager.newCommand(new RemoveKey(runner));
         commandManager.newCommand(new Clear(runner));
         commandManager.newCommand(new Exit(runner));
-        consoleManager.setCommands(commandManager.getCommandList());
         
         runner.run();
 

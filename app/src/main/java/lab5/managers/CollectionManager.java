@@ -9,7 +9,7 @@ import lab5.entity.MusicBand;
  * @author Alina
  */
 public class CollectionManager {
-    private HashMap<Integer, MusicBand> collection = new HashMap<Integer, MusicBand>();
+    private final HashMap<Integer, MusicBand> collection = new HashMap<Integer, MusicBand>();
 
     public CollectionManager() {}
 

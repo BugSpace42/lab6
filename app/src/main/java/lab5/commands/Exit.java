@@ -8,7 +8,7 @@ import lab5.utility.Runner;
  * @author Alina
  */
 public class Exit extends Command{
-    private Runner runner;
+    private final Runner runner;
 
     public Exit(Runner runner) {
         super("exit", "завершить программу (без сохранения в файл)", 0, 0);
