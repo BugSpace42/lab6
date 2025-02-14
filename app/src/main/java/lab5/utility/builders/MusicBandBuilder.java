@@ -12,7 +12,7 @@ import lab5.entity.MusicGenre;
  * @author Alina
  */
 public class MusicBandBuilder {
-    private static Long currentId = Long.valueOf(0);
+    private static Long currentId = Long.valueOf(1);
 
     /**
      * Увеличивает счётчик id музыкальных групп на 1.
