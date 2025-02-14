@@ -15,10 +15,10 @@ public class MusicBand {
 
     /**
      * Конструктор - создание нового объекта с заданными параметрами.
-     * @param id todo сделать генерацию
+     * @param id автоматически сгенерированный id музыкальной группы
      * @param name название музыкальной группы
      * @param coordinates местоположение музыкальной группы
-     * @param creationDate todo сделать генерацию
+     * @param creationDate автоматически сгенерированное время создания объекта
      * @param numberOfParticipants количество участников музыкальной группы
      * @param genre жанр музыкальной группы
      * @param bestAlbum лучший альбом музыкальной группы
@@ -160,8 +160,7 @@ public class MusicBand {
     @Override
     public String toString() {
         String info = "";
-        info += "Музыкальная группа №" + id;
-        info += "\n Название: " + name;
+        info += "Музыкальная группа " + name;
         info += "\n Местоположение: " + coordinates;
         info += "\n Количество участников: " + numberOfParticipants;
         info += "\n Жанр: " + genre;

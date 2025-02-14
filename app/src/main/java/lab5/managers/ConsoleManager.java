@@ -7,6 +7,9 @@ import lab5.entity.Coordinates;
 import lab5.entity.MusicBand;
 import lab5.entity.MusicGenre;
 import lab5.utility.Console;
+import lab5.utility.builders.AlbumBuilder;
+import lab5.utility.builders.CoordinatesBuilder;
+import lab5.utility.builders.MusicBandBuilder;
 
 /**
  * Класс, отвечающий за взаимодействие с пользователем в консоли.
@@ -113,25 +116,30 @@ public class ConsoleManager {
      * @return введённый объект класса MusicBand
      */
     public MusicBand askMusicBand() {
-        Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
         String name; //Поле не может быть null, Строка не может быть пустой
         Coordinates coordinates; //Поле не может быть null
-        java.util.Date creationDate = null; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
         Integer numberOfParticipants; //Поле не может быть null, Значение поля должно быть больше 0
-        MusicGenre genre = null; //Поле может быть null
-        Album bestAlbum = null; //Поле может быть null
-
-        id = Long.valueOf(askObject(MusicBand.getIdName()));
-        name = askObject(MusicBand.getNameName());
-        numberOfParticipants = Integer.valueOf(askObject(MusicBand.getNumberOfParticipantsName()));
-
+        MusicGenre genre; //Поле может быть null
+        Album bestAlbum; //Поле может быть null
         Integer x; //Поле не может быть null
         long y; //Значение поля должно быть больше -973
+        String albumName; //Поле не может быть null, Строка не может быть пустой
+        Double albumSales; //Поле может быть null, Значение поля должно быть больше 0
+
+        name = askObject(MusicBand.getNameName());
+
         x = Integer.valueOf(askObject(Coordinates.getXName()));
         y = Long.parseLong(askObject(Coordinates.getYName()));
-        coordinates = new Coordinates(x, y);
+        coordinates = CoordinatesBuilder.build(x, y);
 
-        MusicBand musicBand = new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
+        numberOfParticipants = Integer.valueOf(askObject(MusicBand.getNumberOfParticipantsName()));
+
+        genre = MusicGenre.valueOf(askObject(MusicGenre.getClassName()));
+
+        albumName = askObject(Album.getNameName());
+        albumSales = Double.valueOf(askObject(Album.getSalesName()));
+        bestAlbum = AlbumBuilder.build(albumName, albumSales);
+        MusicBand musicBand = MusicBandBuilder.build(name, coordinates, numberOfParticipants, genre, bestAlbum);
         return musicBand;
     }
 

@@ -11,8 +11,8 @@ import lab5.utility.Command;
  * @author Alina
  */
 public class CommandManager {
-    private HashMap<String, Command> commands = new HashMap<>();
-    private ArrayList<String> commandHistory = new ArrayList<>();
+    private final HashMap<String, Command> commands = new HashMap<>();
+    private final ArrayList<String> commandHistory = new ArrayList<>();
 
     /**
      * Добавляет новую команду.

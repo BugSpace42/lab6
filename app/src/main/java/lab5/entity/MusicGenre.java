@@ -10,4 +10,12 @@ public enum MusicGenre {
     JAZZ,
     POP,
     PUNK_ROCK;
+
+    /**
+     * Возвращает строку с названием класса
+     * @return строка с названием класса
+     */
+    public static String getClassName() {
+        return "музыкальный жанр";
+    }
 }

@@ -10,12 +10,28 @@ public class Album {
 
     /**
      * Конструктор - создание нового объекта с заданными именем и продажами.
-     * @param name
-     * @param sales
+     * @param name название альбома
+     * @param sales продажи альбома
      */
     public Album(String name, Double sales) {
         this.name = name;
         this.sales = sales;
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getNameName() {
+        return "название альбома";
+    }
+
+    /**
+     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
+     * @return строка с названием поля
+     */
+    public static String getSalesName() {
+        return "продажи альбома";
     }
 
     /**
