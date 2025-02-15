@@ -13,15 +13,19 @@ import lab5.commands.Update;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
+import lab5.managers.FileManager;
 import lab5.utility.Runner;
 import lab5.utility.StandardConsole;
 
 public class Main {
     public static void main(String[] args) {
-        CollectionManager collectionManager = new CollectionManager();
+
+        String filePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.txt";
+
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in));
-        Runner runner = new Runner(commandManager, consoleManager, collectionManager);
+        FileManager fileManager = new FileManager(filePath);
+        Runner runner = new Runner(commandManager, consoleManager, fileManager);
 
         commandManager.newCommand(new Help(runner));
         commandManager.newCommand(new Info(runner));
@@ -33,20 +37,5 @@ public class Main {
         commandManager.newCommand(new Exit(runner));
         
         runner.run();
-
-        /*
-        Coordinates firstCoordinates = new Coordinates(123, 321);
-        Album firstAlbum = new Album("Some Album", 100500.0);
-
-        MusicBand firstBand = new MusicBand(Long.valueOf(1), "Band", firstCoordinates, 
-                                null, 3, MusicGenre.JAZZ, firstAlbum);
-
-        System.out.println(collectionManager.toString());
-        insert.setTheElement(firstBand);
-        insert.setTheKey(0);
-        insert.execute();
-        System.out.println("    Добавили элемент: " + collectionManager.toString());
-        System.out.println("    Нашли по ID: " + collectionManager.getById(Long.valueOf(1)));
-        */
     }
 }

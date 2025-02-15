@@ -5,6 +5,7 @@ import java.util.Map;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
+import lab5.managers.FileManager;
 
 /**
  * Класс, который управляет работой программы.
@@ -14,6 +15,7 @@ public class Runner {
     public CommandManager commandManager;
     public ConsoleManager consoleManager;
     public CollectionManager collectionManager;
+    public FileManager fileManager;
     public Map<String, Command> commands;
     private boolean running = false;
 
@@ -49,10 +51,10 @@ public class Runner {
         }
     }
 
-    public Runner(CommandManager commandManager, ConsoleManager consoleManager, CollectionManager collectionManager) {
+    public Runner(CommandManager commandManager, ConsoleManager consoleManager, FileManager fileManager) {
         this.commandManager = commandManager;
         this.consoleManager = consoleManager;
-        this.collectionManager = collectionManager;
+        this.fileManager = fileManager;
         this.commands = commandManager.getCommands();
     }
 
@@ -61,6 +63,8 @@ public class Runner {
      */
     public void run() {
         running = true;
+
+        collectionManager = new CollectionManager(fileManager.readCollection());
         consoleManager.greeting();
 
         while(running) {
