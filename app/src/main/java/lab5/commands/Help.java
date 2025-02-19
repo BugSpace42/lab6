@@ -12,7 +12,7 @@ public class Help extends Command{
     private final Runner runner;
 
     public Help(Runner runner) {
-        super("help", "вывести справку по доступным командам", 0, 0);
+        super("help", "вывести справку по доступным командам");
         this.runner = runner;
     }
     
@@ -21,6 +21,10 @@ public class Help extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        if (args.length > 1) {
+            runner.consoleManager.printError("Введено слишком много аргументов.");
+            return ExitCode.ERROR;
+        }
         for (Command command : runner.commandManager.getCommands().values()) {
             runner.consoleManager.println(command.getName() + ": " + command.getDescription());
         }

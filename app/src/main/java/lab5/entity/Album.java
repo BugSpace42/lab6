@@ -34,6 +34,14 @@ public class Album {
         return "продажи альбома";
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Double getSales(){
+        return sales;
+    }
+
     /**
      * Проверка равенства двух музыкальных альбомов.
      * @param album альбом для сравнения

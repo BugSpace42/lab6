@@ -5,16 +5,12 @@ package lab5.utility;
  * @author Alina
  */
 public abstract class Command implements Executable{
-    private String name;
-    private String description;
-    private int minNumberOfArguments;
-    private int maxNumberOfArguments;
+    private final String name;
+    private final String description;
     
-    public Command(String name, String description, int minNumberOfArguments, int maxNumberOfArguments) {
+    public Command(String name, String description) {
         this.name = name;
         this.description = description;
-        this.minNumberOfArguments = minNumberOfArguments;
-        this.maxNumberOfArguments = maxNumberOfArguments;
     }
 
     /**
@@ -29,20 +25,6 @@ public abstract class Command implements Executable{
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * @return наименьшее количество аргументов команды
-     */
-    public int getMinNumberOfArguments() {
-        return minNumberOfArguments;
-    }
-
-    /**
-     * @return наибольшее количество аргументов команды
-     */
-    public int getMaxNumberOfArguments() {
-        return maxNumberOfArguments;
     }
 }
 

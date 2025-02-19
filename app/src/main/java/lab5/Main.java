@@ -10,7 +10,6 @@ import lab5.commands.Insert;
 import lab5.commands.RemoveKey;
 import lab5.commands.Show;
 import lab5.commands.Update;
-import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
 import lab5.managers.FileManager;

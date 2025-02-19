@@ -12,7 +12,7 @@ public class RemoveGreater extends Command{
     private final Runner runner;
 
     public RemoveGreater(Runner runner) {
-        super("remove_greater", "удалить из коллекции все элементы, превышающие заданный", 0, 0);
+        super("remove_greater", "удалить из коллекции все элементы, превышающие заданный");
         this.runner = runner;
     }
     

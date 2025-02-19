@@ -34,6 +34,14 @@ public class Coordinates {
         return "вторая координата (y)";
     }
 
+    public Integer getX() {
+        return x;
+    }
+
+    public long getY() {
+        return y;
+    }
+
     /**
      * Проверка равенcтва двух координат.
      * @param coordinates - координаты сравниваемого объекта
