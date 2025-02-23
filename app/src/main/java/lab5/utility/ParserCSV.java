@@ -1,9 +1,11 @@
 package lab5.utility;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import lab5.entity.Album;
 import lab5.entity.Coordinates;
@@ -71,6 +73,66 @@ public class ParserCSV {
             collection.put(key, musicBand);
         }
         return collection;
+    }
+
+    /**
+     * Переводит коллекцию объектов класса MusicBand в набор строк для файла формата csv.
+     * @param collection коллекция объектов класса MusicBand
+     * @return строки файла в формате csv
+     */
+    public static List<String> parseToCSV(HashMap<Integer, MusicBand> collection) {
+        List<String> fileLines = new ArrayList<String>();
+        for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
+            Integer key = entry.getKey();
+            MusicBand musicBand = entry.getValue();
+            Long id = musicBand.getId();
+            String name = musicBand.getName();
+            Coordinates coordinates = musicBand.getCoordinates();
+            Integer x = coordinates.getX();
+            long y = coordinates.getY();
+            java.util.Date creationDate = musicBand.getCreationDate();
+            Integer numberOfParticipants = musicBand.getNumberOfParticipants();
+            MusicGenre genre = musicBand.getGenre();
+            Album bestAlbum = musicBand.getBestAlbum();
+
+            LinkedList<String> columnList = new LinkedList<String>();
+            columnList.add(key.toString());
+            columnList.add(id.toString());
+            columnList.add(name);
+            columnList.add(x.toString());
+            columnList.add(String.valueOf(y));
+            columnList.add(creationDate.toString());
+            columnList.add(numberOfParticipants.toString());
+            if (genre == null) {
+                columnList.add("false");
+                columnList.add("");
+            }
+            else {
+                columnList.add("true");
+                columnList.add(genre.toString());
+            }
+            if (bestAlbum == null) {
+                columnList.add("false");
+                columnList.add("");
+                columnList.add("");
+            }
+            else {
+                columnList.add("true");
+                columnList.add(bestAlbum.getName());
+                columnList.add(bestAlbum.getSales().toString());
+            }
+
+            StringBuilder line = new StringBuilder();
+            for (String column : columnList) {
+                line.append("\"");
+                line.append(column);
+                line.append("\"");
+                line.append(",");
+            }
+            line.deleteCharAt(line.length()-1);
+            fileLines.add(line.toString());
+        }
+        return fileLines;
     }
 
     /**

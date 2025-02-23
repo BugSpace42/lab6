@@ -1,5 +1,6 @@
 package lab5.utility;
 
+import java.io.IOException;
 import java.util.Map;
 
 import lab5.managers.CollectionManager;
@@ -63,8 +64,18 @@ public class Runner {
      */
     public void run() {
         running = true;
-
-        collectionManager = new CollectionManager(fileManager.readCollection());
+        if (!fileManager.isFileExist(fileManager.getCollectionFileName())) {
+            consoleManager.printError("Не найден файл " + fileManager.getCollectionFileName());
+            consoleManager.println("Создана пустая коллекция.");
+        }
+        else {
+            try {
+                collectionManager = new CollectionManager(fileManager.readCollection());
+            } catch (IOException e) {
+                consoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFileName());
+                consoleManager.println("Создана пустая коллекция.");
+            }
+        }
         consoleManager.greeting();
 
         while(running) {
