@@ -38,7 +38,10 @@ public class Runner {
             ExitCode exitCode = commands.get(userCommand[0]).execute(userCommand);
 
             switch (exitCode) {
-                case OK -> consoleManager.println("Команда " + userCommand[0] + " выполнена успешно.");
+                case OK -> {
+                    consoleManager.println("Команда " + userCommand[0] + " выполнена успешно.");
+                    commandManager.addToHistory(userCommand[0]);
+                }
                 case ERROR -> {
                     consoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
                     consoleManager.println("Команда " + userCommand[0] + " не была выполнена.");

@@ -5,9 +5,14 @@ import java.util.Scanner;
 import lab5.commands.Clear;
 import lab5.commands.Exit;
 import lab5.commands.Help;
+import lab5.commands.History;
 import lab5.commands.Info;
 import lab5.commands.Insert;
+import lab5.commands.PrintFieldDescendingNumberOfParticipants;
+import lab5.commands.RemoveAllByNumberOfParticipants;
+import lab5.commands.RemoveAnyByBestAlbum;
 import lab5.commands.RemoveKey;
+import lab5.commands.Save;
 import lab5.commands.Show;
 import lab5.commands.Update;
 import lab5.managers.CommandManager;
@@ -33,7 +38,12 @@ public class Main {
         commandManager.newCommand(new Update(runner));
         commandManager.newCommand(new RemoveKey(runner));
         commandManager.newCommand(new Clear(runner));
+        commandManager.newCommand(new Save(runner));
         commandManager.newCommand(new Exit(runner));
+        commandManager.newCommand(new History(runner));
+        commandManager.newCommand(new RemoveAllByNumberOfParticipants(runner));
+        commandManager.newCommand(new RemoveAnyByBestAlbum(runner));
+        commandManager.newCommand(new PrintFieldDescendingNumberOfParticipants(runner));
         
         runner.run();
     }
