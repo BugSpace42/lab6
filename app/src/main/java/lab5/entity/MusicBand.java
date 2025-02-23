@@ -4,7 +4,7 @@ package lab5.entity;
  * Класс музыкальной группы.
  * @author Alina
  */
-public class MusicBand {
+public class MusicBand implements Comparable<MusicBand>{
     private final Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private final String name; //Поле не может быть null, Строка не может быть пустой
     private final Coordinates coordinates; //Поле не может быть null
@@ -152,6 +152,11 @@ public class MusicBand {
                musicBand.numberOfParticipants.equals(numberOfParticipants) &&
                musicBand.genre.equals(genre) &&
                musicBand.bestAlbum.equals(bestAlbum);
+    }
+
+    @Override
+    public int compareTo(MusicBand musicBand) {
+        return this.name.compareTo(musicBand.name);
     }
     
     /**

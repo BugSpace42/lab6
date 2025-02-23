@@ -4,7 +4,7 @@ package lab5.entity;
  * Класс альбома.
  * @author Alina
  */
-public class Album {
+public class Album implements Comparable<Album>{
     private final String name; //Поле не может быть null, Строка не может быть пустой
     private final Double sales; //Поле может быть null, Значение поля должно быть больше 0
 
@@ -50,6 +50,11 @@ public class Album {
     public boolean equals(Album album) {
         if (album == this) return true;
         return album.name.equals(this.name) && album.sales.equals(this.sales);
+    }
+
+    @Override
+    public int compareTo(Album album) {
+        return this.name.compareTo(album.name);
     }
 
     /**
