@@ -9,6 +9,7 @@ import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
 import lab5.managers.FileManager;
+import lab5.utility.Runner.RunningMode;
 
 /**
  * Класс, который управляет работой программы.
@@ -21,6 +22,7 @@ public class Runner {
     public FileManager fileManager;
     public Map<String, Command> commands;
     private boolean running = false;
+    private RunningMode currentMode;
     public HashSet<String> scripts = new HashSet<>();;
 
     /**
@@ -30,6 +32,14 @@ public class Runner {
         OK,
         EXIT,
         ERROR
+    }
+
+    /**
+     * Перечисление режимов работы программы.
+     */
+    public enum RunningMode {
+        INTERACTIVE,
+        SCRIPT
     }
 
     /**
@@ -43,24 +53,28 @@ public class Runner {
             }
 
             ExitCode exitCode = commands.get(userCommand[0]).execute(userCommand);
-            switch (exitCode) {
-                case OK -> {
-                    consoleManager.println("Команда " + userCommand[0] + " выполнена успешно.");
-                    commandManager.addToHistory(userCommand[0]);
-                }
-                case ERROR -> {
-                    consoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
-                    consoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
-                }
-                case EXIT -> {
-                    consoleManager.println("Получена команда выхода из программы.");
-                    consoleManager.println("Завершение работы программы.");
-                    running = false;
+            if (currentMode == RunningMode.INTERACTIVE) {
+                switch (exitCode) {
+                    case OK -> {
+                        consoleManager.println("Команда " + userCommand[0] + " выполнена.");
+                        commandManager.addToHistory(userCommand[0]);
+                    }
+                    case ERROR -> {
+                        consoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
+                        consoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
+                    }
+                    case EXIT -> {
+                        consoleManager.println("Получена команда выхода из программы.");
+                        consoleManager.println("Завершение работы программы.");
+                        running = false;
+                    }
                 }
             }
         } catch (UnknownCommandException e) {
-            consoleManager.printError(e.getMessage());
-            consoleManager.println("Для получения списка команд введите \"help\".");
+            if (currentMode == RunningMode.INTERACTIVE) {
+                consoleManager.printError(e.getMessage());
+                consoleManager.println("Для получения списка команд введите \"help\".");
+            }
         }
     }
 
@@ -76,6 +90,7 @@ public class Runner {
      */
     public void run() {
         running = true;
+        currentMode = RunningMode.INTERACTIVE;
         if (!fileManager.isFileExist(fileManager.getCollectionFileName())) {
             consoleManager.printError("Не найден файл " + fileManager.getCollectionFileName());
             consoleManager.println("Создана пустая коллекция.");
@@ -92,7 +107,13 @@ public class Runner {
 
         while(running) {
             String[] currenrCommand = consoleManager.readCommand();
-            launchCommand(currenrCommand);
+            if (currenrCommand != null) {
+                launchCommand(currenrCommand);
+            }
+            else {
+                consoleManager.println("Завершение работы программы.");
+                running = false;
+            }
         }
     }
 
@@ -102,5 +123,13 @@ public class Runner {
 
     public void setRunning(boolean running) {
         this.running = running;
+    }
+
+    public RunningMode getCurrentMode() {
+        return currentMode;
+    }
+
+    public void setCurrentMode(RunningMode currentMode) {
+        this.currentMode = currentMode;
     }
 }

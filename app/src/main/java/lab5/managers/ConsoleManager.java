@@ -79,8 +79,14 @@ public class ConsoleManager {
      */
     public String[] askCommand() {
         console.print("Введите команду: ");
-        String [] text = scanner.nextLine().trim().split(" ");
-        return text;
+        if (scanner.hasNext()) {
+            String [] text = scanner.nextLine().trim().split(" ");
+            return text;
+        }
+        else {
+            println("Обнаружен конец потока.");
+            return null;
+        }
     }
 
     /**
@@ -90,8 +96,14 @@ public class ConsoleManager {
      */
     public String askObject(String objectName) {
         console.print("Введите " + objectName + ": ");
-        String text = scanner.nextLine().trim();
-        return text;
+        if (scanner.hasNext()) {
+            String text = scanner.nextLine().trim();
+            return text;
+        }
+        else {
+            println("Обнаружен конец потока.");
+            return null;
+        }
     }
 
     /**
@@ -99,8 +111,14 @@ public class ConsoleManager {
      * @return список, состоящий из названия команды и аргументов
      */
     public String[] readCommand() {
-        String [] text = scanner.nextLine().trim().split(" ");
-        return text;
+        if (scanner.hasNext()) {
+            String [] text = scanner.nextLine().trim().split(" ");
+            return text;
+        }
+        else {
+            println("Обнаружен конец потока.");
+            return null;
+        }
     }
 
     /**
@@ -108,8 +126,14 @@ public class ConsoleManager {
      * @return считанная строка
      */
     public String readObject() {
-        String text = scanner.nextLine().trim();
-        return text;
+        if (scanner.hasNext()) {
+            String text = scanner.nextLine().trim();
+            return text;
+        }
+        else {
+            println("Обнаружен конец потока.");
+            return null;
+        }
     }
 
     /**
@@ -217,6 +241,15 @@ public class ConsoleManager {
      * @return введённый музыкальный жанр.
      */
     public MusicGenre askMusicGenre() {
+        console.print("Есть ли у группы музыкальный жанр? (y/n) ");
+        String answer = readObject();
+        switch (answer) {
+            case "y" -> {}
+            default -> {
+                // нет музыкального жанра
+                return null;
+            }
+        }
         console.println("Список музыкальных жанров: " + MusicGenre.names());
         String genreString = askObject(MusicGenre.getClassName());
         MusicGenre genre;
@@ -293,6 +326,15 @@ public class ConsoleManager {
      * @return введённый объект класса Album
      */
     public Album askAlbum() {
+        console.print("Есть ли у группы лучший альбом? (y/n) ");
+        String answer = readObject();
+        switch (answer) {
+            case "y" -> {}
+            default -> {
+                // нет лучшего альбома
+                return null;
+            }
+        }
         String name = askAlbumName();
         Double sales = askAlbumSales();
         Album album = AlbumBuilder.build(name, sales);

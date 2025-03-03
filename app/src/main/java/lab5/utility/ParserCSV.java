@@ -101,7 +101,7 @@ public class ParserCSV {
             columnList.add(name);
             columnList.add(x.toString());
             columnList.add(String.valueOf(y));
-            columnList.add(creationDate.toString());
+            columnList.add(Long.toString(creationDate.getTime()));
             columnList.add(numberOfParticipants.toString());
             if (genre == null) {
                 columnList.add("false");

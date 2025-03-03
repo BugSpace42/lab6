@@ -31,8 +31,8 @@ public class Save extends Command{
             runner.fileManager.writeCollection(runner.collectionManager.getCollection());
         } catch (IOException e) {
             runner.consoleManager.printError("Невозможно сохранить коллекцию в файл.");
-            return Runner.ExitCode.ERROR;
+            return ExitCode.ERROR;
         }
-        return Runner.ExitCode.OK;
+        return ExitCode.OK;
     }
 }

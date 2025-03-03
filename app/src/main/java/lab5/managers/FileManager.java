@@ -83,6 +83,7 @@ public class FileManager {
         List<String> fileLines = ParserCSV.parseToCSV(collection);
         OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.collectionFileName));
         writeAllLines(writer, fileLines);
+        writer.flush();
     }
 
     /**
@@ -93,8 +94,7 @@ public class FileManager {
      */
     public void writeAllLines(OutputStreamWriter writer, List<String> lines) throws IOException {
         for (String line : lines) {
-            writer.write(line);
-            writer.write("\n");
+            writer.write(line + "\n");
         }
     }
 

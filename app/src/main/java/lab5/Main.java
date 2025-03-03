@@ -26,11 +26,20 @@ import lab5.utility.StandardConsole;
 
 public class Main {
     public static void main(String[] args) {
-
-        String filePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.txt";
-
         CommandManager commandManager = new CommandManager();
-        ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in));
+        ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in, "Cp866"));
+        String defaultFilePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.txt";
+        
+        String filePath;
+        if (args.length == 0) {
+            consoleManager.println("Внимание! Не введено название файла с загружаемой коллекцией.");
+            consoleManager.println("Будет загружена коллекция по умолчанию из файла " + defaultFilePath);
+            filePath = defaultFilePath;
+        }
+        else {
+            filePath = args[0];
+        }
+
         FileManager fileManager = new FileManager(filePath);
         Runner runner = new Runner(commandManager, consoleManager, fileManager);
 

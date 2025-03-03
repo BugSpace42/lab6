@@ -8,6 +8,7 @@ import java.util.Scanner;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
+import lab5.utility.Runner.RunningMode;
 
 /**
  * Считывает и исполнияет скрипт из указанного файла. 
@@ -31,15 +32,18 @@ public class ExecuteScript extends Command{
             runner.consoleManager.printError("Не введено имя файла.");
             return ExitCode.ERROR;
         }
-        if (args.length > 2) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
         String scriptName = args[1];
+        for (int i = 2; i < args.length; i++) {
+            scriptName += " " + args[i];
+        }
+        
         if (runner.scripts.contains(scriptName)) {
             runner.consoleManager.printError("Скрипт не может вызываться рекурсивно.");
             return ExitCode.ERROR;
         }
+        runner.scripts.add(scriptName);
+        RunningMode previousMode = runner.getCurrentMode();
+        runner.setCurrentMode(RunningMode.SCRIPT);
         try {
             InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptName));
             Scanner oldScanner = runner.consoleManager.getScanner();
@@ -55,8 +59,12 @@ public class ExecuteScript extends Command{
             runner.consoleManager.setScanner(oldScanner);
         } catch (IOException e) {
             runner.consoleManager.printError("Невозможно прочитать скрипт из файла " + scriptName);
+            runner.scripts.remove(scriptName);
+            runner.setCurrentMode(previousMode);
             return ExitCode.ERROR;
         }
+        runner.scripts.remove(scriptName);
+        runner.setCurrentMode(previousMode);
         return ExitCode.OK;
     }
 }
