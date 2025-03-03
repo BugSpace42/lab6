@@ -25,6 +25,7 @@ public class Help extends Command{
             runner.consoleManager.printError("Введено слишком много аргументов.");
             return ExitCode.ERROR;
         }
+        runner.consoleManager.println("Доступные команды:");
         for (Command command : runner.commandManager.getCommands().values()) {
             runner.consoleManager.println(command.getName() + ": " + command.getDescription());
         }

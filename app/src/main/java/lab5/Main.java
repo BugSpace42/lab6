@@ -3,6 +3,7 @@ package lab5;
 import java.util.Scanner;
 
 import lab5.commands.Clear;
+import lab5.commands.ExecuteScript;
 import lab5.commands.Exit;
 import lab5.commands.Help;
 import lab5.commands.History;
@@ -41,6 +42,7 @@ public class Main {
         commandManager.newCommand(new RemoveKey(runner));
         commandManager.newCommand(new Clear(runner));
         commandManager.newCommand(new Save(runner));
+        commandManager.newCommand(new ExecuteScript(runner));
         commandManager.newCommand(new Exit(runner));
         commandManager.newCommand(new RemoveGreater(runner));
         commandManager.newCommand(new History(runner));

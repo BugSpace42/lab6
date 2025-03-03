@@ -1,8 +1,10 @@
 package lab5.utility;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Map;
 
+import lab5.exceptions.UnknownCommandException;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
@@ -19,6 +21,7 @@ public class Runner {
     public FileManager fileManager;
     public Map<String, Command> commands;
     private boolean running = false;
+    public HashSet<String> scripts = new HashSet<>();;
 
     /**
      * Перечисление кодов завершения выполнения команды.
@@ -33,10 +36,13 @@ public class Runner {
      * Запускает команду, которую ввёл пользователь.
      * @param userCommand команда
      */
-    private void launchCommand(String[] userCommand) {
-        if (commands.containsKey(userCommand[0])) {
-            ExitCode exitCode = commands.get(userCommand[0]).execute(userCommand);
+    public void launchCommand(String[] userCommand) {
+        try {
+            if (!commands.containsKey(userCommand[0])){
+                throw new UnknownCommandException("Не найдена команда " + userCommand[0]);
+            }
 
+            ExitCode exitCode = commands.get(userCommand[0]).execute(userCommand);
             switch (exitCode) {
                 case OK -> {
                     consoleManager.println("Команда " + userCommand[0] + " выполнена успешно.");
@@ -52,6 +58,9 @@ public class Runner {
                     running = false;
                 }
             }
+        } catch (UnknownCommandException e) {
+            consoleManager.printError(e.getMessage());
+            consoleManager.println("Для получения списка команд введите \"help\".");
         }
     }
 
@@ -85,5 +94,13 @@ public class Runner {
             String[] currenrCommand = consoleManager.readCommand();
             launchCommand(currenrCommand);
         }
+    }
+
+    public boolean getRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 }
