@@ -95,7 +95,7 @@ public class ParserCSV {
             MusicGenre genre = musicBand.getGenre();
             Album bestAlbum = musicBand.getBestAlbum();
 
-            LinkedList<String> columnList = new LinkedList<String>();
+            LinkedList<String> columnList = new LinkedList<>();
             columnList.add(key.toString());
             columnList.add(id.toString());
             columnList.add(name);

@@ -12,7 +12,7 @@ public class CollectionManager {
     private static HashMap<Integer, MusicBand> collection;
 
     public CollectionManager(HashMap<Integer, MusicBand> collection) {
-        this.collection = collection;
+        CollectionManager.collection = collection;
     }
 
     /**

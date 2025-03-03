@@ -9,7 +9,6 @@ import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
 import lab5.managers.FileManager;
-import lab5.utility.Runner.RunningMode;
 
 /**
  * Класс, который управляет работой программы.

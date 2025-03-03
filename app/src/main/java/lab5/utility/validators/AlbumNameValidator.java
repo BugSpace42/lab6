@@ -11,6 +11,10 @@ public class AlbumNameValidator implements Validator<String>{
             // строка пустая или null
             return false;
         }
+        if (name.contains("\"")) {
+            // строка содержит кавычки
+            return false;
+        }
         return true;
     }
 }
