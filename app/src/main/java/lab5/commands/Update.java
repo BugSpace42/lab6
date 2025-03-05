@@ -42,6 +42,10 @@ public class Update extends Command{
             runner.consoleManager.printError("Введённый id не является числом типа Long.");
             return ExitCode.ERROR;
         }
+        if (runner.collectionManager.getById(id) == null) {
+            runner.consoleManager.printError("В коллекции нет элемента с id " + id);
+            return ExitCode.ERROR;
+        }
         MusicBand element = runner.consoleManager.askMusicBand();
         runner.collectionManager.updateElementById(id, element);
         return ExitCode.OK;

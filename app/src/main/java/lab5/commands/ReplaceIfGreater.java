@@ -39,6 +39,10 @@ public class ReplaceIfGreater extends Command{
             runner.consoleManager.printError("Введённый ключ не является числом типа Integer.");
             return ExitCode.ERROR;
         }
+        if (!runner.collectionManager.getCollection().containsKey(key)) {
+            runner.consoleManager.printError("В коллекции нет элемента с ключом " + key);
+            return ExitCode.ERROR;
+        }
         MusicBand musicBand = runner.consoleManager.askMusicBand();
 
         // ссылка на коллекцию

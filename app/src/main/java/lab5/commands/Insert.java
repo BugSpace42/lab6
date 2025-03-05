@@ -37,6 +37,10 @@ public class Insert extends Command{
             runner.consoleManager.printError("Введённый ключ не является числом типа Integer.");
             return ExitCode.ERROR;
         }
+        if (runner.collectionManager.getCollection().containsKey(key)) {
+            runner.consoleManager.printError("В коллекции уже есть элемент с ключом " + key);
+            return ExitCode.ERROR;
+        }
         
         MusicBand element = runner.consoleManager.askMusicBand();
         runner.collectionManager.addToCollection(key, element);

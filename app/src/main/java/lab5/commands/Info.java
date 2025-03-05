@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.HashMap;
 
 import lab5.entity.MusicBand;
+import lab5.exceptions.TooManyArgumentsException;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -25,14 +26,22 @@ public class Info extends Command{
     // todo
     @Override
     public Runner.ExitCode execute(String[] args) {
-        if (args.length > 1) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
+        try {
+            if (args.length > 1) {
+                throw new TooManyArgumentsException("Введено слишком много аргументов.");
+            }
+            HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
+            runner.consoleManager.println("Информация о коллекции:");
+            runner.consoleManager.println(" Тип коллекции: " + collection.getClass().getName());
+            runner.consoleManager.println(" Дата инициализации коллекции: " + runner.collectionManager.getInitDate());
+            runner.consoleManager.println(" Количество элементов: " + collection.size());
+            return Runner.ExitCode.OK;
+        } catch (TooManyArgumentsException e) {
+            runner.consoleManager.printError(e);
+            return ExitCode.ERROR;
+        } catch (Exception e) {
+            runner.consoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;
         }
-        HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
-        runner.consoleManager.println("Информация о коллекции:");
-        runner.consoleManager.println(" Тип коллекции: " + collection.getClass().getName());
-        runner.consoleManager.println(" Количество элементов: " + collection.size());
-        return Runner.ExitCode.OK;
     }
 }

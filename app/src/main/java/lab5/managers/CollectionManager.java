@@ -1,5 +1,6 @@
 package lab5.managers;
 
+import java.util.Date;
 import java.util.HashMap;
 
 import lab5.entity.MusicBand;
@@ -10,9 +11,11 @@ import lab5.entity.MusicBand;
  */
 public class CollectionManager {
     private static HashMap<Integer, MusicBand> collection;
+    private final Date initDate;
 
     public CollectionManager(HashMap<Integer, MusicBand> collection) {
         CollectionManager.collection = collection;
+        initDate = new Date();
     }
 
     /**
@@ -63,7 +66,18 @@ public class CollectionManager {
         collection.clear();
     }
 
-    // todo
+    /**
+     * Возвращает дату инициализации коллекции.
+     * @return дата инициализации коллекции
+     */
+    public Date getInitDate() {
+        return initDate;
+    }
+    
+    /**
+     * Возвращает строковое представление коллекции.
+     * @return строковое представление коллекции
+     */
     @Override
     public String toString() {
         return collection.toString();

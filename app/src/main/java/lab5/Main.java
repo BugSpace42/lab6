@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) {
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in, "Cp866"));
-        String defaultFilePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.txt";
+        String defaultFilePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.csv";
         
         String filePath;
         if (args.length == 0) {
