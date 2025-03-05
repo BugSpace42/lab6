@@ -18,7 +18,7 @@ public class RemoveAnyByBestAlbum extends Command{
 
     public RemoveAnyByBestAlbum(Runner runner) {
         super("remove_any_by_best_album ", 
-              "удалить из коллекции один элемент, значение поля bestAlbum которого эквивалентно заданному");
+              "удалить из коллекции один элемент, значение поля bestAlbum которого эквивалентно заданному", 0);
         this.runner = runner;
     }
     
@@ -27,10 +27,6 @@ public class RemoveAnyByBestAlbum extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
-        if (args.length > 1) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
         Album album = runner.consoleManager.askAlbum();
 
         // ссылка на коллекцию, которую будем изменять

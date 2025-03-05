@@ -7,7 +7,6 @@ package lab5.commands;
 
 import java.util.ArrayList;
 
-import lab5.exceptions.TooManyArgumentsException;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -20,7 +19,7 @@ public class History extends Command{
     private final Runner runner;
 
     public History(Runner runner) {
-        super("history", "вывести последние 8 команд");
+        super("history", "вывести последние 8 команд", 0);
         this.runner = runner;
     }
     
@@ -30,9 +29,6 @@ public class History extends Command{
     @Override
     public ExitCode execute(String[] args){
         try {
-            if (args.length > 1) {
-                throw new TooManyArgumentsException("Введено слишком много аргументов.");
-            }
             int numberOfCommands = 8;
             ArrayList<String> history = runner.commandManager.getCommandHistory();
             if (history.isEmpty()) {
@@ -44,9 +40,6 @@ public class History extends Command{
                 runner.consoleManager.println(history.get(history.size()-i-1));
             }
             return Runner.ExitCode.OK;
-        } catch (TooManyArgumentsException e) {
-            runner.consoleManager.printError(e);
-            return ExitCode.ERROR;
         } catch (Exception e) {
             runner.consoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;

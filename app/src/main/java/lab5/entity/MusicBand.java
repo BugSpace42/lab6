@@ -165,8 +165,10 @@ public class MusicBand implements Comparable<MusicBand>{
     @Override
     public String toString() {
         String info = "";
-        info += "Музыкальная группа " + name;
+        info += "Музыкальная группа №" + id;
+        info += "\n Название: " + name;
         info += "\n Местоположение: " + coordinates;
+        info += "\n Дата создания объекта: " + creationDate;
         info += "\n Количество участников: " + numberOfParticipants;
         info += "\n Жанр: " + genre;
         info += "\n Лучший альбом: " + bestAlbum;

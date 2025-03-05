@@ -14,7 +14,7 @@ public class Save extends Command{
     private final Runner runner;
 
     public Save(Runner runner) {
-        super("save", "сохранить коллекцию в файл");
+        super("save", "сохранить коллекцию в файл", 0);
         this.runner = runner;
     }
 
@@ -23,10 +23,6 @@ public class Save extends Command{
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
-        if (args.length > 1) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
         try {
             runner.fileManager.writeCollection(runner.collectionManager.getCollection());
         } catch (IOException e) {

@@ -16,7 +16,7 @@ public class RemoveGreater extends Command{
     private final Runner runner;
 
     public RemoveGreater(Runner runner) {
-        super("remove_greater", "удалить из коллекции все элементы, превышающие заданный");
+        super("remove_greater", "удалить из коллекции все элементы, превышающие заданный", 0);
         this.runner = runner;
     }
     
@@ -25,10 +25,6 @@ public class RemoveGreater extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
-        if (args.length > 1) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
         MusicBand musicBand = runner.consoleManager.askMusicBand();
 
         // ссылка на коллекцию

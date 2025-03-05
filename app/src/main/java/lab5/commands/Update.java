@@ -18,7 +18,7 @@ public class Update extends Command{
     private final Runner runner;
 
     public Update(Runner runner){
-        super("update", "обновить значение элемента коллекции, id которого равен заданному");
+        super("update", "обновить значение элемента коллекции, id которого равен заданному", 1);
         this.runner = runner;
     }
 
@@ -28,14 +28,6 @@ public class Update extends Command{
     @Override
     public Runner.ExitCode execute(String[] args) {
         Long id;
-        if (args.length > 2) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
-        if (args.length < 2) {
-            runner.consoleManager.printError("Не введён id элемента.");
-            return ExitCode.ERROR;
-        }
         try {
             id = Long.valueOf(args[1]);
         } catch (NumberFormatException e) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+import lab5.exceptions.ScriptRecursionException;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -19,7 +20,7 @@ public class ExecuteScript extends Command{
     private final Runner runner;
 
     public ExecuteScript(Runner runner) {
-        super("execute_script", "считать и исполнить скрипт из указанного файла");
+        super("execute_script", "считать и исполнить скрипт из указанного файла", 1);
         this.runner = runner;
     }
 
@@ -28,23 +29,17 @@ public class ExecuteScript extends Command{
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
-        if (args.length < 2) {
-            runner.consoleManager.printError("Не введено имя файла.");
-            return ExitCode.ERROR;
-        }
         String scriptName = args[1];
         for (int i = 2; i < args.length; i++) {
             scriptName += " " + args[i];
         }
-        
-        if (runner.scripts.contains(scriptName)) {
-            runner.consoleManager.printError("Скрипт не может вызываться рекурсивно.");
-            return ExitCode.ERROR;
-        }
-        runner.scripts.add(scriptName);
         RunningMode previousMode = runner.getCurrentMode();
-        runner.setCurrentMode(RunningMode.SCRIPT);
         try {
+            if (runner.scripts.contains(scriptName)) {
+                throw new ScriptRecursionException("Скрипт " + scriptName + " уже выполняется.");
+            }
+            runner.scripts.add(scriptName);
+            runner.setCurrentMode(RunningMode.SCRIPT);
             InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptName));
             Scanner oldScanner = runner.consoleManager.getScanner();
             Scanner newScanner = new Scanner(reader);
@@ -57,14 +52,17 @@ public class ExecuteScript extends Command{
                 }
             }
             runner.consoleManager.setScanner(oldScanner);
+            runner.scripts.remove(scriptName);
+            runner.setCurrentMode(previousMode);
+            return ExitCode.OK;
+        } catch (ScriptRecursionException e) {
+            runner.consoleManager.printError(e.getMessage());
+            return ExitCode.ERROR;
         } catch (IOException e) {
             runner.consoleManager.printError("Невозможно прочитать скрипт из файла " + scriptName);
             runner.scripts.remove(scriptName);
             runner.setCurrentMode(previousMode);
             return ExitCode.ERROR;
         }
-        runner.scripts.remove(scriptName);
-        runner.setCurrentMode(previousMode);
-        return ExitCode.OK;
     }
 }

@@ -5,7 +5,6 @@ import java.util.Map;
 import lab5.entity.MusicBand;
 import lab5.utility.Command;
 import lab5.utility.Runner;
-import lab5.utility.Runner.ExitCode;
 
 /**
  * Выводит в стандартный поток вывода все элементы коллекции в строковом представлении
@@ -15,7 +14,7 @@ public class Show extends Command {
     private final Runner runner;
 
     public Show(Runner runner){
-        super("show", "вывести все элементы коллекции в строковом представлении");
+        super("show", "вывести все элементы коллекции в строковом представлении", 0);
         this.runner = runner;
     }
 
@@ -24,10 +23,6 @@ public class Show extends Command {
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
-        if (args.length > 1) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
         for (Map.Entry<Integer, MusicBand> elem : runner.collectionManager.getCollection().entrySet()) {
             runner.consoleManager.println(elem.getValue());
         }

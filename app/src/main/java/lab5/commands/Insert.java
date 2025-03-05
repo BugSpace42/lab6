@@ -13,7 +13,7 @@ public class Insert extends Command{
     private final Runner runner;
 
     public Insert(Runner runner) {
-        super("insert", "добавить новый элемент с заданным ключом");
+        super("insert", "добавить новый элемент с заданным ключом", 1);
         this.runner = runner;
     }
     
@@ -23,14 +23,6 @@ public class Insert extends Command{
     @Override
     public ExitCode execute(String[] args){
         Integer key;
-        if (args.length > 2) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
-        if (args.length < 2) {
-            runner.consoleManager.printError("Не введён ключ элемента.");
-            return ExitCode.ERROR;
-        }
         try {
             key = Integer.valueOf(args[1]);
         } catch (NumberFormatException e) {

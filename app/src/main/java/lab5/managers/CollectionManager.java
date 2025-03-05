@@ -2,6 +2,7 @@ package lab5.managers;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import lab5.entity.MusicBand;
 
@@ -80,6 +81,12 @@ public class CollectionManager {
      */
     @Override
     public String toString() {
-        return collection.toString();
+        String info = "";
+        for (Map.Entry<Integer, MusicBand> elem : collection.entrySet()) {
+            info += "Элемент коллекции с ключом " + elem.getKey();
+            info += elem.getValue();
+            info += "\n";
+        }
+        return info;
     }
 }

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lab5.entity.MusicBand;
-import lab5.exceptions.TooManyArgumentsException;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -18,7 +17,7 @@ public class RemoveAllByNumberOfParticipants extends Command{
 
     public RemoveAllByNumberOfParticipants(Runner runner) {
         super("remove_all_by_number_of_participants", 
-              "удалить из коллекции все элементы, значение поля numberOfParticipants которого эквивалентно заданному");
+              "удалить из коллекции все элементы, значение поля numberOfParticipants которого эквивалентно заданному", 1);
         this.runner = runner;
     }
     
@@ -28,9 +27,6 @@ public class RemoveAllByNumberOfParticipants extends Command{
     @Override
     public ExitCode execute(String[] args){
         try {
-            if (args.length > 1) {
-                throw new TooManyArgumentsException("Введено слишком много аргументов.");
-            }
             Integer numberOfParticipants = runner.consoleManager.askMusicBandNumber();
 
             // ссылка на коллекцию, которую будем изменять
@@ -48,9 +44,6 @@ public class RemoveAllByNumberOfParticipants extends Command{
                 runner.consoleManager.println("Не найдено элементов с заданным полем bestAlbum.");
             }
             return ExitCode.OK;
-        } catch (TooManyArgumentsException e) {
-            runner.consoleManager.printError(e);
-            return ExitCode.ERROR;
         } catch (Exception e) {
             runner.consoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;

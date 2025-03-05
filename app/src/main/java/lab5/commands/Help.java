@@ -1,6 +1,5 @@
 package lab5.commands;
 
-import lab5.exceptions.TooManyArgumentsException;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -13,7 +12,7 @@ public class Help extends Command{
     private final Runner runner;
 
     public Help(Runner runner) {
-        super("help", "вывести справку по доступным командам");
+        super("help", "вывести справку по доступным командам", 0);
         this.runner = runner;
     }
     
@@ -23,17 +22,11 @@ public class Help extends Command{
     @Override
     public ExitCode execute(String[] args){
         try {
-            if (args.length > 1) {
-                throw new TooManyArgumentsException("Введено слишком много аргументов.");
-            }
             runner.consoleManager.println("Доступные команды:");
             for (Command command : runner.commandManager.getCommands().values()) {
                 runner.consoleManager.println(command.getName() + ": " + command.getDescription());
             }
             return Runner.ExitCode.OK;
-        } catch (TooManyArgumentsException e) {
-            runner.consoleManager.printError(e);
-            return ExitCode.ERROR;
         } catch (Exception e) {
             runner.consoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;

@@ -15,7 +15,7 @@ public class ReplaceIfGreater extends Command{
     private final Runner runner;
 
     public ReplaceIfGreater(Runner runner) {
-        super("replace_if_greater", "заменить значение по ключу, если новое значение больше старого");
+        super("replace_if_greater", "заменить значение по ключу, если новое значение больше старого", 1);
         this.runner = runner;
     }
     
@@ -25,14 +25,6 @@ public class ReplaceIfGreater extends Command{
     @Override
     public ExitCode execute(String[] args){
         Integer key;
-        if (args.length > 2) {
-            runner.consoleManager.printError("Введено слишком много аргументов.");
-            return ExitCode.ERROR;
-        }
-        if (args.length < 2) {
-            runner.consoleManager.printError("Не введён ключ элемента.");
-            return ExitCode.ERROR;
-        }
         try {
             key = Integer.valueOf(args[1]);
         } catch (NumberFormatException e) {

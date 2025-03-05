@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
 
+import lab5.exceptions.TooFewArgumentsException;
+import lab5.exceptions.TooManyArgumentsException;
 import lab5.exceptions.UnknownCommandException;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
@@ -50,6 +52,14 @@ public class Runner {
             if (!commands.containsKey(userCommand[0])){
                 throw new UnknownCommandException("Не найдена команда " + userCommand[0]);
             }
+            if (commands.get(userCommand[0]).getNumberOfArguments() > userCommand.length-1) {
+                throw new TooManyArgumentsException("Команда " + userCommand[0] + " должна содержать " 
+                + commands.get(userCommand[0]).getNumberOfArguments() + " аргументов");
+            }
+            if (commands.get(userCommand[0]).getNumberOfArguments() < userCommand.length-1) {
+                throw new TooFewArgumentsException("Команда " + userCommand[0] + " должна содержать " 
+                + commands.get(userCommand[0]).getNumberOfArguments() + " аргументов");
+            }
 
             ExitCode exitCode = commands.get(userCommand[0]).execute(userCommand);
             if (currentMode == RunningMode.INTERACTIVE) {
@@ -74,6 +84,10 @@ public class Runner {
                 consoleManager.printError(e.getMessage());
                 consoleManager.println("Для получения списка команд введите \"help\".");
             }
+        } catch (TooManyArgumentsException e) {
+            consoleManager.printError(e.getMessage());
+        } catch (TooFewArgumentsException e) {
+            consoleManager.printError(e.getMessage());
         }
     }
 

@@ -81,7 +81,7 @@ public class ParserCSV {
      * @return строки файла в формате csv
      */
     public static List<String> parseToCSV(HashMap<Integer, MusicBand> collection) {
-        List<String> fileLines = new ArrayList<String>();
+        List<String> fileLines = new ArrayList<>();
         for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             Integer key = entry.getKey();
             MusicBand musicBand = entry.getValue();
