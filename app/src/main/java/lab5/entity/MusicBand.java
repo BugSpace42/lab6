@@ -84,59 +84,59 @@ public class MusicBand implements Comparable<MusicBand>{
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getIdName() {
-        return "ID музыкальной группы";
+    public static String askIdString() {
+        return "Введите ID музыкальной группы: ";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getNameName() {
-        return "название музыкальной группы";
+    public static String askNameString() {
+        return "Введите название музыкальной группы: ";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getCoordinatesName() {
-        return "местоположение музыкальной группы";
+    public static String askCoordinatesString() {
+        return "Введите местоположение музыкальной группы: ";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getCreationDateName() {
-        return "дата создания объекта класса";
+    public static String askCreationDateString() {
+        return "Введите дату создания объекта класса: ";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getNumberOfParticipantsName() {
-        return "количество участников музыкальной группы";
+    public static String askNumberOfParticipantsString() {
+        return "Введите количество участников музыкальной группы:";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getGenreName() {
-        return "жанр музыкальной группы";
+    public static String askGenreString() {
+        return "Введите жанр музыкальной группы: ";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getBestAlbumName() {
-        return "лучший альбом музыкальной группы";
+    public static String askBestAlbumString() {
+        return "Введите лучший альбом музыкальной группы: ";
     }
 
     /**
@@ -154,6 +154,9 @@ public class MusicBand implements Comparable<MusicBand>{
                musicBand.bestAlbum.equals(bestAlbum);
     }
 
+    /**
+     * Функция сравнения двух музыкальных групп.
+     */
     @Override
     public int compareTo(MusicBand musicBand) {
         return this.name.compareTo(musicBand.name);

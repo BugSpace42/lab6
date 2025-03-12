@@ -95,8 +95,8 @@ public class ConsoleManager {
      * @param objectName название объекта
      * @return строка, введённая пользователем
      */
-    public String askObject(String objectName) {
-        console.print("Введите " + objectName + ": ");
+    public String askObject(String askString) {
+        console.print(askString);
         if (scanner.hasNext()) {
             String text = scanner.nextLine().trim();
             return text;
@@ -142,7 +142,7 @@ public class ConsoleManager {
      * @return введённое название музыкальной группы.
      */
     public String askMusicBandName() {
-        String name = askObject(MusicBand.getNameName());
+        String name = askObject(MusicBand.askNameString());
         MusicBandNameValidator validator = new MusicBandNameValidator();
         if (validator.validate(name)) {
             return name;
@@ -162,7 +162,7 @@ public class ConsoleManager {
      * @return введённая координата.
      */
     public Integer askCoordX() {
-        String xString = askObject(Coordinates.getXName());
+        String xString = askObject(Coordinates.askXString());
         Integer x;
         CoordXValidator validator = new CoordXValidator();
         try {
@@ -189,7 +189,7 @@ public class ConsoleManager {
      * @return введённая координата.
      */
     public long askCoordY() {
-        String yString = askObject(Coordinates.getYName());
+        String yString = askObject(Coordinates.askYString());
         long y;
         CoordYValidator validator = new CoordYValidator();
         try {
@@ -217,7 +217,7 @@ public class ConsoleManager {
      */
     public Integer askMusicBandNumber() {
         Integer numberOfParticipants;
-        String numberSrting = askObject(MusicBand.getNumberOfParticipantsName());
+        String numberSrting = askObject(MusicBand.askNumberOfParticipantsString());
         MusicBandNumberValidator validator = new MusicBandNumberValidator();
         try {
             numberOfParticipants = Integer.valueOf(numberSrting);
@@ -253,7 +253,7 @@ public class ConsoleManager {
             }
         }
         console.println("Список музыкальных жанров: " + MusicGenre.names());
-        String genreString = askObject(MusicGenre.getClassName());
+        String genreString = askObject(MusicGenre.askGenreString());
         MusicGenre genre;
         try {
             genre = MusicGenreBuilder.build(genreString);
@@ -271,7 +271,7 @@ public class ConsoleManager {
      * @return введённое название музыкального альбома.
      */
     public String askAlbumName() {
-        String name = askObject(Album.getNameName());
+        String name = askObject(Album.askNameString());
         AlbumNameValidator validator = new AlbumNameValidator();
         if (validator.validate(name)) {
             return name;
@@ -291,7 +291,7 @@ public class ConsoleManager {
      * @return введённые продажи музыкального альбома.
      */
     public Double askAlbumSales() {
-        String salesString = askObject(Album.getSalesName());
+        String salesString = askObject(Album.askSalesString());
         Double sales;
         AlbumSalesValidator validator = new AlbumSalesValidator();
         try {
@@ -349,7 +349,7 @@ public class ConsoleManager {
      * @return введённый объект класса MusicBand
      */
     public MusicBand askMusicBand() {
-        String name = askAlbumName();
+        String name = askMusicBandName();
         Coordinates coordinates = askCoordinates();
         Integer numberOfParticipants = askMusicBandNumber();
         MusicGenre genre = askMusicGenre();

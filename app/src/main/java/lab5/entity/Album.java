@@ -19,19 +19,19 @@ public class Album implements Comparable<Album>{
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getNameName() {
-        return "название альбома";
+    public static String askNameString() {
+        return "Введите название альбома: ";
     }
 
     /**
-     * Возвращает строку с названием поля (например для запроса поля у пользователя). 
-     * @return строка с названием поля
+     * Возвращает строку для запроса поля у пользователя. 
+     * @return строка для запроса поля у пользователя
      */
-    public static String getSalesName() {
-        return "продажи альбома";
+    public static String askSalesString() {
+        return "Введите продажи альбома: ";
     }
 
     public String getName() {

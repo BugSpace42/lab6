@@ -12,11 +12,11 @@ public enum MusicGenre {
     PUNK_ROCK;
 
     /**
-     * Возвращает строку с названием класса
-     * @return строка с названием класса
+     * Возвращает строку для запроса объекта класса MusicGenre у пользователя. 
+     * @return строка для запроса объекта у пользователя
      */
-    public static String getClassName() {
-        return "музыкальный жанр";
+    public static String askGenreString() {
+        return "Введите музыкальный жанр: ";
     }
 
     /**
