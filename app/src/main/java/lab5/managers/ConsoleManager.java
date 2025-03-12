@@ -10,6 +10,7 @@ import lab5.utility.Console;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.builders.CoordinatesBuilder;
 import lab5.utility.builders.MusicBandBuilder;
+import lab5.utility.builders.MusicGenreBuilder;
 import lab5.utility.validators.AlbumNameValidator;
 import lab5.utility.validators.AlbumSalesValidator;
 import lab5.utility.validators.CoordXValidator;
@@ -255,7 +256,7 @@ public class ConsoleManager {
         String genreString = askObject(MusicGenre.getClassName());
         MusicGenre genre;
         try {
-            genre = MusicGenre.valueOf(genreString);
+            genre = MusicGenreBuilder.build(genreString);
         } catch (IllegalArgumentException e) {
             console.println("Введён некорректный музыкальный жанр.");
             console.println("Попробуйте снова.");
