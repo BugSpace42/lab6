@@ -9,7 +9,7 @@ import lab5.utility.Command;
 import lab5.utility.Runner;
 
 /**
- * Выводит в стандартный поток вывода все элементы коллекции в строковом представлении
+ * Выводит в стандартный поток вывода все элементы коллекции в виде таблицы
  * @author Alina
  */
 public class ShowTable extends Command {
@@ -31,8 +31,28 @@ public class ShowTable extends Command {
         table.addRule();
         for (Map.Entry<Integer, MusicBand> elem : runner.collectionManager.getCollection().entrySet()) {
             MusicBand musicBand = elem.getValue();
+
+            String genre;
+            if (musicBand.getGenre() == null) {
+                genre = "-";
+            }
+            else {
+                genre = musicBand.getGenre().toString();
+            }
+
+            String albumName;
+            String albumSales;
+            if (musicBand.getBestAlbum() == null) {
+                albumName = "-";
+                albumSales = "-";
+            }
+            else {
+                albumName = musicBand.getBestAlbum().getName();
+                albumSales = musicBand.getBestAlbum().getSales().toString();
+            }
+
             table.addRow(musicBand.getId(), musicBand.getName(), musicBand.getCoordinates().getX(), musicBand.getCoordinates().getY(),
-                        musicBand.getCreationDate(), musicBand.getNumberOfParticipants(), "-", "-", "-");
+                        musicBand.getCreationDate(), musicBand.getNumberOfParticipants(), genre, albumName, albumSales);
             
             table.addRule();
         }
