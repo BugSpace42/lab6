@@ -29,6 +29,8 @@ public class Album implements Comparable<Album>{
      * @return введённое название музыкального альбома.
      */
     public static String askAlbumName() {
+        ConsoleManager.println("Введите название музыкального альбома.");
+        ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
         String name = ConsoleManager.askObject();
         AlbumNameValidator validator = new AlbumNameValidator();
         if (validator.validate(name)) {
@@ -49,6 +51,8 @@ public class Album implements Comparable<Album>{
      * @return введённые продажи музыкального альбома.
      */
     public static Double askAlbumSales() {
+        ConsoleManager.println("Введите число продаж музыкального альбома.");
+        ConsoleManager.println("Число продаж должно быть числом типа Double, большим чем 0.");
         String salesString = ConsoleManager.askObject();
         Double sales;
         AlbumSalesValidator validator = new AlbumSalesValidator();

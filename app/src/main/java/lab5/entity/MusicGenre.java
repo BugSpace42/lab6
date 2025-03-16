@@ -28,6 +28,7 @@ public enum MusicGenre {
                 return null;
             }
         }
+        ConsoleManager.println("Введите музыкальный жанр.");
         ConsoleManager.println("Список музыкальных жанров: " + MusicGenre.names());
         String genreString = ConsoleManager.askObject();
         MusicGenre genre;

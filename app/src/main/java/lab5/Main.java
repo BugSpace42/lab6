@@ -15,6 +15,7 @@ import lab5.commands.RemoveKey;
 import lab5.commands.ReplaceIfGreater;
 import lab5.commands.Save;
 import lab5.commands.Show;
+import lab5.commands.ShowTable;
 import lab5.commands.Update;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
@@ -26,7 +27,6 @@ public class Main {
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager();
         String defaultFilePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.csv";
-        
         String filePath;
         if (args.length == 0) {
             consoleManager.println("Внимание! Не введено название файла с загружаемой коллекцией.");
@@ -43,6 +43,7 @@ public class Main {
         commandManager.newCommand(new Help(runner));
         commandManager.newCommand(new Info(runner));
         commandManager.newCommand(new Show(runner));
+        commandManager.newCommand(new ShowTable(runner));
         commandManager.newCommand(new Insert(runner));
         commandManager.newCommand(new Update(runner));
         commandManager.newCommand(new RemoveKey(runner));

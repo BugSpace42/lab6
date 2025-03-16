@@ -51,7 +51,7 @@ public class ConsoleManager {
      */
     public static String[] askCommand() {
         console.println("Введите команду: ");
-        console.print(">");
+        console.print("> ");
         if (scanner.hasNext()) {
             String [] text = scanner.nextLine().trim().split(" ");
             return text;
@@ -68,7 +68,7 @@ public class ConsoleManager {
      * @return строка, введённая пользователем
      */
     public static String askObject() {
-        console.print(">");
+        console.print("> ");
         if (scanner.hasNext()) {
             String text = scanner.nextLine().trim();
             return text;

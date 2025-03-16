@@ -39,6 +39,7 @@ public class Coordinates {
      * @return введённая координата.
      */
     public static Integer askCoordX() {
+        ConsoleManager.println("Введите координату x.");
         ConsoleManager.println("Координата x должна быть числом типа Integer.");
         String xString = ConsoleManager.askObject();
         Integer x;
@@ -67,6 +68,7 @@ public class Coordinates {
      * @return введённая координата.
      */
     public static long askCoordY() {
+        ConsoleManager.println("Введите координату y.");
         ConsoleManager.println("Координата y должна быть числом типа long, большим чем -973.");
         String yString = ConsoleManager.askObject();
         long y;
