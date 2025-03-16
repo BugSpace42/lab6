@@ -27,7 +27,7 @@ public class RemoveAnyByBestAlbum extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
-        Album album = runner.consoleManager.askAlbum();
+        Album album = Album.askAlbum();
 
         // ссылка на коллекцию, которую будем изменять
         HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();

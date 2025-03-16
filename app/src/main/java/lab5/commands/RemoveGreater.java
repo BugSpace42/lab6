@@ -25,7 +25,7 @@ public class RemoveGreater extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
-        MusicBand musicBand = runner.consoleManager.askMusicBand();
+        MusicBand musicBand = MusicBand.askMusicBand();
 
         // ссылка на коллекцию
         HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();

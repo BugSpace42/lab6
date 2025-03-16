@@ -38,7 +38,7 @@ public class Update extends Command{
             runner.consoleManager.printError("В коллекции нет элемента с id " + id);
             return ExitCode.ERROR;
         }
-        MusicBand element = runner.consoleManager.askMusicBand();
+        MusicBand element = MusicBand.askMusicBand();
         runner.collectionManager.updateElementById(id, element);
         return ExitCode.OK;
     }

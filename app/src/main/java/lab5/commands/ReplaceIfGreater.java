@@ -35,7 +35,7 @@ public class ReplaceIfGreater extends Command{
             runner.consoleManager.printError("В коллекции нет элемента с ключом " + key);
             return ExitCode.ERROR;
         }
-        MusicBand musicBand = runner.consoleManager.askMusicBand();
+        MusicBand musicBand = MusicBand.askMusicBand();
 
         // ссылка на коллекцию
         HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
