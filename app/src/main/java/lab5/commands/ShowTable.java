@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.Map;
 
 import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.asciithemes.u8.U8_Grids;
 import lab5.entity.MusicBand;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
@@ -27,7 +28,8 @@ public class ShowTable extends Command {
     public Runner.ExitCode execute(String[] args) {
         AsciiTable table = new AsciiTable();
         table.addRule();
-        table.addRow("id", "название", "x", "y", "дата создания", "кол-во участников", "жанр", "название альбома", "продажи альбома");
+        table.addRow("id", "название", "x", "y", "дата создания", "дата создания", 
+                    "кол-во участников", "жанр", "название альбома", "продажи альбома");
         table.addRule();
         for (Map.Entry<Integer, MusicBand> elem : runner.collectionManager.getCollection().entrySet()) {
             MusicBand musicBand = elem.getValue();
@@ -52,11 +54,12 @@ public class ShowTable extends Command {
             }
 
             table.addRow(musicBand.getId(), musicBand.getName(), musicBand.getCoordinates().getX(), musicBand.getCoordinates().getY(),
-                        musicBand.getCreationDate(), musicBand.getNumberOfParticipants(), genre, albumName, albumSales);
+                        null, musicBand.getCreationDate(), musicBand.getNumberOfParticipants(), genre, albumName, albumSales);
             
             table.addRule();
         }
-        String rend = table.render();
+        table.getContext().setGrid(U8_Grids.borderDouble());
+        String rend = table.render(120);
         ConsoleManager.println(rend);
         return Runner.ExitCode.OK;
     }
