@@ -34,7 +34,7 @@ public class Insert extends Command{
             return ExitCode.ERROR;
         }
         
-        MusicBand element = runner.consoleManager.askMusicBand();
+        MusicBand element = MusicBand.askMusicBand();
         runner.collectionManager.addToCollection(key, element);
         return ExitCode.OK;
     }

@@ -1,5 +1,10 @@
 package lab5.entity;
 
+import lab5.managers.ConsoleManager;
+import lab5.utility.builders.AlbumBuilder;
+import lab5.utility.validators.AlbumNameValidator;
+import lab5.utility.validators.AlbumSalesValidator;
+
 /**
  * Класс альбома.
  * @author Alina
@@ -18,20 +23,72 @@ public class Album implements Comparable<Album>{
         this.sales = sales;
     }
 
+    
     /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
+     * Запрашивает у пользователя название музыкального альбома.
+     * @return введённое название музыкального альбома.
      */
-    public static String askNameString() {
-        return "Введите название альбома: ";
+    public static String askAlbumName() {
+        String name = ConsoleManager.askObject();
+        AlbumNameValidator validator = new AlbumNameValidator();
+        if (validator.validate(name)) {
+            return name;
+        }
+        else {
+            ConsoleManager.println("Введено некорректное название музыкального альбома.");
+            ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
+            ConsoleManager.println("Попробуйте снова.");
+            // запрашиваем у пользователя данные, пока не введёт подходящие
+            name = askAlbumName();
+        }
+        return name;
     }
 
     /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
+     * Запрашивает у пользователя продажи музыкального альбома.
+     * @return введённые продажи музыкального альбома.
      */
-    public static String askSalesString() {
-        return "Введите продажи альбома: ";
+    public static Double askAlbumSales() {
+        String salesString = ConsoleManager.askObject();
+        Double sales;
+        AlbumSalesValidator validator = new AlbumSalesValidator();
+        try {
+            sales = Double.valueOf(salesString);
+        } catch (NumberFormatException e) {
+            ConsoleManager.println("Введённая строка не является числом типа Double.");
+            ConsoleManager.println("Попробуйте снова.");
+            sales = askAlbumSales();
+        }
+        if (validator.validate(sales)) {
+            return sales;
+        }
+        else {
+            ConsoleManager.println("Введено некорректные продажи музыкального альбома.");
+            ConsoleManager.println("Попробуйте снова.");
+            // запрашиваем у пользователя данные, пока не введёт подходящие
+            sales = askAlbumSales();
+        }
+        return sales;
+    }
+
+    /**
+     * Запрашивает у пользователя объект класса Album.
+     * @return введённый объект класса Album
+     */
+    public static Album askAlbum() {
+        ConsoleManager.print("Есть ли у группы лучший альбом? (y/n) ");
+        String answer = ConsoleManager.readObject();
+        switch (answer) {
+            case "y" -> {}
+            default -> {
+                // нет лучшего альбома
+                return null;
+            }
+        }
+        String name = askAlbumName();
+        Double sales = askAlbumSales();
+        Album album = AlbumBuilder.build(name, sales);
+        return album;
     }
 
     public String getName() {

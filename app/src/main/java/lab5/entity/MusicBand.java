@@ -1,5 +1,10 @@
 package lab5.entity;
 
+import lab5.managers.ConsoleManager;
+import lab5.utility.builders.MusicBandBuilder;
+import lab5.utility.validators.MusicBandNameValidator;
+import lab5.utility.validators.MusicBandNumberValidator;
+
 /**
  * Класс музыкальной группы.
  * @author Alina
@@ -32,6 +37,68 @@ public class MusicBand implements Comparable<MusicBand>{
         this.numberOfParticipants=numberOfParticipants;
         this.genre=genre;
         this.bestAlbum=bestAlbum;
+    }
+    
+    /**
+     * Запрашивает у пользователя название музыкальной группы.
+     * @return введённое название музыкальной группы.
+     */
+    public static String askMusicBandName() {
+        String name = ConsoleManager.askObject();
+        MusicBandNameValidator validator = new MusicBandNameValidator();
+        if (validator.validate(name)) {
+            return name;
+        }
+        else {
+            ConsoleManager.println("Введено некорректное название музыкальной группы.");
+            ConsoleManager.println("Название музыкальной группы не должно быть пустым и не должно содержать кавычки.");
+            ConsoleManager.println("Попробуйте снова.");
+            // запрашиваем у пользователя данные, пока не введёт подходящие
+            name = askMusicBandName();
+        }
+        return name;
+    }
+
+    /**
+     * Запрашивает у пользователя количество участников музыкальной группы.
+     * @return введённое количество участников музыкальной группы.
+     */
+    public static Integer askMusicBandNumber() {
+        Integer numberOfParticipants;
+        String numberSrting = ConsoleManager.askObject();
+        MusicBandNumberValidator validator = new MusicBandNumberValidator();
+        try {
+            numberOfParticipants = Integer.valueOf(numberSrting);
+        } catch (NumberFormatException e) {
+            ConsoleManager.println("Введённая строка не является числом типа Integer.");
+            ConsoleManager.println("Попробуйте снова.");
+            numberOfParticipants = askMusicBandNumber();
+        }
+        if (validator.validate(numberOfParticipants)) {
+            return numberOfParticipants;
+        }
+        else {
+            ConsoleManager.println("Введено некорректное количество участников музыкальной группы.");
+            ConsoleManager.println("Попробуйте снова.");
+            // запрашиваем у пользователя данные, пока не введёт подходящие
+            numberOfParticipants = askMusicBandNumber();
+        }
+        return numberOfParticipants;
+    }
+
+    /**
+     * Запрашивает у пользователя объект класса MusicBand.
+     * @return введённый объект класса MusicBand
+     */
+    public static MusicBand askMusicBand() {
+        String name = askMusicBandName();
+        Coordinates coordinates = Coordinates.askCoordinates();
+        Integer numberOfParticipants = askMusicBandNumber();
+        MusicGenre genre = MusicGenre.askMusicGenre();
+        Album bestAlbum = Album.askAlbum();
+
+        MusicBand musicBand = MusicBandBuilder.build(name, coordinates, numberOfParticipants, genre, bestAlbum);
+        return musicBand;
     }
 
     /**
@@ -81,62 +148,6 @@ public class MusicBand implements Comparable<MusicBand>{
      */
     public Album getBestAlbum() {
         return bestAlbum;
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askIdString() {
-        return "Введите ID музыкальной группы: ";
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askNameString() {
-        return "Введите название музыкальной группы: ";
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askCoordinatesString() {
-        return "Введите местоположение музыкальной группы: ";
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askCreationDateString() {
-        return "Введите дату создания объекта класса: ";
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askNumberOfParticipantsString() {
-        return "Введите количество участников музыкальной группы:";
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askGenreString() {
-        return "Введите жанр музыкальной группы: ";
-    }
-
-    /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
-     */
-    public static String askBestAlbumString() {
-        return "Введите лучший альбом музыкальной группы: ";
     }
 
     /**

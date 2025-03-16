@@ -79,14 +79,29 @@ public class Runner {
                     }
                 }
             }
+            else {
+                switch (exitCode) {
+                    case OK -> {
+                        consoleManager.println("Команда " + userCommand[0] + " выполнена.");
+                        commandManager.addToHistory(userCommand[0]);
+                    }
+                    case ERROR -> {
+                        consoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
+                        consoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
+                    }
+                    case EXIT -> {
+                        consoleManager.println("Получена команда выхода из программы.");
+                        consoleManager.println("Завершение работы программы.");
+                        running = false;
+                    }
+                }
+            }
         } catch (UnknownCommandException e) {
             if (currentMode == RunningMode.INTERACTIVE) {
                 consoleManager.printError(e.getMessage());
                 consoleManager.println("Для получения списка команд введите \"help\".");
             }
-        } catch (TooManyArgumentsException e) {
-            consoleManager.printError(e.getMessage());
-        } catch (TooFewArgumentsException e) {
+        } catch (TooManyArgumentsException | TooFewArgumentsException e) {
             consoleManager.printError(e.getMessage());
         }
     }

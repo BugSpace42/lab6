@@ -1,5 +1,10 @@
 package lab5.entity;
 
+import lab5.managers.ConsoleManager;
+import lab5.utility.builders.CoordinatesBuilder;
+import lab5.utility.validators.CoordXValidator;
+import lab5.utility.validators.CoordYValidator;
+
 /**
  * Класс координат.
  * @author Alina
@@ -19,19 +24,70 @@ public class Coordinates {
     }
 
     /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
+     * Запрашивает у пользователя объект класса Coordinates.
+     * @return введённый объект класса Coordinates
      */
-    public static String askXString() {
-        return "Введите первую координату (x): ";
+    public static Coordinates askCoordinates() {
+        Integer x = askCoordX();
+        long y = askCoordY();
+        Coordinates coordinates = CoordinatesBuilder.build(x, y);
+        return coordinates;
     }
 
     /**
-     * Возвращает строку для запроса поля у пользователя. 
-     * @return строка для запроса поля у пользователя
+     * Запрашивает у пользователя координату x.
+     * @return введённая координата.
      */
-    public static String askYString() {
-        return "Введите вторую координату (y): ";
+    public static Integer askCoordX() {
+        ConsoleManager.println("Координата x должна быть числом типа Integer.");
+        String xString = ConsoleManager.askObject();
+        Integer x;
+        CoordXValidator validator = new CoordXValidator();
+        try {
+            x = Integer.valueOf(xString);
+        } catch (NumberFormatException e) {
+            ConsoleManager.println("Введённая строка не является числом типа Integer.");
+            ConsoleManager.println("Попробуйте снова.");
+            x = askCoordX();
+        }
+        if (validator.validate(x)) {
+            return x;
+        }
+        else {
+            ConsoleManager.println("Введена некорректная координата.");
+            ConsoleManager.println("Попробуйте снова.");
+            // запрашиваем у пользователя данные, пока не введёт подходящие
+            x = askCoordX();
+        }
+        return x;
+    }
+
+    /**
+     * Запрашивает у пользователя координату y.
+     * @return введённая координата.
+     */
+    public static long askCoordY() {
+        ConsoleManager.println("Координата y должна быть числом типа long, большим чем -973.");
+        String yString = ConsoleManager.askObject();
+        long y;
+        CoordYValidator validator = new CoordYValidator();
+        try {
+            y = Long.parseLong(yString);
+        } catch (NumberFormatException e) {
+            ConsoleManager.println("Введённая строка не является числом типа long.");
+            ConsoleManager.println("Попробуйте снова.");
+            y = askCoordY();
+        }
+        if (validator.validate(y)) {
+            return y;
+        }
+        else {
+            ConsoleManager.println("Введена некорректная координата.");
+            ConsoleManager.println("Попробуйте снова.");
+            // запрашиваем у пользователя данные, пока не введёт подходящие
+            y = askCoordY();
+        }
+        return y;
     }
 
     public Integer getX() {

@@ -1,7 +1,5 @@
 package lab5;
 
-import java.util.Scanner;
-
 import lab5.commands.Clear;
 import lab5.commands.ExecuteScript;
 import lab5.commands.Exit;
@@ -22,12 +20,11 @@ import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
 import lab5.managers.FileManager;
 import lab5.utility.Runner;
-import lab5.utility.StandardConsole;
 
 public class Main {
     public static void main(String[] args) {
         CommandManager commandManager = new CommandManager();
-        ConsoleManager consoleManager = new ConsoleManager(new StandardConsole(), new Scanner(System.in, "Cp866"));
+        ConsoleManager consoleManager = new ConsoleManager();
         String defaultFilePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.csv";
         
         String filePath;
