@@ -26,11 +26,11 @@ public class Main {
     public static void main(String[] args) {
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager();
-        String defaultFilePath = "d:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\table.csv";
+        String defaultFilePath = "D:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\lab5\\app\\src\\test\\resources\\table.csv";
         String filePath;
         if (args.length == 0) {
-            consoleManager.println("Внимание! Не введено название файла с загружаемой коллекцией.");
-            consoleManager.println("Будет загружена коллекция по умолчанию из файла " + defaultFilePath);
+            ConsoleManager.println("Внимание! Не введено название файла с загружаемой коллекцией.");
+            ConsoleManager.println("Будет загружена коллекция по умолчанию из файла " + defaultFilePath);
             filePath = defaultFilePath;
         }
         else {

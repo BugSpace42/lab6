@@ -113,16 +113,16 @@ public class ConsoleManager {
      * Заменяет информацию о консоли.
      * @param console новая консоль
      */
-    public void setConsole(Console console) {
-        this.console = console;
+    public static void setConsole(Console console) {
+        ConsoleManager.console = console;
     }
 
     /**
      * Заменяет информацию о сканере.
      * @param scanner новый сканер
      */
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
+    public static void setScanner(Scanner scanner) {
+        ConsoleManager.scanner = scanner;
     }
 
     /**

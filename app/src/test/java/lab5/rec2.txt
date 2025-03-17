@@ -1,0 +1,2 @@
+show
+execute_script D:\Users\Alina\Desktop\ITMO\Программирование\Лаба 5\test\rec3.txt
