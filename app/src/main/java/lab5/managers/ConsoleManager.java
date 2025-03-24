@@ -1,5 +1,6 @@
 package lab5.managers;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import lab5.utility.Console;
@@ -52,11 +53,10 @@ public class ConsoleManager {
     public static String[] askCommand() {
         console.println("Введите команду: ");
         console.print("> ");
-        if (scanner.hasNext()) {
+        try {
             String [] text = scanner.nextLine().trim().split(" ");
             return text;
-        }
-        else {
+        } catch (NoSuchElementException e) {
             println("Обнаружен конец потока.");
             return null;
         }
@@ -69,11 +69,10 @@ public class ConsoleManager {
      */
     public static String askObject() {
         console.print("> ");
-        if (scanner.hasNext()) {
+        try {
             String text = scanner.nextLine().trim();
             return text;
-        }
-        else {
+        } catch (NoSuchElementException e) {
             println("Обнаружен конец потока.");
             return null;
         }
@@ -84,11 +83,10 @@ public class ConsoleManager {
      * @return список, состоящий из названия команды и аргументов
      */
     public static String[] readCommand() {
-        if (scanner.hasNext()) {
+        try {
             String [] text = scanner.nextLine().trim().split(" ");
             return text;
-        }
-        else {
+        } catch (NoSuchElementException e) {
             println("Обнаружен конец потока.");
             return null;
         }
@@ -99,11 +97,10 @@ public class ConsoleManager {
      * @return считанная строка
      */
     public static String readObject() {
-        if (scanner.hasNext()) {
+        try {
             String text = scanner.nextLine().trim();
             return text;
-        }
-        else {
+        } catch (NoSuchElementException e) {
             println("Обнаружен конец потока.");
             return null;
         }
