@@ -65,16 +65,16 @@ public class Runner {
             if (currentMode == RunningMode.INTERACTIVE) {
                 switch (exitCode) {
                     case OK -> {
-                        consoleManager.println("Команда " + userCommand[0] + " выполнена.");
+                        ConsoleManager.println("Команда " + userCommand[0] + " выполнена.");
                         commandManager.addToHistory(userCommand[0]);
                     }
                     case ERROR -> {
-                        consoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
-                        consoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
+                        ConsoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
+                        ConsoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
                     }
                     case EXIT -> {
-                        consoleManager.println("Получена команда выхода из программы.");
-                        consoleManager.println("Завершение работы программы.");
+                        ConsoleManager.println("Получена команда выхода из программы.");
+                        ConsoleManager.println("Завершение работы программы.");
                         running = false;
                     }
                 }
@@ -82,27 +82,27 @@ public class Runner {
             else {
                 switch (exitCode) {
                     case OK -> {
-                        consoleManager.println("Команда " + userCommand[0] + " выполнена.");
+                        ConsoleManager.println("Команда " + userCommand[0] + " выполнена.");
                         commandManager.addToHistory(userCommand[0]);
                     }
                     case ERROR -> {
-                        consoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
-                        consoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
+                        ConsoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
+                        ConsoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
                     }
                     case EXIT -> {
-                        consoleManager.println("Получена команда выхода из программы.");
-                        consoleManager.println("Завершение работы программы.");
+                        ConsoleManager.println("Получена команда выхода из программы.");
+                        ConsoleManager.println("Завершение работы программы.");
                         running = false;
                     }
                 }
             }
         } catch (UnknownCommandException e) {
             if (currentMode == RunningMode.INTERACTIVE) {
-                consoleManager.printError(e.getMessage());
-                consoleManager.println("Для получения списка команд введите \"help\".");
+                ConsoleManager.printError(e.getMessage());
+                ConsoleManager.println("Для получения списка команд введите \"help\".");
             }
         } catch (TooManyArgumentsException | TooFewArgumentsException e) {
-            consoleManager.printError(e.getMessage());
+            ConsoleManager.printError(e.getMessage());
         }
     }
 
@@ -120,26 +120,26 @@ public class Runner {
         running = true;
         currentMode = RunningMode.INTERACTIVE;
         if (!fileManager.isFileExist(fileManager.getCollectionFileName())) {
-            consoleManager.printError("Не найден файл " + fileManager.getCollectionFileName());
-            consoleManager.println("Создана пустая коллекция.");
+            ConsoleManager.printError("Не найден файл " + fileManager.getCollectionFileName());
+            ConsoleManager.println("Создана пустая коллекция.");
         }
         else {
             try {
                 collectionManager = new CollectionManager(fileManager.readCollection());
             } catch (IOException e) {
-                consoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFileName());
-                consoleManager.println("Создана пустая коллекция.");
+                ConsoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFileName());
+                ConsoleManager.println("Создана пустая коллекция.");
             }
         }
-        consoleManager.greeting();
+        ConsoleManager.greeting();
 
         while(running) {
-            String[] currenrCommand = consoleManager.readCommand();
+            String[] currenrCommand = ConsoleManager.askCommand();
             if (currenrCommand != null) {
                 launchCommand(currenrCommand);
             }
             else {
-                consoleManager.println("Завершение работы программы.");
+                ConsoleManager.println("Завершение работы программы.");
                 running = false;
             }
         }

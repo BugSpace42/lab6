@@ -25,10 +25,10 @@ public class ParserCSV {
      * @return полученная коллекция
      */
     public static HashMap<Integer, MusicBand> parseFromCSV(List<String> fileLines) {
-        HashMap<Integer, MusicBand> collection = new HashMap<Integer, MusicBand>();
-        for (String fileLine : fileLines) {
+        HashMap<Integer, MusicBand> collection = new HashMap<>();
+        for (String fileLine : fileLines.subList(1, fileLines.size())) {
             String[] splitedText = fileLine.split(",");
-            LinkedList<String> columnList = new LinkedList<String>();
+            LinkedList<String> columnList = new LinkedList<>();
             for (String column : splitedText) {
                 if (columnList.isEmpty()) {
                     columnList.add(column);
@@ -82,6 +82,8 @@ public class ParserCSV {
      */
     public static List<String> parseToCSV(HashMap<Integer, MusicBand> collection) {
         List<String> fileLines = new ArrayList<>();
+        String title = "\"key\",\"id\",\"name\",\"x\",\"y\",\"creationDate\",\"numberOfParticipants\",\"isGenre\",\"genre\",\"isBestAlbum\",\"albumName\",\"albumSales\"";
+        fileLines.add(title);
         for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             Integer key = entry.getKey();
             MusicBand musicBand = entry.getValue();

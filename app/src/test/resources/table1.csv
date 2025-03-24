@@ -1,0 +1,5 @@
+"key","id","name","x","y","creationDate","numberOfParticipants","isGenre","genre","isBestAlbum","albumName","albumSales"
+"-100","3","music band","0","0","1212121212123","25","false","","false","",""
+"4","2","232094853","-24","3","1212121212122","10","false","","false","",""
+"34567","1","FirstBand","12345","876543","1212121212121","1","false","","false","",""
+"2025","4","группа","1","2","1212121212124","2025","false","","false","",""

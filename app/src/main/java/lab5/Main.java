@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) {
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager();
-        String defaultFilePath = "D:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\lab5\\app\\src\\test\\resources\\table.csv";
+        String defaultFilePath = "D:\\Users\\Alina\\Desktop\\ITMO\\Программирование\\Лаба 5\\lab5\\app\\src\\test\\resources\\table1.csv";
         String filePath;
         if (args.length == 0) {
             ConsoleManager.println("Внимание! Не введено название файла с загружаемой коллекцией.");
