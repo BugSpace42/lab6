@@ -1,6 +1,7 @@
-package lab5.utility.validators;
+package lab5.utility.validators.musicband.bestalbum;
 
 import lab5.entity.Album;
+import lab5.utility.validators.Validator;
 
 /**
  * Отвечает за правильность данных, введённных пользователем.

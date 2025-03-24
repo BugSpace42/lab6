@@ -2,8 +2,8 @@ package lab5.entity;
 
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.MusicBandBuilder;
-import lab5.utility.validators.MusicBandNameValidator;
-import lab5.utility.validators.MusicBandNumberValidator;
+import lab5.utility.validators.musicband.NameValidator;
+import lab5.utility.validators.musicband.NumberOfParticipantsValidator;
 
 /**
  * Класс музыкальной группы.
@@ -47,7 +47,7 @@ public class MusicBand implements Comparable<MusicBand>{
         ConsoleManager.println("Введите название музыкальной группы.");
         ConsoleManager.println("Название музыкальной группы не должно быть пустым и не должно содержать кавычки.");
         String name = ConsoleManager.askObject();
-        MusicBandNameValidator validator = new MusicBandNameValidator();
+        NameValidator validator = new NameValidator();
         if (validator.validate(name)) {
             return name;
         }
@@ -70,7 +70,7 @@ public class MusicBand implements Comparable<MusicBand>{
         ConsoleManager.println("Количество участников музыкальной группы должно быть числом типа Integer, большим чем 0.");
         Integer numberOfParticipants;
         String numberSrting = ConsoleManager.askObject();
-        MusicBandNumberValidator validator = new MusicBandNumberValidator();
+        NumberOfParticipantsValidator validator = new NumberOfParticipantsValidator();
         try {
             numberOfParticipants = Integer.valueOf(numberSrting);
         } catch (NumberFormatException e) {

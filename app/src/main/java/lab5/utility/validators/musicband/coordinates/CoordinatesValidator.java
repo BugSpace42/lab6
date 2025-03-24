@@ -1,6 +1,7 @@
-package lab5.utility.validators;
+package lab5.utility.validators.musicband.coordinates;
 
 import lab5.entity.Coordinates;
+import lab5.utility.validators.Validator;
 
 /**
  * Проверка корректности координат.

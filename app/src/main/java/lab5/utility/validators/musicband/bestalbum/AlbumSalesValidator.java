@@ -1,4 +1,4 @@
-package lab5.utility.validators;
+package lab5.utility.validators.musicband.bestalbum;
 
 /**
  * Проверка корректности продаж альбома.

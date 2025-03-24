@@ -2,8 +2,8 @@ package lab5.entity;
 
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
-import lab5.utility.validators.AlbumNameValidator;
-import lab5.utility.validators.AlbumSalesValidator;
+import lab5.utility.validators.musicband.bestalbum.AlbumNameValidator;
+import lab5.utility.validators.musicband.bestalbum.AlbumSalesValidator;
 
 /**
  * Класс альбома.

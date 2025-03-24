@@ -1,10 +1,12 @@
-package lab5.utility.validators;
+package lab5.utility.validators.musicband;
+
+import lab5.utility.validators.Validator;
 
 /**
- * Проверка корректности названия альбома.
+ * Проверка корректности названия музыкальной группы.
  * @author Alina
  */
-public class AlbumNameValidator implements Validator<String>{
+public class NameValidator implements Validator<String>{
     @Override
     public boolean validate(String name) {
         if (name.isEmpty()) {

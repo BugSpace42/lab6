@@ -43,6 +43,13 @@ public class Runner {
         SCRIPT
     }
 
+    public Runner(CommandManager commandManager, ConsoleManager consoleManager, FileManager fileManager) {
+        this.commandManager = commandManager;
+        this.consoleManager = consoleManager;
+        this.fileManager = fileManager;
+        this.commands = commandManager.getCommands();
+    }
+
     /**
      * Запускает команду, которую ввёл пользователь.
      * @param userCommand команда
@@ -104,13 +111,6 @@ public class Runner {
         } catch (TooManyArgumentsException | TooFewArgumentsException e) {
             ConsoleManager.printError(e.getMessage());
         }
-    }
-
-    public Runner(CommandManager commandManager, ConsoleManager consoleManager, FileManager fileManager) {
-        this.commandManager = commandManager;
-        this.consoleManager = consoleManager;
-        this.fileManager = fileManager;
-        this.commands = commandManager.getCommands();
     }
 
     /**

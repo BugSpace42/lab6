@@ -2,8 +2,8 @@ package lab5.entity;
 
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.CoordinatesBuilder;
-import lab5.utility.validators.CoordXValidator;
-import lab5.utility.validators.CoordYValidator;
+import lab5.utility.validators.musicband.coordinates.CoordXValidator;
+import lab5.utility.validators.musicband.coordinates.CoordYValidator;
 
 /**
  * Класс координат.

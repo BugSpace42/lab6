@@ -1,10 +1,12 @@
-package lab5.utility.validators;
+package lab5.utility.validators.musicband;
+
+import lab5.utility.validators.Validator;
 
 /**
  * Проверка корректности количества участников музыкальной группы.
  * @author Alina
  */
-public class MusicBandNumberValidator  implements Validator<Integer>{
+public class NumberOfParticipantsValidator  implements Validator<Integer>{
     @Override
     public boolean validate(Integer numberOfParticipants) {
         if (numberOfParticipants <= 0) {
