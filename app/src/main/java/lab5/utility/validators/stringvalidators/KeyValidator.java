@@ -10,6 +10,7 @@ public class KeyValidator implements Validator<String>{
     @Override
     public boolean validate(String keyString) {
         try {
+            @SuppressWarnings("unused")
             Integer key = Integer.valueOf(keyString);
             return true;
         } catch (NumberFormatException e) {

@@ -6,10 +6,11 @@ import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
 
 /**
- *
+ * Завершает программу без сохранения в файл.
  * @author Alina
  */
 public class Exit extends Command{
+    @SuppressWarnings("unused")
     private final Runner runner;
 
     public Exit(Runner runner) {
