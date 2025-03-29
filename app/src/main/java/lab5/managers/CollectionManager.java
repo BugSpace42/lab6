@@ -74,6 +74,14 @@ public class CollectionManager {
     public Date getInitDate() {
         return initDate;
     }
+
+    /**
+     * Задаёт новое значение полю коллекции.
+     * @param collection новая коллекция.
+     */
+    public void setCollection(HashMap<Integer, MusicBand> collection) {
+        CollectionManager.collection = collection;
+    }
     
     /**
      * Возвращает строковое представление коллекции.

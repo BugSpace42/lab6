@@ -1,12 +1,14 @@
 package lab5.utility;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
 import lab5.exceptions.TooFewArgumentsException;
 import lab5.exceptions.TooManyArgumentsException;
 import lab5.exceptions.UnknownCommandException;
+import lab5.exceptions.WrongValueException;
 import lab5.managers.CollectionManager;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
@@ -129,6 +131,12 @@ public class Runner {
             } catch (IOException e) {
                 ConsoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFileName());
                 ConsoleManager.println("Создана пустая коллекция.");
+                collectionManager = new CollectionManager(new HashMap<>());
+            } catch (WrongValueException e) {
+                ConsoleManager.printError("В файле " + fileManager.getCollectionFileName() + " обнаружены некорректные значения.");
+                ConsoleManager.printError(e.getMessage());
+                ConsoleManager.println("Создана пустая коллекция.");
+                collectionManager = new CollectionManager(new HashMap<>());
             }
         }
         ConsoleManager.greeting();

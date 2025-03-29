@@ -1,10 +1,13 @@
 package lab5.utility.validators.musicband;
 
+import lab5.utility.validators.Validator;
+
 /**
  * Проверка корректности ID музыкальной группы.
  * @author Alina
  */
-public class IdValidator {
+public class IdValidator implements Validator<Long>{
+    @Override
     public boolean validate(Long id) {
         if (id <= 0) {
             // значение поля должно быть больше 0
