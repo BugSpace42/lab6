@@ -12,14 +12,15 @@ import lab5.entity.Coordinates;
 import lab5.entity.MusicBand;
 import lab5.entity.MusicGenre;
 import lab5.exceptions.WrongValueException;
+import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.builders.CoordinatesBuilder;
-import lab5.utility.validators.stringvalidators.musicband.NumberOfParticipantsValidator;
-import lab5.utility.validators.stringvalidators.musicband.bestalbum.AlbumNameValidator;
 import lab5.utility.validators.stringvalidators.KeyValidator;
 import lab5.utility.validators.stringvalidators.musicband.CreationDateValidator;
 import lab5.utility.validators.stringvalidators.musicband.IdValidator;
 import lab5.utility.validators.stringvalidators.musicband.NameValidator;
+import lab5.utility.validators.stringvalidators.musicband.NumberOfParticipantsValidator;
+import lab5.utility.validators.stringvalidators.musicband.bestalbum.AlbumNameValidator;
 import lab5.utility.validators.stringvalidators.musicband.coordinates.CoordXValidator;
 import lab5.utility.validators.stringvalidators.musicband.coordinates.CoordYValidator;
 
@@ -33,121 +34,139 @@ public class ParserCSV {
      * @param fileLines строки файла в формате csv
      * @return полученная коллекция
      */
-    public static HashMap<Integer, MusicBand> parseFromCSV(List<String> fileLines) throws WrongValueException {
+    public static HashMap<Integer, MusicBand> parseFromCSV(List<String> fileLines) {
         HashMap<Integer, MusicBand> collection = new HashMap<>();
         if (fileLines.size() < 2) {
             return collection;
         }
-        for (String fileLine : fileLines.subList(1, fileLines.size())) {
-            String[] splitedText = fileLine.split(",");
-            LinkedList<String> columnList = new LinkedList<>();
-            for (String column : splitedText) {
-                if (columnList.isEmpty()) {
+        int numberOfColumns = fileLines.get(0).split(",").length;
+        // пробегаемся с 1, т.к. строка 0 это заголовок
+        for (int fileLineIndex = 1; fileLineIndex < fileLines.size(); fileLineIndex++) {
+            try {
+                String fileLine = fileLines.get(fileLineIndex);
+                String[] splitedText = fileLine.split(",");
+                LinkedList<String> columnList = new LinkedList<>();
+                for (String column : splitedText) {
+                    if (columnList.isEmpty()) {
+                        columnList.add(column);
+                        continue;
+                    }
+                    // Если последний добавленный столбец не полностью в кавычках, то добавляем к нему этот 
+                    String lastColumn = columnList.getLast();
+                    if (isColumnPart(lastColumn)) {
+                        String newColumn = lastColumn + "," + column;
+                        columnList.removeLast();
+                        columnList.add(newColumn);
+                        continue;
+                    }
                     columnList.add(column);
-                    continue;
                 }
-                // Если последний добавленный столбец не полностью в кавычках, то добавляем к нему этот 
-                String lastColumn = columnList.getLast();
-                if (isColumnPart(lastColumn)) {
-                    String newColumn = lastColumn + "," + column;
-                    columnList.removeLast();
-                    columnList.add(newColumn);
-                    continue;
+
+                if (columnList.size() != numberOfColumns) {
+                    // если количество столбцов в текцщей строке не равно правильному количеству, то 
+                    // пропускаем эту строку или
+                    // выкидываем исключение и после его обрабатываем
+                    // continue;
+                    throw new WrongValueException("В строке " + fileLineIndex +  " уканано неверное количество аргументов. Ожидалось: " + 
+                    numberOfColumns + ". Получено: " + columnList.size());
                 }
-                columnList.add(column);
-            }
 
-            Integer key;
-            if (new KeyValidator().validate(getText(columnList.get(0)))) {
-                key = Integer.valueOf(getText(columnList.get(0)));
-            }
-            else {
-                throw new WrongValueException("Указан неверный ключ музыкальной группы.");
-            }
+                Integer key;
+                if (new KeyValidator().validate(getText(columnList.get(0)))) {
+                    key = Integer.valueOf(getText(columnList.get(0)));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный ключ музыкальной группы.");
+                }
 
-            Long id;
-            if (new IdValidator().validate(getText(columnList.get(1)))) {
-                id = Long.valueOf(getText(columnList.get(1)));
-            }
-            else {
-                throw new WrongValueException("Указан неверный id музыкальной группы.");
-            }
+                Long id;
+                if (new IdValidator().validate(getText(columnList.get(1)))) {
+                    id = Long.valueOf(getText(columnList.get(1)));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный id музыкальной группы.");
+                }
 
-            String name;
-            if (new NameValidator().validate(getText(columnList.get(2)))) {
-                name = getText(columnList.get(2));
-            }
-            else {
-                throw new WrongValueException("Указано неверное название музыкальной группы.");
-            }
+                String name;
+                if (new NameValidator().validate(getText(columnList.get(2)))) {
+                    name = getText(columnList.get(2));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное название музыкальной группы.");
+                }
 
-            Integer x;
-            if (new CoordXValidator().validate(getText(columnList.get(3)))) {
-                x = Integer.valueOf(getText(columnList.get(3)));
-            }
-            else {
-                throw new WrongValueException("Указана неверная координата x музыкальной группы.");
-            }
+                Integer x;
+                if (new CoordXValidator().validate(getText(columnList.get(3)))) {
+                    x = Integer.valueOf(getText(columnList.get(3)));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная координата x музыкальной группы.");
+                }
 
-            long y;
-            if (new CoordYValidator().validate(getText(columnList.get(4)))) {
-                y = Long.parseLong(getText(columnList.get(4)));
-            }
-            else {
-                throw new WrongValueException("Указана неверная координата x музыкальной группы.");
-            }
+                long y;
+                if (new CoordYValidator().validate(getText(columnList.get(4)))) {
+                    y = Long.parseLong(getText(columnList.get(4)));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная координата x музыкальной группы.");
+                }
 
-            java.util.Date creationDate;
-            if (new CreationDateValidator().validate(getText(columnList.get(5)))) {
-                creationDate = new Date(Long.parseLong(getText(columnList.get(5))));
-            }
-            else {
-                throw new WrongValueException("Указана неверная дата создания элемента класса MusicBand.");
-            }
+                java.util.Date creationDate;
+                if (new CreationDateValidator().validate(getText(columnList.get(5)))) {
+                    creationDate = new Date(Long.parseLong(getText(columnList.get(5))));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная дата создания элемента класса MusicBand.");
+                }
 
-            Integer numberOfParticipants;
-            if (new NumberOfParticipantsValidator().validate(getText(columnList.get(6)))) {
-                numberOfParticipants = Integer.valueOf(getText(columnList.get(6)));
-            }
-            else {
-                throw new WrongValueException("Указано неверное количество участников музыкальной группы.");
+                Integer numberOfParticipants;
+                if (new NumberOfParticipantsValidator().validate(getText(columnList.get(6)))) {
+                    numberOfParticipants = Integer.valueOf(getText(columnList.get(6)));
+                }
+                else {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное количество участников музыкальной группы.");
+                }
+                
+                Coordinates coordinates = CoordinatesBuilder.build(x, y);
+                MusicGenre genre;
+                Album bestAlbum;
+                if ("true".equals(getText(columnList.get(7)))) {
+                    try {
+                        genre = MusicGenre.valueOf(getText(columnList.get(8)));
+                    } catch (IllegalArgumentException e) {
+                        throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный жанр музыкальной группы.");
+                    }
+                }
+                else {
+                    genre = null;
+                }
+                if ("true".equals(getText(columnList.get(9)))) {
+                    String bestAlbumName;
+                    if (new AlbumNameValidator().validate(getText(columnList.get(10)))) {
+                        bestAlbumName = getText(columnList.get(10));
+                    }
+                    else {
+                        throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное название музыкального альбома.");
+                    }
+                    Double bestAlbumSales;
+                    if (new AlbumNameValidator().validate(getText(columnList.get(11)))) {
+                        bestAlbumSales = Double.valueOf(getText(columnList.get(11)));
+                    }
+                    else {
+                        throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное число продаж музыкального альбома.");
+                    }
+                    bestAlbum = AlbumBuilder.build(bestAlbumName, bestAlbumSales);
+                }
+                else {
+                    bestAlbum = null;
+                }
+                MusicBand musicBand = new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
+                collection.put(key, musicBand);
+            } catch (WrongValueException e) {
+                ConsoleManager.printError(e.getMessage());
+                ConsoleManager.println("Строка с ошибкой пропущена.");
             }
             
-            Coordinates coordinates = CoordinatesBuilder.build(x, y);
-            MusicGenre genre;
-            Album bestAlbum;
-            if ("true".equals(getText(columnList.get(7)))) {
-                try {
-                    genre = MusicGenre.valueOf(getText(columnList.get(8)));
-                } catch (IllegalArgumentException e) {
-                    throw new WrongValueException("Указан неверный жанр музыкальной группы.");
-                }
-            }
-            else {
-                genre = null;
-            }
-            if ("true".equals(getText(columnList.get(9)))) {
-                String bestAlbumName;
-                if (new AlbumNameValidator().validate(getText(columnList.get(10)))) {
-                    bestAlbumName = getText(columnList.get(10));
-                }
-                else {
-                    throw new WrongValueException("Указано неверное название музыкального альбома.");
-                }
-                Double bestAlbumSales;
-                if (new AlbumNameValidator().validate(getText(columnList.get(11)))) {
-                    bestAlbumSales = Double.valueOf(getText(columnList.get(11)));
-                }
-                else {
-                    throw new WrongValueException("Указано неверное число продаж музыкального альбома.");
-                }
-                bestAlbum = AlbumBuilder.build(bestAlbumName, bestAlbumSales);
-            }
-            else {
-                bestAlbum = null;
-            }
-            MusicBand musicBand = new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
-            collection.put(key, musicBand);
         }
         return collection;
     }

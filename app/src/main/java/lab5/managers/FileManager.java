@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import lab5.entity.MusicBand;
-import lab5.exceptions.WrongValueException;
 import lab5.utility.ParserCSV;
 
 // написать методы openFile, closeFile, readCollection, writeCollection
@@ -48,7 +47,7 @@ public class FileManager {
      * и попросить ввести другое имя файла. 
      * Аналогичная ситуация и с методом записи коллекции в файл.
      */
-    public HashMap<Integer, MusicBand> readCollection() throws IOException, WrongValueException {
+    public HashMap<Integer, MusicBand> readCollection() throws IOException {
         InputStreamReader collectionInputStreamReader = new InputStreamReader(new FileInputStream(this.collectionFileName));
         ArrayList<String> fileLines = readAllLines(collectionInputStreamReader);
         HashMap<Integer, MusicBand> collection = ParserCSV.parseFromCSV(fileLines);
