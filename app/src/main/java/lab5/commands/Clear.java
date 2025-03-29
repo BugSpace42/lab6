@@ -1,5 +1,6 @@
 package lab5.commands;
 
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -25,7 +26,7 @@ public class Clear extends Command{
             runner.collectionManager.clearCollection();
             return Runner.ExitCode.OK;
         } catch (Exception e) {
-            runner.consoleManager.printError("Непредвиденная ошибка!");
+            ConsoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;
         }
     }

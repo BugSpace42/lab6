@@ -1,7 +1,9 @@
 package lab5.managers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import lab5.entity.MusicBand;
@@ -26,6 +28,11 @@ public class CollectionManager {
         return collection;
     }
 
+    /**
+     * Возвращает элемент коллекции с заданным id.
+     * @param id id элемента
+     * @return элемент коллекции
+     */
     public MusicBand getById(Long id) {
         for (HashMap.Entry<Integer, MusicBand> entry : collection.entrySet()) {
           if (entry.getValue().getId().equals(id)) return entry.getValue();
@@ -49,7 +56,7 @@ public class CollectionManager {
     public void updateElementById(Long id, MusicBand musicBand) {
         for (HashMap.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             if (entry.getValue().getId().equals(id)) collection.put(entry.getKey(), musicBand);
-          }
+        }
     }
 
     /**
@@ -73,6 +80,18 @@ public class CollectionManager {
      */
     public Date getInitDate() {
         return initDate;
+    }
+
+    /**
+     * Возвращает список id существующих элементов коллекции.
+     * @return список id существующих элементов коллекции
+     */
+    public List<Long> getIdList() {
+        ArrayList<Long> idList = new ArrayList<>();
+        for (HashMap.Entry<Integer, MusicBand> entry : collection.entrySet()) {
+            idList.add(entry.getValue().getId());
+        }
+        return idList;
     }
 
     /**

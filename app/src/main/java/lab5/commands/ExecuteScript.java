@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import lab5.exceptions.ScriptRecursionException;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -43,23 +44,23 @@ public class ExecuteScript extends Command{
             InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptName));
             Scanner oldScanner = runner.consoleManager.getScanner();
             Scanner newScanner = new Scanner(reader);
-            runner.consoleManager.setScanner(newScanner);
+            ConsoleManager.setScanner(newScanner);
             while (runner.consoleManager.getScanner().hasNext()) {
-                String[] currenrScriptCommand = runner.consoleManager.readCommand();
+                String[] currenrScriptCommand = ConsoleManager.readCommand();
                 runner.launchCommand(currenrScriptCommand);
                 if (!runner.getRunning()) {
                     return ExitCode.EXIT;
                 }
             }
-            runner.consoleManager.setScanner(oldScanner);
+            ConsoleManager.setScanner(oldScanner);
             runner.scripts.remove(scriptName);
             runner.setCurrentMode(previousMode);
             return ExitCode.OK;
         } catch (ScriptRecursionException e) {
-            runner.consoleManager.printError(e.getMessage());
+            ConsoleManager.printError(e.getMessage());
             return ExitCode.ERROR;
         } catch (IOException e) {
-            runner.consoleManager.printError("Невозможно прочитать скрипт из файла " + scriptName);
+            ConsoleManager.printError("Невозможно прочитать скрипт из файла " + scriptName);
             runner.scripts.remove(scriptName);
             runner.setCurrentMode(previousMode);
             return ExitCode.ERROR;

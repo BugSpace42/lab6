@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.HashMap;
 
 import lab5.entity.MusicBand;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -27,13 +28,13 @@ public class Info extends Command{
     public Runner.ExitCode execute(String[] args) {
         try {
             HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
-            runner.consoleManager.println("Информация о коллекции:");
-            runner.consoleManager.println(" Тип коллекции: " + collection.getClass().getName());
-            runner.consoleManager.println(" Дата инициализации коллекции: " + runner.collectionManager.getInitDate());
-            runner.consoleManager.println(" Количество элементов: " + collection.size());
+            ConsoleManager.println("Информация о коллекции:");
+            ConsoleManager.println(" Тип коллекции: " + collection.getClass().getName());
+            ConsoleManager.println(" Дата инициализации коллекции: " + runner.collectionManager.getInitDate());
+            ConsoleManager.println(" Количество элементов: " + collection.size());
             return Runner.ExitCode.OK;
         } catch (Exception e) {
-            runner.consoleManager.printError("Непредвиденная ошибка!");
+            ConsoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;
         }
     }

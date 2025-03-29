@@ -6,6 +6,7 @@
 package lab5.commands;
 
 import lab5.entity.MusicBand;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -31,11 +32,11 @@ public class Update extends Command{
         try {
             id = Long.valueOf(args[1]);
         } catch (NumberFormatException e) {
-            runner.consoleManager.printError("Введённый id не является числом типа Long.");
+            ConsoleManager.printError("Введённый id не является числом типа Long.");
             return ExitCode.ERROR;
         }
         if (runner.collectionManager.getById(id) == null) {
-            runner.consoleManager.printError("В коллекции нет элемента с id " + id);
+            ConsoleManager.printError("В коллекции нет элемента с id " + id);
             return ExitCode.ERROR;
         }
         MusicBand element = MusicBand.askMusicBand();

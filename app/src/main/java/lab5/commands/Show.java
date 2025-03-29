@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.Map;
 
 import lab5.entity.MusicBand;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 
@@ -24,7 +25,7 @@ public class Show extends Command {
     @Override
     public Runner.ExitCode execute(String[] args) {
         for (Map.Entry<Integer, MusicBand> elem : runner.collectionManager.getCollection().entrySet()) {
-            runner.consoleManager.println(elem.getValue());
+            ConsoleManager.println(elem.getValue());
         }
         return Runner.ExitCode.OK;
     }

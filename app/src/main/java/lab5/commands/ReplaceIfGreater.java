@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.HashMap;
 
 import lab5.entity.MusicBand;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -28,11 +29,11 @@ public class ReplaceIfGreater extends Command{
         try {
             key = Integer.valueOf(args[1]);
         } catch (NumberFormatException e) {
-            runner.consoleManager.printError("Введённый ключ не является числом типа Integer.");
+            ConsoleManager.printError("Введённый ключ не является числом типа Integer.");
             return ExitCode.ERROR;
         }
         if (!runner.collectionManager.getCollection().containsKey(key)) {
-            runner.consoleManager.printError("В коллекции нет элемента с ключом " + key);
+            ConsoleManager.printError("В коллекции нет элемента с ключом " + key);
             return ExitCode.ERROR;
         }
         MusicBand musicBand = MusicBand.askMusicBand();
@@ -42,11 +43,11 @@ public class ReplaceIfGreater extends Command{
         
         if (musicBand.compareTo(collection.get(key)) > 0) {
             runner.collectionManager.addToCollection(key, musicBand);
-            runner.consoleManager.println("Элемент по введённому ключу заменён на заданный.");
+            ConsoleManager.println("Элемент по введённому ключу заменён на заданный.");
         }
         else{
-            runner.consoleManager.println("Элемент по введённому больше, чем заданный.");
-            runner.consoleManager.println("Элемент по введённому ключу не изменён.");
+            ConsoleManager.println("Элемент по введённому больше, чем заданный.");
+            ConsoleManager.println("Элемент по введённому ключу не изменён.");
         }
         return ExitCode.OK;
     }

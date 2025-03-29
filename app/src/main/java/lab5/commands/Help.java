@@ -1,5 +1,6 @@
 package lab5.commands;
 
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -22,13 +23,13 @@ public class Help extends Command{
     @Override
     public ExitCode execute(String[] args){
         try {
-            runner.consoleManager.println("Доступные команды:");
+            ConsoleManager.println("Доступные команды:");
             for (Command command : runner.commandManager.getCommands().values()) {
-                runner.consoleManager.println(command.getName() + ": " + command.getDescription());
+                ConsoleManager.println(command.getName() + ": " + command.getDescription());
             }
             return Runner.ExitCode.OK;
         } catch (Exception e) {
-            runner.consoleManager.printError("Непредвиденная ошибка!");
+            ConsoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;
         }
     }

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import lab5.entity.MusicBand;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -29,7 +30,7 @@ public class PrintFieldDescendingNumberOfParticipants extends Command{
     public ExitCode execute(String[] args){
         try {
             if (runner.collectionManager.getCollection().isEmpty()) {
-                runner.consoleManager.println("Коллекция пуста.");
+                ConsoleManager.println("Коллекция пуста.");
                 return ExitCode.OK;
             }
 
@@ -40,14 +41,14 @@ public class PrintFieldDescendingNumberOfParticipants extends Command{
             }
 
             Collections.sort(numberOfParticipantsList, Collections.reverseOrder());
-            runner.consoleManager.println("Значения поля numberOfParticipants всех элементов в порядке убывания:");
+            ConsoleManager.println("Значения поля numberOfParticipants всех элементов в порядке убывания:");
             for (Integer number : numberOfParticipantsList) {
-                runner.consoleManager.print(number + " ");
+                ConsoleManager.print(number + " ");
             }
-            runner.consoleManager.print("\n");
+            ConsoleManager.print("\n");
             return ExitCode.OK;
         } catch (Exception e) {
-            runner.consoleManager.printError("Непредвиденная ошибка!");
+            ConsoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;
         }
     }

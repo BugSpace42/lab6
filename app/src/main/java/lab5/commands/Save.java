@@ -2,6 +2,7 @@ package lab5.commands;
 
 import java.io.IOException;
 
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -26,7 +27,7 @@ public class Save extends Command{
         try {
             runner.fileManager.writeCollection(runner.collectionManager.getCollection());
         } catch (IOException e) {
-            runner.consoleManager.printError("Невозможно сохранить коллекцию в файл.");
+            ConsoleManager.printError("Невозможно сохранить коллекцию в файл.");
             return ExitCode.ERROR;
         }
         return ExitCode.OK;

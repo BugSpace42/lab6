@@ -7,6 +7,7 @@ package lab5.commands;
 
 import java.util.ArrayList;
 
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -32,16 +33,16 @@ public class History extends Command{
             int numberOfCommands = 8;
             ArrayList<String> history = runner.commandManager.getCommandHistory();
             if (history.isEmpty()) {
-                runner.consoleManager.println("История команд пуста.");
+                ConsoleManager.println("История команд пуста.");
                 return Runner.ExitCode.OK;
             }
-            runner.consoleManager.println("История команд (начиная с последней):");
+            ConsoleManager.println("История команд (начиная с последней):");
             for (int i = 0; i < Math.min(numberOfCommands, history.size()); i++) {
-                runner.consoleManager.println(history.get(history.size()-i-1));
+                ConsoleManager.println(history.get(history.size()-i-1));
             }
             return Runner.ExitCode.OK;
         } catch (Exception e) {
-            runner.consoleManager.printError("Непредвиденная ошибка!");
+            ConsoleManager.printError("Непредвиденная ошибка!");
             return ExitCode.ERROR;
         }
     }

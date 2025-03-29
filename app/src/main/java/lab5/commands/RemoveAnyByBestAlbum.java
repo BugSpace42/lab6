@@ -5,6 +5,7 @@ import java.util.Map;
 
 import lab5.entity.Album;
 import lab5.entity.MusicBand;
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -36,13 +37,13 @@ public class RemoveAnyByBestAlbum extends Command{
         for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             if (entry.getValue().getBestAlbum().equals(album)) {
                 runner.collectionManager.removeByKey(entry.getKey());
-                runner.consoleManager.println("Удалён элемент с ключом " + entry.getKey());
+                ConsoleManager.println("Удалён элемент с ключом " + entry.getKey());
                 isRemoved = true;
                 break;
             }
         }
         if (!isRemoved) {
-            runner.consoleManager.println("Не найдено элементов с заданным полем bestAlbum.");
+            ConsoleManager.println("Не найдено элементов с заданным полем bestAlbum.");
         }
         return ExitCode.OK;
     }

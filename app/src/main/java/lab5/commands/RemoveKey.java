@@ -1,5 +1,6 @@
 package lab5.commands;
 
+import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
@@ -25,11 +26,11 @@ public class RemoveKey extends Command{
         try {
             key = Integer.valueOf(args[1]);
         } catch (NumberFormatException e) {
-            runner.consoleManager.printError("Введённый ключ не является числом типа Integer.");
+            ConsoleManager.printError("Введённый ключ не является числом типа Integer.");
             return ExitCode.ERROR;
         }
         if (!runner.collectionManager.getCollection().containsKey(key)) {
-            runner.consoleManager.printError("В коллекции нет элемента с ключом " + key);
+            ConsoleManager.printError("В коллекции нет элемента с ключом " + key);
             return ExitCode.ERROR;
         }
         runner.collectionManager.removeByKey(key);
