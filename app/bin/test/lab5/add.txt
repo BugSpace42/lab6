@@ -1,0 +1,12 @@
+show
+insert 123
+name
+1234
+7654
+3
+y
+POP
+y
+album
+234
+show
