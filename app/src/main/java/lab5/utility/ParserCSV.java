@@ -12,14 +12,15 @@ import lab5.entity.Coordinates;
 import lab5.entity.MusicBand;
 import lab5.entity.MusicGenre;
 import lab5.exceptions.WrongValueException;
+import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.builders.CoordinatesBuilder;
-import lab5.utility.validators.stringvalidators.musicband.NumberOfParticipantsValidator;
-import lab5.utility.validators.stringvalidators.musicband.bestalbum.AlbumNameValidator;
 import lab5.utility.validators.stringvalidators.KeyValidator;
 import lab5.utility.validators.stringvalidators.musicband.CreationDateValidator;
 import lab5.utility.validators.stringvalidators.musicband.IdValidator;
 import lab5.utility.validators.stringvalidators.musicband.NameValidator;
+import lab5.utility.validators.stringvalidators.musicband.NumberOfParticipantsValidator;
+import lab5.utility.validators.stringvalidators.musicband.bestalbum.AlbumNameValidator;
 import lab5.utility.validators.stringvalidators.musicband.coordinates.CoordXValidator;
 import lab5.utility.validators.stringvalidators.musicband.coordinates.CoordYValidator;
 
@@ -33,12 +34,16 @@ public class ParserCSV {
      * @param fileLines строки файла в формате csv
      * @return полученная коллекция
      */
-    public static HashMap<Integer, MusicBand> parseFromCSV(List<String> fileLines) throws WrongValueException {
+    public static HashMap<Integer, MusicBand> parseFromCSV(List<String> fileLines) {
         HashMap<Integer, MusicBand> collection = new HashMap<>();
         if (fileLines.size() < 2) {
             return collection;
         }
-        for (String fileLine : fileLines.subList(1, fileLines.size())) {
+        int numberOfColumns = fileLines.get(0).split(",").length;
+        // пробегаемся с 1, т.к. строка 0 это заголовок
+        for (int fileLineIndex = 1; fileLineIndex < fileLines.size(); fileLineIndex++) {
+            try {
+                String fileLine = fileLines.get(fileLineIndex);
             String[] splitedText = fileLine.split(",");
             LinkedList<String> columnList = new LinkedList<>();
             for (String column : splitedText) {
@@ -57,12 +62,21 @@ public class ParserCSV {
                 columnList.add(column);
             }
 
+            if (columnList.size() != numberOfColumns) {
+                // если количество столбцов в текцщей строке не равно правильному количеству, то 
+                // пропускаем эту строку или
+                // выкидываем исключение и после его обрабатываем
+                // continue;
+                throw new WrongValueException("В строке " + fileLineIndex +  " уканано неверное количество аргументов. Ожидалось: " + 
+                numberOfColumns + ". Получено: " + columnList.size());
+            }
+
             Integer key;
             if (new KeyValidator().validate(getText(columnList.get(0)))) {
                 key = Integer.valueOf(getText(columnList.get(0)));
             }
             else {
-                throw new WrongValueException("Указан неверный ключ музыкальной группы.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный ключ музыкальной группы.");
             }
 
             Long id;
@@ -70,7 +84,7 @@ public class ParserCSV {
                 id = Long.valueOf(getText(columnList.get(1)));
             }
             else {
-                throw new WrongValueException("Указан неверный id музыкальной группы.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный id музыкальной группы.");
             }
 
             String name;
@@ -78,7 +92,7 @@ public class ParserCSV {
                 name = getText(columnList.get(2));
             }
             else {
-                throw new WrongValueException("Указано неверное название музыкальной группы.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное название музыкальной группы.");
             }
 
             Integer x;
@@ -86,7 +100,7 @@ public class ParserCSV {
                 x = Integer.valueOf(getText(columnList.get(3)));
             }
             else {
-                throw new WrongValueException("Указана неверная координата x музыкальной группы.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная координата x музыкальной группы.");
             }
 
             long y;
@@ -94,7 +108,7 @@ public class ParserCSV {
                 y = Long.parseLong(getText(columnList.get(4)));
             }
             else {
-                throw new WrongValueException("Указана неверная координата x музыкальной группы.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная координата x музыкальной группы.");
             }
 
             java.util.Date creationDate;
@@ -102,7 +116,7 @@ public class ParserCSV {
                 creationDate = new Date(Long.parseLong(getText(columnList.get(5))));
             }
             else {
-                throw new WrongValueException("Указана неверная дата создания элемента класса MusicBand.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная дата создания элемента класса MusicBand.");
             }
 
             Integer numberOfParticipants;
@@ -110,7 +124,7 @@ public class ParserCSV {
                 numberOfParticipants = Integer.valueOf(getText(columnList.get(6)));
             }
             else {
-                throw new WrongValueException("Указано неверное количество участников музыкальной группы.");
+                throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное количество участников музыкальной группы.");
             }
             
             Coordinates coordinates = CoordinatesBuilder.build(x, y);
@@ -120,7 +134,7 @@ public class ParserCSV {
                 try {
                     genre = MusicGenre.valueOf(getText(columnList.get(8)));
                 } catch (IllegalArgumentException e) {
-                    throw new WrongValueException("Указан неверный жанр музыкальной группы.");
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный жанр музыкальной группы.");
                 }
             }
             else {
@@ -132,14 +146,14 @@ public class ParserCSV {
                     bestAlbumName = getText(columnList.get(10));
                 }
                 else {
-                    throw new WrongValueException("Указано неверное название музыкального альбома.");
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное название музыкального альбома.");
                 }
                 Double bestAlbumSales;
                 if (new AlbumNameValidator().validate(getText(columnList.get(11)))) {
                     bestAlbumSales = Double.valueOf(getText(columnList.get(11)));
                 }
                 else {
-                    throw new WrongValueException("Указано неверное число продаж музыкального альбома.");
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное число продаж музыкального альбома.");
                 }
                 bestAlbum = AlbumBuilder.build(bestAlbumName, bestAlbumSales);
             }
@@ -148,6 +162,11 @@ public class ParserCSV {
             }
             MusicBand musicBand = new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
             collection.put(key, musicBand);
+            } catch (WrongValueException e) {
+                ConsoleManager.printError(e.getMessage());
+                ConsoleManager.println("Строка с ошибкой пропущена.");
+            }
+            
         }
         return collection;
     }
