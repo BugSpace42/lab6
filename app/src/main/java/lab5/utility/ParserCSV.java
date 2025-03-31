@@ -13,7 +13,6 @@ import lab5.entity.MusicBand;
 import lab5.entity.MusicGenre;
 import lab5.exceptions.IdExistsException;
 import lab5.exceptions.WrongValueException;
-import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.builders.CoordinatesBuilder;
@@ -23,6 +22,7 @@ import lab5.utility.validators.stringvalidators.musicband.IdValidator;
 import lab5.utility.validators.stringvalidators.musicband.NameValidator;
 import lab5.utility.validators.stringvalidators.musicband.NumberOfParticipantsValidator;
 import lab5.utility.validators.stringvalidators.musicband.bestalbum.AlbumNameValidator;
+import lab5.utility.validators.stringvalidators.musicband.bestalbum.AlbumSalesValidator;
 import lab5.utility.validators.stringvalidators.musicband.coordinates.CoordXValidator;
 import lab5.utility.validators.stringvalidators.musicband.coordinates.CoordYValidator;
 
@@ -139,38 +139,41 @@ public class ParserCSV {
                 }
                 
                 Coordinates coordinates = CoordinatesBuilder.build(x, y);
+
                 MusicGenre genre;
                 Album bestAlbum;
-                if ("true".equals(getText(columnList.get(7)))) {
-                    try {
-                        genre = MusicGenre.valueOf(getText(columnList.get(8)));
-                    } catch (IllegalArgumentException e) {
-                        throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный жанр музыкальной группы.");
+                try {
+                    if (getText(columnList.get(7)).isBlank()) {
+                        genre = null;
                     }
+                    else{
+                        genre = MusicGenre.valueOf(getText(columnList.get(7)));
+                    }
+                } catch (IllegalArgumentException e) {
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный жанр музыкальной группы.");
+                }
+
+                String bestAlbumName;
+                if (getText(columnList.get(8)).isBlank()) {
+                    bestAlbum = null;
                 }
                 else {
-                    genre = null;
-                }
-                if ("true".equals(getText(columnList.get(9)))) {
-                    String bestAlbumName;
-                    if (new AlbumNameValidator().validate(getText(columnList.get(10)))) {
-                        bestAlbumName = getText(columnList.get(10));
+                    if (new AlbumNameValidator().validate(getText(columnList.get(8)))) {
+                        bestAlbumName = getText(columnList.get(8));
                     }
                     else {
                         throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное название музыкального альбома.");
                     }
                     Double bestAlbumSales;
-                    if (new AlbumNameValidator().validate(getText(columnList.get(11)))) {
-                        bestAlbumSales = Double.valueOf(getText(columnList.get(11)));
+                    if (new AlbumSalesValidator().validate(getText(columnList.get(9)))) {
+                        bestAlbumSales = Double.valueOf(getText(columnList.get(9)));
                     }
                     else {
                         throw new WrongValueException("В строке " + fileLineIndex +  " указано неверное число продаж музыкального альбома.");
                     }
                     bestAlbum = AlbumBuilder.build(bestAlbumName, bestAlbumSales);
                 }
-                else {
-                    bestAlbum = null;
-                }
+
                 MusicBand musicBand = new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
                 collection.put(key, musicBand);
             } catch (WrongValueException | IdExistsException e) {
@@ -189,7 +192,7 @@ public class ParserCSV {
      */
     public static List<String> parseToCSV(HashMap<Integer, MusicBand> collection) {
         List<String> fileLines = new ArrayList<>();
-        String title = "\"key\",\"id\",\"name\",\"x\",\"y\",\"creationDate\",\"numberOfParticipants\",\"isGenre\",\"genre\",\"isBestAlbum\",\"albumName\",\"albumSales\"";
+        String title = "\"key\",\"id\",\"name\",\"x\",\"y\",\"creationDate\",\"numberOfParticipants\",\"genre\",\"albumName\",\"albumSales\"";
         fileLines.add(title);
         for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             Integer key = entry.getKey();
@@ -213,20 +216,16 @@ public class ParserCSV {
             columnList.add(Long.toString(creationDate.getTime()));
             columnList.add(numberOfParticipants.toString());
             if (genre == null) {
-                columnList.add("false");
                 columnList.add("");
             }
             else {
-                columnList.add("true");
                 columnList.add(genre.toString());
             }
             if (bestAlbum == null) {
-                columnList.add("false");
                 columnList.add("");
                 columnList.add("");
             }
             else {
-                columnList.add("true");
                 columnList.add(bestAlbum.getName());
                 columnList.add(bestAlbum.getSales().toString());
             }

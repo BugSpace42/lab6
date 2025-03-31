@@ -29,19 +29,21 @@ public class Album implements Comparable<Album>{
      * @return введённое название музыкального альбома.
      */
     public static String askAlbumName() {
-        ConsoleManager.println("Введите название музыкального альбома.");
+        ConsoleManager.println("Введите название музыкального альбома (при наличии).");
         ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
         String name = ConsoleManager.askObject();
-        AlbumNameValidator validator = new AlbumNameValidator();
-        if (validator.validate(name)) {
-            return name;
-        }
-        else {
-            ConsoleManager.println("Введено некорректное название музыкального альбома.");
-            ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
-            ConsoleManager.println("Попробуйте снова.");
-            // запрашиваем у пользователя данные, пока не введёт подходящие
-            name = askAlbumName();
+        if (!name.isBlank()) {
+            AlbumNameValidator validator = new AlbumNameValidator();
+            if (validator.validate(name)) {
+                return null;
+            }
+            else {
+                ConsoleManager.println("Введено некорректное название музыкального альбома.");
+                ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
+                ConsoleManager.println("Попробуйте снова.");
+                // запрашиваем у пользователя данные, пока не введёт подходящие
+                name = askAlbumName();
+            }
         }
         return name;
     }
@@ -80,18 +82,15 @@ public class Album implements Comparable<Album>{
      * @return введённый объект класса Album
      */
     public static Album askAlbum() {
-        ConsoleManager.print("Есть ли у группы лучший альбом? (y/n) ");
-        String answer = ConsoleManager.readObject();
-        switch (answer) {
-            case "y" -> {}
-            default -> {
-                // нет лучшего альбома
-                return null;
-            }
-        }
+        Album album;
         String name = askAlbumName();
-        Double sales = askAlbumSales();
-        Album album = AlbumBuilder.build(name, sales);
+        if (name.isBlank()) {
+            album = null;
+        }
+        else {
+            Double sales = askAlbumSales();
+            album = AlbumBuilder.build(name, sales);
+        }
         return album;
     }
 

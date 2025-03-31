@@ -19,27 +19,24 @@ public enum MusicGenre {
      * @return введённый музыкальный жанр.
      */
     public static MusicGenre askMusicGenre() {
-        ConsoleManager.print("Есть ли у группы музыкальный жанр? (y/n) ");
-        String answer = ConsoleManager.readObject();
-        switch (answer) {
-            case "y" -> {}
-            default -> {
-                // нет музыкального жанра
-                return null;
-            }
-        }
-        ConsoleManager.println("Введите музыкальный жанр.");
+        ConsoleManager.println("Введите музыкальный жанр группы (при наличии).");
         ConsoleManager.println("Список музыкальных жанров: " + MusicGenre.names());
         String genreString = ConsoleManager.askObject();
         MusicGenre genre;
-        try {
-            genre = MusicGenreBuilder.build(genreString);
-        } catch (IllegalArgumentException e) {
-            ConsoleManager.println("Введён некорректный музыкальный жанр.");
-            ConsoleManager.println("Попробуйте снова.");
-            // запрашиваем у пользователя данные, пока не введёт подходящие
-            genre = askMusicGenre();
+        if (genreString.isBlank()) {
+            genre = null;
         }
+        else {
+            try {
+                genre = MusicGenreBuilder.build(genreString);
+            } catch (IllegalArgumentException e) {
+                ConsoleManager.println("Введён некорректный музыкальный жанр.");
+                ConsoleManager.println("Попробуйте снова.");
+                // запрашиваем у пользователя данные, пока не введёт подходящие
+                genre = askMusicGenre();
+            }
+        }
+        
         return genre;
     }
 
