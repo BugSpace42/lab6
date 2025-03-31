@@ -86,7 +86,7 @@ public class CollectionManager {
      * Возвращает список id существующих элементов коллекции.
      * @return список id существующих элементов коллекции
      */
-    public List<Long> getIdList() {
+    public static List<Long> getIdList() {
         ArrayList<Long> idList = new ArrayList<>();
         for (HashMap.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             idList.add(entry.getValue().getId());

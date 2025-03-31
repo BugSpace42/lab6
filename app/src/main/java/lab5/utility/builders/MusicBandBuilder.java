@@ -1,11 +1,13 @@
 package lab5.utility.builders;
 
 import java.util.Date;
+import java.util.List;
 
 import lab5.entity.Album;
 import lab5.entity.Coordinates;
 import lab5.entity.MusicBand;
 import lab5.entity.MusicGenre;
+import lab5.managers.CollectionManager;
 
 /**
  * Управляет сборкой объекта класса MusicBand 
@@ -32,7 +34,12 @@ public class MusicBandBuilder {
      * @return объект класса MusicBand
      */
     public static MusicBand build(String name, Coordinates coordinates, Integer numberOfParticipants, MusicGenre genre, Album bestAlbum) {
-        Long id = nextId();
+        Long id;
+        id = nextId();
+        List<Long> idList = CollectionManager.getIdList();
+        while(idList.contains(id)) {
+            id = nextId();
+        }
         Date date = new Date();
         MusicBand musicBand = new MusicBand(id, name, coordinates, date, numberOfParticipants, genre, bestAlbum);
         return musicBand;

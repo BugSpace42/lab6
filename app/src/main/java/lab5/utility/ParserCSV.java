@@ -11,7 +11,9 @@ import lab5.entity.Album;
 import lab5.entity.Coordinates;
 import lab5.entity.MusicBand;
 import lab5.entity.MusicGenre;
+import lab5.exceptions.IdExistsException;
 import lab5.exceptions.WrongValueException;
+import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.builders.CoordinatesBuilder;
@@ -36,6 +38,8 @@ public class ParserCSV {
      */
     public static HashMap<Integer, MusicBand> parseFromCSV(List<String> fileLines) {
         HashMap<Integer, MusicBand> collection = new HashMap<>();
+        List<Long> idList = new ArrayList<>();
+
         if (fileLines.size() < 2) {
             return collection;
         }
@@ -85,6 +89,13 @@ public class ParserCSV {
                 }
                 else {
                     throw new WrongValueException("В строке " + fileLineIndex +  " указан неверный id музыкальной группы.");
+                }
+                
+                if (idList.contains(id)) {
+                    throw new IdExistsException("Музыкальная группа с id " + id + " ужже существует.");
+                }
+                else {
+                    idList.add(id);
                 }
 
                 String name;
@@ -162,7 +173,7 @@ public class ParserCSV {
                 }
                 MusicBand musicBand = new MusicBand(id, name, coordinates, creationDate, numberOfParticipants, genre, bestAlbum);
                 collection.put(key, musicBand);
-            } catch (WrongValueException e) {
+            } catch (WrongValueException | IdExistsException e) {
                 ConsoleManager.printError(e.getMessage());
                 ConsoleManager.println("Строка с ошибкой пропущена.");
             }
