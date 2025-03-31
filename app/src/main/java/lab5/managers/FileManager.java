@@ -48,9 +48,11 @@ public class FileManager {
      * Аналогичная ситуация и с методом записи коллекции в файл.
      */
     public HashMap<Integer, MusicBand> readCollection() throws IOException {
-        InputStreamReader collectionInputStreamReader = new InputStreamReader(new FileInputStream(this.collectionFileName));
-        ArrayList<String> fileLines = readAllLines(collectionInputStreamReader);
-        HashMap<Integer, MusicBand> collection = ParserCSV.parseFromCSV(fileLines);
+        HashMap<Integer, MusicBand> collection;
+        try (InputStreamReader collectionInputStreamReader = new InputStreamReader(new FileInputStream(this.collectionFileName))) {
+            ArrayList<String> fileLines = readAllLines(collectionInputStreamReader);
+            collection = ParserCSV.parseFromCSV(fileLines);
+        }
         return collection;
     }
 
@@ -61,12 +63,14 @@ public class FileManager {
      * @throws IOException исключение, возникающее, если невозможно прочитать строку
      */
     public ArrayList<String> readAllLines(InputStreamReader inputStreamReader) throws IOException {
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-        ArrayList<String> lines = new ArrayList<>();
-        String line = reader.readLine();
-        while (line != null) {
-            lines.add(line);
-            line = reader.readLine();
+        ArrayList<String> lines;
+        try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+            lines = new ArrayList<>();
+            String line = reader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = reader.readLine();
+            }
         }
         return lines;
     }
@@ -81,9 +85,10 @@ public class FileManager {
      */
     public void writeCollection(HashMap<Integer, MusicBand> collection) throws IOException {
         List<String> fileLines = ParserCSV.parseToCSV(collection);
-        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.collectionFileName));
-        writeAllLines(writer, fileLines);
-        writer.flush();
+        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.collectionFileName))) {
+            writeAllLines(writer, fileLines);
+            writer.flush();
+        }
     }
 
     /**
@@ -96,6 +101,7 @@ public class FileManager {
         for (String line : lines) {
             writer.write(line + "\n");
         }
+        writer.flush();
     }
 
     /**
