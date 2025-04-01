@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,14 +22,14 @@ import lab5.utility.ParserCSV;
  * @author Alina
  */
 public class FileManager {
-    private String collectionFileName;
+    private Path collectionFilePath;
 
     /**
      * Конструктор
      * @param collectionFileName имя файла, из которого читается и в который сохраняется коллекция
      */
-    public FileManager(String collectionFileName) {
-        this.collectionFileName = collectionFileName;
+    public FileManager(Path collectionFilePath) {
+        this.collectionFilePath = collectionFilePath;
     }
 
     /**
@@ -49,7 +50,8 @@ public class FileManager {
      */
     public HashMap<Integer, MusicBand> readCollection() throws IOException {
         HashMap<Integer, MusicBand> collection;
-        try (InputStreamReader collectionInputStreamReader = new InputStreamReader(new FileInputStream(this.collectionFileName))) {
+        try (InputStreamReader collectionInputStreamReader = 
+            new InputStreamReader(new FileInputStream(this.collectionFilePath.toAbsolutePath().toString()))) {
             ArrayList<String> fileLines = readAllLines(collectionInputStreamReader);
             collection = ParserCSV.parseFromCSV(fileLines);
         }
@@ -85,7 +87,7 @@ public class FileManager {
      */
     public void writeCollection(HashMap<Integer, MusicBand> collection) throws IOException {
         List<String> fileLines = ParserCSV.parseToCSV(collection);
-        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.collectionFileName))) {
+        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(this.collectionFilePath.toAbsolutePath().toString()))) {
             writeAllLines(writer, fileLines);
             writer.flush();
         }
@@ -109,8 +111,8 @@ public class FileManager {
      * @param fileName имя файла
      * @return true - если файл существует, иначе false
      */
-    public boolean isFileExist(String fileName) {
-        File file = new File(fileName);
+    public boolean isFileExist(Path filePath) {
+        File file = new File(filePath.toString());
         return file.exists();
     }
 
@@ -118,15 +120,15 @@ public class FileManager {
      * Устанавливает новое имя файла коллекции
      * @param newCollectionFileName новое имя файла коллекции
      */
-    public void setCollectionFileName(String newCollectionFileName) {
-        this.collectionFileName = newCollectionFileName;
+    public void setCollectionFileName(Path collectionFilePath) {
+        this.collectionFilePath = collectionFilePath;
     }
 
     /**
      * Возвращает текущее имя файла коллекции
      * @return текущее имя файла коллекции
      */
-    public String getCollectionFileName() {
-        return collectionFileName;
+    public Path getCollectionFilePath () {
+        return collectionFilePath;
     }
 }

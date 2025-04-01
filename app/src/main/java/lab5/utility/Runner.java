@@ -120,15 +120,16 @@ public class Runner {
     public void run() {
         running = true;
         currentMode = RunningMode.INTERACTIVE;
-        if (!fileManager.isFileExist(fileManager.getCollectionFileName())) {
-            ConsoleManager.printError("Не найден файл " + fileManager.getCollectionFileName());
+        if (!fileManager.isFileExist(fileManager.getCollectionFilePath())) {
+            ConsoleManager.printError("Не найден файл " + fileManager.getCollectionFilePath());
             ConsoleManager.println("Создана пустая коллекция.");
+            collectionManager = new CollectionManager(new HashMap<>());
         }
         else {
             try {
                 collectionManager = new CollectionManager(fileManager.readCollection());
             } catch (IOException e) {
-                ConsoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFileName());
+                ConsoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFilePath());
                 ConsoleManager.println("Создана пустая коллекция.");
                 collectionManager = new CollectionManager(new HashMap<>());
             }

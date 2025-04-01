@@ -1,5 +1,7 @@
 package lab5;
 
+import java.nio.file.Path;
+
 import lab5.commands.Clear;
 import lab5.commands.ExecuteScript;
 import lab5.commands.Exit;
@@ -26,18 +28,18 @@ public class Main {
     public static void main(String[] args) {
         CommandManager commandManager = new CommandManager();
         ConsoleManager consoleManager = new ConsoleManager();
-        String defaultFilePath = "app\\src\\test\\resources\\table1.csv";
-        String filePath;
+        String defaultFilePath = "collection.csv";
+        Path filePath;
         if (args.length == 0) {
             ConsoleManager.println("Внимание! Не введено название файла с загружаемой коллекцией.");
             ConsoleManager.println("Будет загружена коллекция по умолчанию из файла " + defaultFilePath);
-            filePath = defaultFilePath;
+            filePath = Path.of(defaultFilePath);
         }
         else {
-            filePath = args[0];
+            filePath = Path.of(args[0]);
         }
 
-        FileManager fileManager = new FileManager(filePath);
+        FileManager fileManager = new FileManager(filePath.toAbsolutePath());
         Runner runner = new Runner(commandManager, consoleManager, fileManager);
 
         commandManager.newCommand(new Help(runner));
