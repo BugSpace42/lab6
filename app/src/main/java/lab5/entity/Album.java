@@ -1,5 +1,7 @@
 package lab5.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.validators.musicband.bestalbum.AlbumNameValidator;
@@ -32,18 +34,18 @@ public class Album implements Comparable<Album>{
         ConsoleManager.println("Введите название музыкального альбома (при наличии).");
         ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
         String name = ConsoleManager.askObject();
-        if (!name.isBlank()) {
+        if (!StringUtils.isBlank(name)) {
             AlbumNameValidator validator = new AlbumNameValidator();
-            if (validator.validate(name)) {
-                return null;
-            }
-            else {
+            if (!validator.validate(name)) {
                 ConsoleManager.println("Введено некорректное название музыкального альбома.");
                 ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
                 ConsoleManager.println("Попробуйте снова.");
                 // запрашиваем у пользователя данные, пока не введёт подходящие
                 name = askAlbumName();
             }
+        }
+        else {
+            name = null;
         }
         return name;
     }
@@ -84,7 +86,7 @@ public class Album implements Comparable<Album>{
     public static Album askAlbum() {
         Album album;
         String name = askAlbumName();
-        if (name.isBlank()) {
+        if (name == null) {
             album = null;
         }
         else {
@@ -109,6 +111,7 @@ public class Album implements Comparable<Album>{
      */
     public boolean equals(Album album) {
         if (album == this) return true;
+        if (album == null) return false;
         return album.name.equals(this.name) && album.sales.equals(this.sales);
     }
 

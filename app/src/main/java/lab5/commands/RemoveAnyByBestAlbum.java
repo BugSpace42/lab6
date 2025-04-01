@@ -18,7 +18,7 @@ public class RemoveAnyByBestAlbum extends Command{
     private final Runner runner;
 
     public RemoveAnyByBestAlbum(Runner runner) {
-        super("remove_any_by_best_album ", 
+        super("remove_any_by_best_album", 
               "удалить из коллекции один элемент, значение поля bestAlbum которого эквивалентно заданному", 0);
         this.runner = runner;
     }
@@ -35,7 +35,7 @@ public class RemoveAnyByBestAlbum extends Command{
         
         boolean isRemoved = false;
         for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
-            if (entry.getValue().getBestAlbum().equals(album)) {
+            if (album.equals(entry.getValue().getBestAlbum())) {
                 runner.collectionManager.removeByKey(entry.getKey());
                 ConsoleManager.println("Удалён элемент с ключом " + entry.getKey());
                 isRemoved = true;

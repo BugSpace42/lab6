@@ -110,7 +110,7 @@ public class CollectionManager {
     public String toString() {
         String info = "";
         for (Map.Entry<Integer, MusicBand> elem : collection.entrySet()) {
-            info += "Элемент коллекции с ключом " + elem.getKey();
+            info += "Элемент коллекции с ключом " + elem.getKey() + ":\n";
             info += elem.getValue();
             info += "\n";
         }

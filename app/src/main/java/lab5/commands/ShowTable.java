@@ -28,7 +28,7 @@ public class ShowTable extends Command {
     public Runner.ExitCode execute(String[] args) {
         AsciiTable table = new AsciiTable();
         table.addRule();
-        table.addRow("id", "название", "x", "y", "дата создания", "дата создания", 
+        table.addRow("ключ", "id", "название", "x", "y", "дата создания", "дата создания", 
                     "кол-во участников", "жанр", "название альбома", "продажи альбома");
         table.addRule();
         for (Map.Entry<Integer, MusicBand> elem : runner.collectionManager.getCollection().entrySet()) {
@@ -53,7 +53,7 @@ public class ShowTable extends Command {
                 albumSales = musicBand.getBestAlbum().getSales().toString();
             }
 
-            table.addRow(musicBand.getId(), musicBand.getName(), musicBand.getCoordinates().getX(), musicBand.getCoordinates().getY(),
+            table.addRow(elem.getKey(), musicBand.getId(), musicBand.getName(), musicBand.getCoordinates().getX(), musicBand.getCoordinates().getY(),
                         null, musicBand.getCreationDate(), musicBand.getNumberOfParticipants(), genre, albumName, albumSales);
             
             table.addRule();
