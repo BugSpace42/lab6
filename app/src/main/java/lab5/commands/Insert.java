@@ -11,11 +11,8 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Insert extends Command{
-    private final Runner runner;
-
-    public Insert(Runner runner) {
+    public Insert() {
         super("insert", "добавить новый элемент с заданным ключом", 1);
-        this.runner = runner;
     }
     
     /**
@@ -23,6 +20,7 @@ public class Insert extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        Runner runner = Runner.getRunner();
         Integer key;
         try {
             key = Integer.valueOf(args[1]);

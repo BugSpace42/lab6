@@ -10,12 +10,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Exit extends Command{
-    @SuppressWarnings("unused")
-    private final Runner runner;
 
-    public Exit(Runner runner) {
+    public Exit() {
         super("exit", "завершить программу (без сохранения в файл)", 0);
-        this.runner = runner;
     }
 
     /**

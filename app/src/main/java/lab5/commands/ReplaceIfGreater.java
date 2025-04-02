@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.HashMap;
 
 import lab5.entity.MusicBand;
+import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
@@ -13,11 +14,8 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class ReplaceIfGreater extends Command{
-    private final Runner runner;
-
-    public ReplaceIfGreater(Runner runner) {
+    public ReplaceIfGreater() {
         super("replace_if_greater", "заменить значение по ключу, если новое значение больше старого", 1);
-        this.runner = runner;
     }
     
     /**
@@ -25,6 +23,7 @@ public class ReplaceIfGreater extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        CollectionManager collectionManager = CollectionManager.getCollectionManager();
         Integer key;
         try {
             key = Integer.valueOf(args[1]);
@@ -32,17 +31,17 @@ public class ReplaceIfGreater extends Command{
             ConsoleManager.printError("Введённый ключ не является числом типа Integer.");
             return ExitCode.ERROR;
         }
-        if (!runner.collectionManager.getCollection().containsKey(key)) {
+        if (!collectionManager.getCollection().containsKey(key)) {
             ConsoleManager.printError("В коллекции нет элемента с ключом " + key);
             return ExitCode.ERROR;
         }
         MusicBand musicBand = MusicBand.askMusicBand();
 
         // ссылка на коллекцию
-        HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
+        HashMap<Integer, MusicBand> collection = collectionManager.getCollection();
         
         if (musicBand.compareTo(collection.get(key)) > 0) {
-            runner.collectionManager.addToCollection(key, musicBand);
+            collectionManager.addToCollection(key, musicBand);
             ConsoleManager.println("Элемент по введённому ключу заменён на заданный.");
         }
         else{

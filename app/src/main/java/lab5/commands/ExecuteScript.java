@@ -18,11 +18,8 @@ import lab5.utility.Runner.RunningMode;
  * @author Alina
  */
 public class ExecuteScript extends Command{
-    private final Runner runner;
-
-    public ExecuteScript(Runner runner) {
+    public ExecuteScript() {
         super("execute_script", "считать и исполнить скрипт из указанного файла", 1);
-        this.runner = runner;
     }
 
     /**
@@ -30,6 +27,7 @@ public class ExecuteScript extends Command{
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
+        Runner runner = Runner.getRunner();
         String scriptName = args[1];
         for (int i = 2; i < args.length; i++) {
             scriptName += " " + args[i];

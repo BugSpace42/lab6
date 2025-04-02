@@ -10,11 +10,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Clear extends Command{
-    private final Runner runner;
 
-    public Clear(Runner runner) {
+    public Clear() {
         super("clear", "очистить коллекцию", 0);
-        this.runner = runner;
     }
 
     /**
@@ -22,6 +20,7 @@ public class Clear extends Command{
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
+        Runner runner = Runner.getRunner();
         try {
             runner.collectionManager.clearCollection();
             return Runner.ExitCode.OK;

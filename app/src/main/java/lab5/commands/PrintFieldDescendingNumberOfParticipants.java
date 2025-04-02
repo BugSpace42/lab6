@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Map;
 
 import lab5.entity.MusicBand;
+import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
-import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
 
 /**
@@ -15,12 +15,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class PrintFieldDescendingNumberOfParticipants extends Command{
-    private final Runner runner;
-
-    public PrintFieldDescendingNumberOfParticipants(Runner runner) {
+    public PrintFieldDescendingNumberOfParticipants() {
         super("print_field_descending_number_of_participants", 
               "вывести значения поля numberOfParticipants всех элементов в порядке убывания", 0);
-        this.runner = runner;
     }
     
     /**
@@ -28,15 +25,16 @@ public class PrintFieldDescendingNumberOfParticipants extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        CollectionManager collectionManager = CollectionManager.getCollectionManager();
         try {
-            if (runner.collectionManager.getCollection().isEmpty()) {
+            if (collectionManager.getCollection().isEmpty()) {
                 ConsoleManager.println("Коллекция пуста.");
                 return ExitCode.OK;
             }
 
             ArrayList<Integer> numberOfParticipantsList = new ArrayList<>();
         
-            for (Map.Entry<Integer, MusicBand> entry : runner.collectionManager.getCollection().entrySet()) {
+            for (Map.Entry<Integer, MusicBand> entry : collectionManager.getCollection().entrySet()) {
                 numberOfParticipantsList.add(entry.getValue().getNumberOfParticipants());
             }
 

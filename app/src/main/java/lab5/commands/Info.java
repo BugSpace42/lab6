@@ -13,11 +13,8 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Info extends Command{
-    private final Runner runner;
-
-    public Info(Runner runner) {
+    public Info() {
         super("info", "вывести информацию о коллекции", 0);
-        this.runner = runner;
     }
 
     /**
@@ -26,6 +23,7 @@ public class Info extends Command{
     // todo
     @Override
     public Runner.ExitCode execute(String[] args) {
+        Runner runner = Runner.getRunner();
         try {
             HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
             ConsoleManager.println("Информация о коллекции:");

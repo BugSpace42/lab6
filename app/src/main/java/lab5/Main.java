@@ -42,23 +42,23 @@ public class Main {
         Runner.setFileManager(fileManager);
         Runner runner = Runner.getRunner();
 
-        commandManager.newCommand(new Help(runner));
-        commandManager.newCommand(new Info(runner));
-        commandManager.newCommand(new Show(runner));
-        //commandManager.newCommand(new ShowTable(runner));
-        commandManager.newCommand(new Insert(runner));
-        commandManager.newCommand(new Update(runner));
-        commandManager.newCommand(new RemoveKey(runner));
-        commandManager.newCommand(new Clear(runner));
-        commandManager.newCommand(new Save(runner));
-        commandManager.newCommand(new ExecuteScript(runner));
-        commandManager.newCommand(new Exit(runner));
-        commandManager.newCommand(new RemoveGreater(runner));
-        commandManager.newCommand(new History(runner));
-        commandManager.newCommand(new ReplaceIfGreater(runner));
-        commandManager.newCommand(new RemoveAllByNumberOfParticipants(runner));
-        commandManager.newCommand(new RemoveAnyByBestAlbum(runner));
-        commandManager.newCommand(new PrintFieldDescendingNumberOfParticipants(runner));
+        commandManager.newCommand(new Help());
+        commandManager.newCommand(new Info());
+        commandManager.newCommand(new Show());
+        //commandManager.newCommand(new ShowTable());
+        commandManager.newCommand(new Insert());
+        commandManager.newCommand(new Update());
+        commandManager.newCommand(new RemoveKey());
+        commandManager.newCommand(new Clear());
+        commandManager.newCommand(new Save());
+        commandManager.newCommand(new ExecuteScript());
+        commandManager.newCommand(new Exit());
+        commandManager.newCommand(new RemoveGreater());
+        commandManager.newCommand(new History());
+        commandManager.newCommand(new ReplaceIfGreater());
+        commandManager.newCommand(new RemoveAllByNumberOfParticipants());
+        commandManager.newCommand(new RemoveAnyByBestAlbum());
+        commandManager.newCommand(new PrintFieldDescendingNumberOfParticipants());
         
         runner.run();
     }

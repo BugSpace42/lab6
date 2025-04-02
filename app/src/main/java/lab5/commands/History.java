@@ -17,11 +17,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class History extends Command{
-    private final Runner runner;
 
-    public History(Runner runner) {
+    public History() {
         super("history", "вывести последние 8 команд", 0);
-        this.runner = runner;
     }
     
     /**
@@ -29,6 +27,7 @@ public class History extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        Runner runner = Runner.getRunner();
         try {
             int numberOfCommands = 8;
             ArrayList<String> history = runner.commandManager.getCommandHistory();

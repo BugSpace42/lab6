@@ -12,11 +12,8 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Save extends Command{
-    private final Runner runner;
-
-    public Save(Runner runner) {
+    public Save() {
         super("save", "сохранить коллекцию в файл", 0);
-        this.runner = runner;
     }
 
     /**
@@ -24,6 +21,7 @@ public class Save extends Command{
      */
     @Override
     public Runner.ExitCode execute(String[] args) {
+        Runner runner = Runner.getRunner();
         try {
             runner.fileManager.writeCollection(runner.collectionManager.getCollection());
         } catch (IOException e) {

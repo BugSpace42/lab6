@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import lab5.entity.MusicBand;
+import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
-import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
 
 /**
@@ -14,12 +14,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class RemoveAllByNumberOfParticipants extends Command{
-    private final Runner runner;
-
-    public RemoveAllByNumberOfParticipants(Runner runner) {
+    public RemoveAllByNumberOfParticipants() {
         super("remove_all_by_number_of_participants", 
               "удалить из коллекции все элементы, значение поля numberOfParticipants которого эквивалентно заданному", 1);
-        this.runner = runner;
     }
     
     /**
@@ -27,16 +24,17 @@ public class RemoveAllByNumberOfParticipants extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        CollectionManager collectionManager = CollectionManager.getCollectionManager();
         try {
             Integer numberOfParticipants = MusicBand.askMusicBandNumber();
 
             // ссылка на коллекцию, которую будем изменять
-            HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
+            HashMap<Integer, MusicBand> collection = collectionManager.getCollection();
             
             boolean isRemoved = false;
             for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
                 if (entry.getValue().getNumberOfParticipants().equals(numberOfParticipants)) {
-                    runner.collectionManager.removeByKey(entry.getKey());
+                    collectionManager.removeByKey(entry.getKey());
                     ConsoleManager.println("Удалён элемент с ключом " + entry.getKey());
                     isRemoved = true;
                 }

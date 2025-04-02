@@ -10,11 +10,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class Help extends Command{
-    private final Runner runner;
 
-    public Help(Runner runner) {
+    public Help() {
         super("help", "вывести справку по доступным командам", 0);
-        this.runner = runner;
     }
     
     /**
@@ -22,6 +20,7 @@ public class Help extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        Runner runner = Runner.getRunner();
         try {
             ConsoleManager.println("Доступные команды:");
             for (Command command : runner.commandManager.getCommands().values()) {

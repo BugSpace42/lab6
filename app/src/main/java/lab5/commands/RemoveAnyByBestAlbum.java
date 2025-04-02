@@ -5,9 +5,9 @@ import java.util.Map;
 
 import lab5.entity.Album;
 import lab5.entity.MusicBand;
+import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
-import lab5.utility.Runner;
 import lab5.utility.Runner.ExitCode;
 
 /**
@@ -15,12 +15,9 @@ import lab5.utility.Runner.ExitCode;
  * @author Alina
  */
 public class RemoveAnyByBestAlbum extends Command{
-    private final Runner runner;
-
-    public RemoveAnyByBestAlbum(Runner runner) {
+    public RemoveAnyByBestAlbum() {
         super("remove_any_by_best_album", 
               "удалить из коллекции один элемент, значение поля bestAlbum которого эквивалентно заданному", 0);
-        this.runner = runner;
     }
     
     /**
@@ -28,15 +25,16 @@ public class RemoveAnyByBestAlbum extends Command{
      */
     @Override
     public ExitCode execute(String[] args){
+        CollectionManager collectionManager = CollectionManager.getCollectionManager();
         Album album = Album.askAlbum();
 
         // ссылка на коллекцию, которую будем изменять
-        HashMap<Integer, MusicBand> collection = runner.collectionManager.getCollection();
+        HashMap<Integer, MusicBand> collection = collectionManager.getCollection();
         
         boolean isRemoved = false;
         for (Map.Entry<Integer, MusicBand> entry : collection.entrySet()) {
             if (album.equals(entry.getValue().getBestAlbum())) {
-                runner.collectionManager.removeByKey(entry.getKey());
+                collectionManager.removeByKey(entry.getKey());
                 ConsoleManager.println("Удалён элемент с ключом " + entry.getKey());
                 isRemoved = true;
                 break;
