@@ -1,7 +1,5 @@
 package lab5.entity;
 
-import org.apache.commons.lang3.StringUtils;
-
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.MusicGenreBuilder;
 
@@ -25,7 +23,10 @@ public enum MusicGenre {
         ConsoleManager.println("Список музыкальных жанров: " + MusicGenre.names());
         String genreString = ConsoleManager.askObject();
         MusicGenre genre;
-        if (StringUtils.isBlank(genreString)) {
+        if (genreString == null) {
+            genre = null;
+        }
+        else if (genreString.isBlank()) {
             genre = null;
         }
         else {

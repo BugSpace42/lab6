@@ -17,7 +17,6 @@ import lab5.commands.RemoveKey;
 import lab5.commands.ReplaceIfGreater;
 import lab5.commands.Save;
 import lab5.commands.Show;
-import lab5.commands.ShowTable;
 import lab5.commands.Update;
 import lab5.managers.CommandManager;
 import lab5.managers.ConsoleManager;
@@ -26,8 +25,8 @@ import lab5.utility.Runner;
 
 public class Main {
     public static void main(String[] args) {
-        CommandManager commandManager = new CommandManager();
-        ConsoleManager consoleManager = new ConsoleManager();
+        CommandManager commandManager = CommandManager.getCommandManager();
+        
         String defaultFilePath = "collection.csv";
         Path filePath;
         if (args.length == 0) {
@@ -40,12 +39,13 @@ public class Main {
         }
 
         FileManager fileManager = new FileManager(filePath.toAbsolutePath());
-        Runner runner = new Runner(commandManager, consoleManager, fileManager);
+        Runner.setFileManager(fileManager);
+        Runner runner = Runner.getRunner();
 
         commandManager.newCommand(new Help(runner));
         commandManager.newCommand(new Info(runner));
         commandManager.newCommand(new Show(runner));
-        commandManager.newCommand(new ShowTable(runner));
+        //commandManager.newCommand(new ShowTable(runner));
         commandManager.newCommand(new Insert(runner));
         commandManager.newCommand(new Update(runner));
         commandManager.newCommand(new RemoveKey(runner));

@@ -119,7 +119,7 @@ public class ParserCSV {
                     y = Long.parseLong(getText(columnList.get(4)));
                 }
                 else {
-                    throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная координата x музыкальной группы.");
+                    throw new WrongValueException("В строке " + fileLineIndex +  " указана неверная координата y музыкальной группы.");
                 }
 
                 java.util.Date creationDate;

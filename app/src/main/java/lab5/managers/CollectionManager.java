@@ -13,18 +13,29 @@ import lab5.entity.MusicBand;
  * @author Alina
  */
 public class CollectionManager {
-    private static HashMap<Integer, MusicBand> collection;
-    private final Date initDate;
+    private static CollectionManager collectionManager;
+    private static HashMap<Integer, MusicBand> collection = new HashMap<>();
+    private static Date initDate;
 
-    public CollectionManager(HashMap<Integer, MusicBand> collection) {
-        CollectionManager.collection = collection;
-        initDate = new Date();
+    private CollectionManager() {}
+
+    /**
+     * Метод, использующийся для получения CollectionManager.
+     * Создаёт новый объект, если текущий объект ещё не создан.
+     * @return collectionManager
+     */
+    public static CollectionManager getCollectionManager() {
+        if (collectionManager == null) {
+            collectionManager = new CollectionManager();
+            initDate = new Date();
+        }
+        return collectionManager;
     }
 
     /**
     * @return коллекция
     */
-    public HashMap<Integer, MusicBand> getCollection() {
+    public static HashMap<Integer, MusicBand> getCollection() {
         return collection;
     }
 
@@ -98,7 +109,7 @@ public class CollectionManager {
      * Задаёт новое значение полю коллекции.
      * @param collection новая коллекция.
      */
-    public void setCollection(HashMap<Integer, MusicBand> collection) {
+    public static void setCollection(HashMap<Integer, MusicBand> collection) {
         CollectionManager.collection = collection;
     }
     
@@ -114,6 +125,7 @@ public class CollectionManager {
             info += elem.getValue();
             info += "\n";
         }
+        info = info.substring(0, info.length()-1);
         return info;
     }
 }

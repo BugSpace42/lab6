@@ -11,8 +11,23 @@ import lab5.utility.StandardConsole;
  * @author Alina
  */
 public class ConsoleManager {
+    private static ConsoleManager consoleManager;
     private static Console console = new StandardConsole();
     private static Scanner scanner = new Scanner(System.in, "Cp866");
+
+    private ConsoleManager() {}
+
+    /**
+     * Метод, использующийся для получения ConsoleManager.
+     * Создаёт новый объект, если текущий объект ещё не создан.
+     * @return consoleManager
+     */
+    public static ConsoleManager getConsoleManager() {
+        if (consoleManager == null) {
+            consoleManager = new ConsoleManager();
+        }
+        return consoleManager;
+    }
 
     /**
      * Выводит в консоль строковое представление объекта.

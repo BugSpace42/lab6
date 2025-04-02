@@ -1,7 +1,6 @@
 package lab5.utility;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -18,10 +17,11 @@ import lab5.managers.FileManager;
  * @author Alina
  */
 public class Runner {
-    public CommandManager commandManager;
-    public ConsoleManager consoleManager;
-    public CollectionManager collectionManager;
-    public FileManager fileManager;
+    private static Runner runner;
+    public static CommandManager commandManager;
+    public static ConsoleManager consoleManager;
+    public static CollectionManager collectionManager;
+    public static FileManager fileManager;
     public Map<String, Command> commands;
     private boolean running = false;
     private RunningMode currentMode;
@@ -44,11 +44,30 @@ public class Runner {
         SCRIPT
     }
 
-    public Runner(CommandManager commandManager, ConsoleManager consoleManager, FileManager fileManager) {
-        this.commandManager = commandManager;
-        this.consoleManager = consoleManager;
-        this.fileManager = fileManager;
+    private Runner() {
+        this.commandManager = CommandManager.getCommandManager();
+        this.consoleManager = ConsoleManager.getConsoleManager();
         this.commands = commandManager.getCommands();
+    }
+
+    /**
+     * Метод, использующийся для получения Runner.
+     * Создаёт новый объект, если текущий объект ещё не создан.
+     * @return runner
+     */
+    public static Runner getRunner() {
+        if (runner == null) {
+            runner = new Runner();
+        }
+        return runner;
+    }
+
+    /**
+     * Устанавливает новое значение поля fileManager.
+     * @param fileManager новое значение поля fileManager
+     */
+    public static void setFileManager(FileManager fileManager) {
+        Runner.fileManager = fileManager;
     }
 
     /**
@@ -123,17 +142,17 @@ public class Runner {
         if (!fileManager.isFileExist(fileManager.getCollectionFilePath())) {
             ConsoleManager.printError("Не найден файл " + fileManager.getCollectionFilePath());
             ConsoleManager.println("Создана пустая коллекция.");
-            collectionManager = new CollectionManager(new HashMap<>());
         }
         else {
             try {
-                collectionManager = new CollectionManager(fileManager.readCollection());
+                CollectionManager.setCollection(fileManager.readCollection());
+                
             } catch (IOException e) {
                 ConsoleManager.printError("Невозможно прочитать коллекцию из файла " + fileManager.getCollectionFilePath());
                 ConsoleManager.println("Создана пустая коллекция.");
-                collectionManager = new CollectionManager(new HashMap<>());
             }
         }
+        collectionManager = CollectionManager.getCollectionManager();
         ConsoleManager.greeting();
 
         while(running) {
