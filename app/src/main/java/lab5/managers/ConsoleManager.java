@@ -3,6 +3,7 @@ package lab5.managers;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import lab5.exceptions.CanceledCommandException;
 import lab5.utility.Console;
 import lab5.utility.StandardConsole;
 
@@ -64,16 +65,16 @@ public class ConsoleManager {
     /**
      * Запрашивает у пользователя и считывает команду.
      * @return список, состоящий из названия команды и введённых аргументов
-     */
-    public static String[] askCommand() {
+          * @throws CanceledCommandException 
+          */
+         public static String[] askCommand() throws CanceledCommandException {
         console.println("Введите команду: ");
         console.print("> ");
         try {
             String [] text = scanner.nextLine().trim().split(" ");
             return text;
         } catch (NoSuchElementException e) {
-            println("Обнаружен конец потока.");
-            return null;
+            throw new CanceledCommandException("Обнаружен конец потока.");
         }
     }
 
@@ -81,15 +82,15 @@ public class ConsoleManager {
      * Запрашивает у пользователя и считывает объект.
      * @param objectName название объекта
      * @return строка, введённая пользователем
-     */
-    public static String askObject() {
+          * @throws CanceledCommandException 
+          */
+         public static String askObject() throws CanceledCommandException {
         console.print("> ");
         try {
             String text = scanner.nextLine().trim();
             return text;
         } catch (NoSuchElementException e) {
-            println("Обнаружен конец потока.");
-            return null;
+            throw new CanceledCommandException("Обнаружен конец потока.");
         }
     }
 
@@ -97,7 +98,7 @@ public class ConsoleManager {
      * Считывает команду.
      * @return список, состоящий из названия команды и аргументов
      */
-    public static String[] readCommand() {
+         public static String[] readCommand() {
         try {
             String [] text = scanner.nextLine().trim().split(" ");
             return text;
@@ -111,7 +112,7 @@ public class ConsoleManager {
      * Считывает объект.
      * @return считанная строка
      */
-    public static String readObject() {
+         public static String readObject() {
         try {
             String text = scanner.nextLine().trim();
             return text;

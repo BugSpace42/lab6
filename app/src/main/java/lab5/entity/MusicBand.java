@@ -1,5 +1,6 @@
 package lab5.entity;
 
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.MusicBandBuilder;
 import lab5.utility.validators.musicband.NameValidator;
@@ -42,8 +43,9 @@ public class MusicBand implements Comparable<MusicBand>{
     /**
      * Запрашивает у пользователя название музыкальной группы.
      * @return введённое название музыкальной группы.
+     * @throws CanceledCommandException 
      */
-    public static String askMusicBandName() {
+    public static String askMusicBandName() throws CanceledCommandException {
         ConsoleManager.println("Введите название музыкальной группы.");
         ConsoleManager.println("Название музыкальной группы не должно быть пустым и не должно содержать кавычки.");
         String name = ConsoleManager.askObject();
@@ -64,8 +66,9 @@ public class MusicBand implements Comparable<MusicBand>{
     /**
      * Запрашивает у пользователя количество участников музыкальной группы.
      * @return введённое количество участников музыкальной группы.
-     */
-    public static Integer askMusicBandNumber() {
+          * @throws CanceledCommandException 
+          */
+         public static Integer askMusicBandNumber() throws CanceledCommandException {
         ConsoleManager.println("Введите количество участников музыкальной группы.");
         ConsoleManager.println("Количество участников музыкальной группы должно быть числом типа Integer, большим чем 0.");
         Integer numberOfParticipants;
@@ -93,8 +96,9 @@ public class MusicBand implements Comparable<MusicBand>{
     /**
      * Запрашивает у пользователя объект класса MusicBand.
      * @return введённый объект класса MusicBand
+     * @throws CanceledCommandException 
      */
-    public static MusicBand askMusicBand() {
+         public static MusicBand askMusicBand() throws CanceledCommandException {
         String name = askMusicBandName();
         Coordinates coordinates = Coordinates.askCoordinates();
         Integer numberOfParticipants = askMusicBandNumber();

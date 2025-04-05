@@ -3,6 +3,7 @@ package lab5.commands;
 import java.util.HashMap;
 
 import lab5.entity.MusicBand;
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
@@ -35,7 +36,13 @@ public class ReplaceIfGreater extends Command{
             ConsoleManager.printError("В коллекции нет элемента с ключом " + key);
             return ExitCode.ERROR;
         }
-        MusicBand musicBand = MusicBand.askMusicBand();
+        MusicBand musicBand;
+        try {
+            musicBand = MusicBand.askMusicBand();
+        } catch (CanceledCommandException e) {
+            ConsoleManager.println(e.getMessage());
+            return ExitCode.CANCEL;
+        }
 
         // ссылка на коллекцию
         HashMap<Integer, MusicBand> collection = collectionManager.getCollection();

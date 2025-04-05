@@ -6,6 +6,7 @@
 package lab5.commands;
 
 import lab5.entity.MusicBand;
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
@@ -38,8 +39,14 @@ public class Update extends Command{
             ConsoleManager.printError("В коллекции нет элемента с id " + id);
             return ExitCode.ERROR;
         }
-        MusicBand element = MusicBand.askMusicBand();
-        collectionManager.updateElementById(id, element);
-        return ExitCode.OK;
+        MusicBand element;
+        try {
+            element = MusicBand.askMusicBand();
+            collectionManager.updateElementById(id, element);
+            return ExitCode.OK;
+        } catch (CanceledCommandException e) {
+            ConsoleManager.println(e.getMessage());
+            return ExitCode.CANCEL;
+        }
     }
 }

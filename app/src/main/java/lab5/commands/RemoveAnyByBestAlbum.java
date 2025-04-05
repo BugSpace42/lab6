@@ -5,6 +5,7 @@ import java.util.Map;
 
 import lab5.entity.Album;
 import lab5.entity.MusicBand;
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.CollectionManager;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
@@ -26,7 +27,13 @@ public class RemoveAnyByBestAlbum extends Command{
     @Override
     public ExitCode execute(String[] args){
         CollectionManager collectionManager = CollectionManager.getCollectionManager();
-        Album album = Album.askAlbum();
+        Album album;
+        try {
+            album = Album.askAlbum();
+        } catch (CanceledCommandException e) {
+            ConsoleManager.println(e.getMessage());
+            return ExitCode.CANCEL;
+        }
 
         // ссылка на коллекцию, которую будем изменять
         HashMap<Integer, MusicBand> collection = collectionManager.getCollection();

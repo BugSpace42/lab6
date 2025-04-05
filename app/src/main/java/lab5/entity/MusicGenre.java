@@ -1,5 +1,6 @@
 package lab5.entity;
 
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.MusicGenreBuilder;
 
@@ -18,7 +19,7 @@ public enum MusicGenre {
      * Запрашивает у пользователя музыкальный жанр.
      * @return введённый музыкальный жанр.
      */
-    public static MusicGenre askMusicGenre() {
+    public static MusicGenre askMusicGenre() throws CanceledCommandException {
         ConsoleManager.println("Введите музыкальный жанр группы (при наличии).");
         ConsoleManager.println("Список музыкальных жанров: " + MusicGenre.names());
         String genreString = ConsoleManager.askObject();

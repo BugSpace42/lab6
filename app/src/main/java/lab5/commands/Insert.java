@@ -1,6 +1,7 @@
 package lab5.commands;
 
 import lab5.entity.MusicBand;
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.ConsoleManager;
 import lab5.utility.Command;
 import lab5.utility.Runner;
@@ -33,8 +34,14 @@ public class Insert extends Command{
             return ExitCode.ERROR;
         }
         
-        MusicBand element = MusicBand.askMusicBand();
-        runner.collectionManager.addToCollection(key, element);
-        return ExitCode.OK;
+        MusicBand element;
+        try {
+            element = MusicBand.askMusicBand();
+            runner.collectionManager.addToCollection(key, element);
+            return ExitCode.OK;
+        } catch (CanceledCommandException e) {
+            ConsoleManager.println(e.getMessage());
+            return ExitCode.CANCEL;
+        }
     }
 }

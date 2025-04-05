@@ -1,5 +1,6 @@
 package lab5.entity;
 
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.CoordinatesBuilder;
 import lab5.utility.validators.musicband.coordinates.CoordXValidator;
@@ -26,8 +27,9 @@ public class Coordinates {
     /**
      * Запрашивает у пользователя объект класса Coordinates.
      * @return введённый объект класса Coordinates
+     * @throws CanceledCommandException 
      */
-    public static Coordinates askCoordinates() {
+         public static Coordinates askCoordinates() throws CanceledCommandException {
         Integer x = askCoordX();
         long y = askCoordY();
         Coordinates coordinates = CoordinatesBuilder.build(x, y);
@@ -37,8 +39,9 @@ public class Coordinates {
     /**
      * Запрашивает у пользователя координату x.
      * @return введённая координата.
+     * @throws CanceledCommandException 
      */
-    public static Integer askCoordX() {
+    public static Integer askCoordX() throws CanceledCommandException {
         ConsoleManager.println("Введите координату x.");
         ConsoleManager.println("Координата x должна быть числом типа Integer.");
         String xString = ConsoleManager.askObject();
@@ -66,8 +69,9 @@ public class Coordinates {
     /**
      * Запрашивает у пользователя координату y.
      * @return введённая координата.
-     */
-    public static long askCoordY() {
+          * @throws CanceledCommandException 
+          */
+         public static long askCoordY() throws CanceledCommandException {
         ConsoleManager.println("Введите координату y.");
         ConsoleManager.println("Координата y должна быть числом типа long, большим чем -973.");
         String yString = ConsoleManager.askObject();

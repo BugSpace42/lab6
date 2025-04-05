@@ -23,7 +23,14 @@ import lab5.managers.ConsoleManager;
 import lab5.managers.FileManager;
 import lab5.utility.Runner;
 
+/**
+ * Основной класс.
+ */
 public class Main {
+    /**
+     * Основной метод
+     * @param args название файла с загружаемой коллекцией
+     */
     public static void main(String[] args) {
         CommandManager commandManager = CommandManager.getCommandManager();
         

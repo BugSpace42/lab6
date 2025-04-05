@@ -1,5 +1,6 @@
 package lab5.entity;
 
+import lab5.exceptions.CanceledCommandException;
 import lab5.managers.ConsoleManager;
 import lab5.utility.builders.AlbumBuilder;
 import lab5.utility.validators.musicband.bestalbum.AlbumNameValidator;
@@ -28,7 +29,7 @@ public class Album implements Comparable<Album>{
      * Запрашивает у пользователя название музыкального альбома.
      * @return введённое название музыкального альбома.
      */
-    public static String askAlbumName() {
+    public static String askAlbumName() throws CanceledCommandException {
         ConsoleManager.println("Введите название музыкального альбома (при наличии).");
         ConsoleManager.println("Название музыкального альбома не должно быть пустым и не должно содержать кавычки.");
         String name = ConsoleManager.askObject();
@@ -55,7 +56,7 @@ public class Album implements Comparable<Album>{
      * Запрашивает у пользователя продажи музыкального альбома.
      * @return введённые продажи музыкального альбома.
      */
-    public static Double askAlbumSales() {
+    public static Double askAlbumSales() throws CanceledCommandException {
         ConsoleManager.println("Введите число продаж музыкального альбома.");
         ConsoleManager.println("Число продаж должно быть числом типа Double, большим чем 0.");
         String salesString = ConsoleManager.askObject();
@@ -83,8 +84,9 @@ public class Album implements Comparable<Album>{
     /**
      * Запрашивает у пользователя объект класса Album.
      * @return введённый объект класса Album
-     */
-    public static Album askAlbum() {
+          * @throws CanceledCommandException 
+          */
+         public static Album askAlbum() throws CanceledCommandException {
         Album album;
         String name = askAlbumName();
         if (name == null) {

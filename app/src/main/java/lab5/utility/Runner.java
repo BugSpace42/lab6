@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
 
+import lab5.exceptions.CanceledCommandException;
 import lab5.exceptions.TooFewArgumentsException;
 import lab5.exceptions.TooManyArgumentsException;
 import lab5.exceptions.UnknownCommandException;
@@ -33,6 +34,7 @@ public class Runner {
     public enum ExitCode {
         OK,
         EXIT,
+        CANCEL,
         ERROR
     }
 
@@ -99,6 +101,10 @@ public class Runner {
                         ConsoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
                         ConsoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
                     }
+                    case CANCEL -> {
+                        ConsoleManager.println("Выполнение команды " + userCommand[0] + " было прервано.");
+                        ConsoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
+                    }
                     case EXIT -> {
                         ConsoleManager.println("Получена команда выхода из программы.");
                         ConsoleManager.println("Завершение работы программы.");
@@ -116,6 +122,10 @@ public class Runner {
                         ConsoleManager.println("При выполнении команды " + userCommand[0] + " произошла ошибка.");
                         ConsoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
                     }
+                    case CANCEL -> {
+                        ConsoleManager.println("Выполнение команды " + userCommand[0] + " было прервано.");
+                        ConsoleManager.println("Команда " + userCommand[0] + " не была выполнена.");
+                    }
                     case EXIT -> {
                         ConsoleManager.println("Получена команда выхода из программы.");
                         ConsoleManager.println("Завершение работы программы.");
@@ -126,7 +136,7 @@ public class Runner {
         } catch (UnknownCommandException e) {
             if (currentMode == RunningMode.INTERACTIVE) {
                 ConsoleManager.printError(e.getMessage());
-                ConsoleManager.println("Для получения списка команд введите \"help\".");
+                ConsoleManager.println("Для получения списка команд введите help.");
             }
         } catch (TooManyArgumentsException | TooFewArgumentsException e) {
             ConsoleManager.printError(e.getMessage());
@@ -156,12 +166,15 @@ public class Runner {
         ConsoleManager.greeting();
 
         while(running) {
-            String[] currenrCommand = ConsoleManager.askCommand();
-            if (currenrCommand != null) {
-                launchCommand(currenrCommand);
-            }
-            else {
-                ConsoleManager.println("Завершение работы программы.");
+            String[] currentCommand;
+            try {
+                currentCommand = ConsoleManager.askCommand();
+                if (currentCommand != null) {
+                    launchCommand(currentCommand);
+                }
+            } 
+            catch (CanceledCommandException e) {
+                ConsoleManager.println(e.getMessage());
                 running = false;
             }
         }
