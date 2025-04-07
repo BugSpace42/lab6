@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
 
-import lab5.exceptions.CanceledCommandException;
 import lab5.exceptions.TooFewArgumentsException;
 import lab5.exceptions.TooManyArgumentsException;
 import lab5.exceptions.UnknownCommandException;
@@ -167,16 +166,12 @@ public class Runner {
 
         while(running) {
             String[] currentCommand;
-            try {
-                currentCommand = ConsoleManager.askCommand();
-                if (currentCommand != null) {
-                    launchCommand(currentCommand);
-                }
-            } 
-            catch (CanceledCommandException e) {
-                ConsoleManager.println(e.getMessage());
-                running = false;
+            currentCommand = ConsoleManager.askCommand();
+            if (currentCommand != null) {
+                launchCommand(currentCommand);
             }
+            ConsoleManager.println(currentCommand);
+            ConsoleManager.println("Одна итерация цикла пройдена");
         }
     }
 

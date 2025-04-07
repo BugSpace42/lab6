@@ -52,7 +52,6 @@ public class Main {
         commandManager.newCommand(new Help());
         commandManager.newCommand(new Info());
         commandManager.newCommand(new Show());
-        //commandManager.newCommand(new ShowTable());
         commandManager.newCommand(new Insert());
         commandManager.newCommand(new Update());
         commandManager.newCommand(new RemoveKey());
