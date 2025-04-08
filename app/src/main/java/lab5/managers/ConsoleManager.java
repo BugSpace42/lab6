@@ -1,8 +1,5 @@
 package lab5.managers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -18,10 +15,8 @@ public class ConsoleManager {
     private static ConsoleManager consoleManager;
     private static Console console = new StandardConsole();
     private static Scanner scanner;
-    private static BufferedReader reader;
 
     private ConsoleManager() {
-        updateReader();
         updateScanner();
     }
 
@@ -74,52 +69,40 @@ public class ConsoleManager {
      * @return список, состоящий из названия команды и введённых аргументов
      */
     public static String[] askCommand() {
-        try (BufferedReader newReader = new BufferedReader(new InputStreamReader(System.in))){
+        try {
             console.println("Введите команду: ");
             console.print("> ");
-            println("Пытаюсь прочитать строку из потока.");
-            String line = newReader.readLine();
-            println("Получилось прочитать строку из потока.");
+            String line = scanner.nextLine();
             if (line == null) {
-                ConsoleManager.println("line == null");
-                updateReader();
-                return null;
+                throw new NoSuchElementException();
             }
             String [] text = line.trim().split(" ");
-            println("Получилось разделить строку на части.");
             return text;
-        } catch (NullPointerException e) {
-            println("Обнаружен конец потока.");
-            return null;
-        } catch (IOException e) {
-            println("Не получилось прочитать строку из потока.");
+        } catch (NoSuchElementException e) {
+            updateScanner();
             return null;
         }
-        //catch (Exception e) {
-        //    println("Какая-то ошибка");
-        //    return null;
-        //}
     }
 
     /**
      * Запрашивает у пользователя и считывает объект.
      * @param objectName название объекта
      * @return строка, введённая пользователем
-     * @throws CanceledCommandException 
+     * @throws CanceledCommandException исключение, выбрасываемое, если пользователь отменил выполнение текущей команды
      */
     public static String askObject() throws CanceledCommandException {
         console.print("> ");
         try {
             String text = scanner.nextLine();
             if (text == null) {
-                ConsoleManager.println("text == null");
-                text = askObject();
+                throw new NoSuchElementException();
             }
             else {
                 text = text.trim();
             }
             return text;
         } catch (NoSuchElementException e) {
+            updateScanner();
             throw new CanceledCommandException("Обнаружен конец потока.");
         }
     }
@@ -133,7 +116,7 @@ public class ConsoleManager {
             String [] text = scanner.nextLine().trim().split(" ");
             return text;
         } catch (NoSuchElementException e) {
-            println("Обнаружен конец потока.");
+            printError("Обнаружен конец потока.");
             return null;
         }
     }
@@ -147,7 +130,7 @@ public class ConsoleManager {
             String text = scanner.nextLine().trim();
             return text;
         } catch (NoSuchElementException e) {
-            println("Обнаружен конец потока.");
+            printError("Обнаружен конец потока.");
             return null;
         }
     }
@@ -156,23 +139,8 @@ public class ConsoleManager {
      * Создаёт новый сканер.
      */
     private static void updateScanner() {
+        print("\n");
         ConsoleManager.scanner = new Scanner(System.in, "Cp866");
-    }
-
-    /**
-     * Создаёт новый ридер.
-     */
-    private static void updateReader() {
-        if (ConsoleManager.reader != null) {
-            try {
-                ConsoleManager.reader.close();
-                println("Старый поток закрыт.");
-            } catch (IOException e) {
-                println("Не удаётся закрыть поток.");
-            }
-        }
-        ConsoleManager.reader = new BufferedReader(new InputStreamReader(System.in));
-        println("Создан новый поток.");
     }
 
     /**
@@ -195,7 +163,7 @@ public class ConsoleManager {
      * Возвращает информацию о консоли.
      * @return текущая консоль
      */
-    public Console getConsole() {
+    public static Console getConsole() {
         return console;
     }
 
@@ -203,7 +171,7 @@ public class ConsoleManager {
      * Возвращает информацию о сканере.
      * @return текущий сканер
      */
-    public Scanner getScanner() {
+    public static Scanner getScanner() {
         return scanner;
     }
 }

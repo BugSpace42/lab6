@@ -125,7 +125,9 @@ public class CollectionManager {
             info += elem.getValue();
             info += "\n";
         }
-        info = info.substring(0, info.length()-1);
+        if (info.length() > 0) {
+            info = info.substring(0, info.length()-1);
+        }
         return info;
     }
 }

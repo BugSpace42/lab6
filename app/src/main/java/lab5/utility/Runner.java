@@ -170,8 +170,6 @@ public class Runner {
             if (currentCommand != null) {
                 launchCommand(currentCommand);
             }
-            ConsoleManager.println(currentCommand);
-            ConsoleManager.println("Одна итерация цикла пройдена");
         }
     }
 
