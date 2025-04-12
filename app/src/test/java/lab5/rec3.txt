@@ -1,3 +1,0 @@
-show
-execute_script app\src\test\java\lab5\rec1.txt
-info
